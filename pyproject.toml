@@ -1,0 +1,24 @@
+[project]
+name = "rag-project-langgraph"
+version = "0.1.0"
+description = "영화 정보 RAG 챗봇 — LangGraph StateGraph 버전"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "python-dotenv>=1.2.2",
+    "langchain>=1.3.11",
+    "langchain-chroma>=1.1.0",
+    "langchain-community>=0.4.2",
+    "langchain-anthropic>=1.3.0",
+    "langchain-google-genai>=4.2.5",
+    "langchain-ollama>=0.3.0",
+    "langchain-huggingface>=0.3.0",
+    "langchain-text-splitters>=0.3.0",
+    "sentence-transformers>=3.0.0",
+    "langsmith>=0.9.1",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.32.0",
+    "langgraph>=0.2.0",
+    # sqlite 체크포인터(영속 멀티턴 메모리)를 쓸 때만 필요:
+    "langgraph-checkpoint-sqlite>=2.0.0",
+]
