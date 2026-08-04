@@ -14,11 +14,20 @@ dependencies = [
     "langchain-ollama>=0.3.0",
     "langchain-huggingface>=0.3.0",
     "langchain-text-splitters>=0.3.0",
-    "sentence-transformers>=3.0.0",
     "langsmith>=0.9.1",
     "fastapi>=0.115.0",
+    "httpx>=0.28.0",
+    "streamlit>=1.41.0",
     "uvicorn>=0.32.0",
     "langgraph>=0.2.0",
     # sqlite 체크포인터(영속 멀티턴 메모리)를 쓸 때만 필요:
     "langgraph-checkpoint-sqlite>=2.0.0",
+    "langchain-tavily>=0.2.18",
+]
+
+[project.optional-dependencies]
+# 로컬 HuggingFace LLM 파이프라인을 사용할 때만 설치한다.
+local-hf = [
+    "sentence-transformers>=5.2.0",
+    "transformers>=5.0.0",
 ]
