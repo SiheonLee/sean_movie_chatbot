@@ -1,0 +1,16 @@
+.git
+.venv
+__pycache__
+*.py[cod]
+.env
+.DS_Store
+
+chroma_db
+graph_checkpoints.sqlite
+*.sqlite
+
+.ai
+tests
+tmp
+docs
+eval

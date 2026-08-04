@@ -1,0 +1,87 @@
+services:
+  api:
+    build:
+      context: .
+    image: cinebot:local
+
+    env_file:
+      - .env
+
+    environment:
+      # 컨테이너 내부 localhost가 아니라 macOS 호스트의 Ollama
+      LLM_PROVIDER: anthropic
+      GRAPH_NATIVE_STRUCTURED_OUTPUT: "true"
+
+      # API 키 없이 먼저 실행
+      LANGSMITH_TRACING: "false"
+
+      # 컨테이너 재시작 후에도 대화 체크포인트 유지
+      CHECKPOINTER: sqlite
+      CHECKPOINT_DB: /app/state/graph_checkpoints.sqlite
+
+    command:
+      - /bin/sh
+      - -c
+      - |
+        python -m scripts.ingest
+        exec uvicorn rag.api:app --host 0.0.0.0 --port 8000
+
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    volumes:
+      - chroma_data:/app/chroma_db
+      - checkpoint_data:/app/state
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 360s
+
+    restart: unless-stopped
+
+  ui:
+    build:
+      context: .
+    image: cinebot:local
+
+    environment:
+      # Compose 네트워크에서는 서비스 이름이 호스트 이름
+      RAG_API_URL: http://api:8000
+
+    command:
+      - streamlit
+      - run
+      - ui/app.py
+      - --server.address=0.0.0.0
+      - --server.port=8501
+
+    ports:
+      - "127.0.0.1:8501:8501"
+
+    depends_on:
+      api:
+        condition: service_healthy
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+
+    restart: unless-stopped
+
+volumes:
+  chroma_data:
+  checkpoint_data:

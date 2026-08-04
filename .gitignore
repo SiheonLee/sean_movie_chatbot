@@ -1,6 +1,10 @@
 # 환경 변수 / 비밀키
 .env
 
+# TMDB에서 받아온 영화정보 (scripts.fetch_tmdb.py 실행)
+data/
+tmp/
+
 # 영속 벡터스토어 (재생성 가능)
 chroma_db/
 
