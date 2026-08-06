@@ -17,10 +17,13 @@
 from __future__ import annotations
 
 import logging
+import os
 import sqlite3
 import uuid
-from datetime import date
+from collections.abc import Iterator
+from datetime import date, datetime, timezone
 
+from langchain_core.callbacks import BaseCallbackHandler
 from langchain_core.messages import (
     AIMessage,
     HumanMessage,
@@ -49,6 +52,40 @@ _RECURSION_FALLBACK = (
     "질문을 조금 더 구체적으로 나눠서 다시 물어봐 주세요."
 )
 
+# 스트리밍 중 사용자에게 보여줄 중간 상태. 첫 답변 토큰까지 LLM 추론 1회 + 도구
+# 실행이 선행되므로(실측 4.7초), 그동안 화면이 비어 있으면 멈춘 것처럼 보인다.
+_TOOL_STATUS = {
+    "search_movies": "영화를 찾는 중",
+    "get_movie_details": "상세 정보를 확인하는 중",
+    "search_by_vibe": "분위기에 맞는 영화를 고르는 중",
+    "web_search": "웹에서 최신 정보를 찾는 중",
+}
+_DEFAULT_TOOL_STATUS = "정보를 확인하는 중"
+_THINKING_STATUS = "질문을 살펴보는 중"
+
+# 도구 호출 전 서두를 화면에 내보내지 않기 위해 앞부분을 쥐고 있는 양(글자 수).
+#
+# 라운드가 도구 호출로 끝날지는 라운드가 끝나야 알 수 있다(§4-21). 그래서 앞부분을
+# 잠깐 쥐고 있다가, 서두라기엔 너무 길어지면 그때부터 최종 답변으로 보고 흘린다.
+# 시간이 아니라 글자 수로 재는 이유는 재현 가능해서다 — 시간 기준은 API 응답 속도에
+# 따라 결과가 달라져 테스트로 고정할 수 없다.
+#
+# 실측 서두 길이(프롬프트로 억제한 뒤): 27·37·45·63자. 최종 답변은 수백 자다.
+# 양쪽으로 부드럽게 무너진다 — 이보다 긴 서두는 기존처럼 reset으로 취소하고,
+# 이보다 짧은 답변은 라운드가 끝날 때 한 번에 나타난다(짧아서 스트리밍 이득도 없다).
+_PREAMBLE_HOLD_CHARS = 80
+
+
+def tool_status(names: list[str]) -> str:
+    """도구 이름을 사용자용 한 줄 상태 문구로. 병렬 호출은 중복을 접는다."""
+    labels: list[str] = []
+    for name in names:
+        label = _TOOL_STATUS.get(name, _DEFAULT_TOOL_STATUS)
+        if label not in labels:
+            labels.append(label)
+    return " · ".join(labels) if labels else _DEFAULT_TOOL_STATUS
+
+
 _SYSTEM_PROMPT_TEMPLATE = (
     "당신은 영화 정보를 안내하는 한국어 도우미입니다.\n\n"
     # 날짜를 안 주면 학습 시점 지식에 의존한다. 실측: '올해 개봉한 한국 영화'가
@@ -75,9 +112,24 @@ _SYSTEM_PROMPT_TEMPLATE = (
     "'잔인하지 않은', '슬프지 않은' 같은 부정 조건은 검색 문장이 아니라 "
     "max_violence, max_sadness 같은 수치 인자로 옮기세요.\n"
     "이전 대화 자체에 대한 질문에는 도구 없이 답하세요.\n"
+    # 답변은 스트리밍으로 나간다. 도구를 부르기 전에 쓴 문장은 화면에 잠깐 떴다가
+    # 지워지므로(§4-21) 애초에 안 쓰게 막는다. 도구 호출이 뒤따를지는 라운드가
+    # 끝나야 알 수 있어서, 이미 생성된 서두는 취소하는 것 말고 방법이 없다.
+    "도구를 부르기로 했다면 아무 말도 쓰지 말고 곧바로 도구만 호출하세요. "
+    "'찾아보겠습니다', '알아볼게요', '검색해드릴게요' 같은 예고 문장은 쓰지 마세요. "
+    "설명은 도구 결과를 받은 뒤 최종 답변에서만 하세요.\n"
     # 실측: '##' 헤더를 남발해 답변이 과하게 커지고, 후보를 10편씩 늘어놓았다.
     "\n답변 형식:\n"
     "- 채팅 답변입니다. '##' 같은 제목 서식은 쓰지 마세요. 강조는 **굵게**로 충분합니다.\n"
+    # 굵게 표시가 깨지는 조건이 있다. 닫는 ** 바로 앞이 문장부호()나 》)이고
+    # 바로 뒤가 한글이면, 마크다운이 그것을 닫는 표시로 인정하지 않아 별표가
+    # 화면에 그대로 보인다. 실측: '**엑시트 (2019)**는' → `**`가 노출됨.
+    # 연도를 굵게 밖으로 빼면 닫는 ** 앞이 글자라서 정상 렌더링된다.
+    "- 굵게는 **제목**까지만 감싸고 연도는 밖에 두세요. "
+    "`**엑시트**(2019)는`처럼 씁니다. "
+    "`**엑시트 (2019)**는`처럼 닫는 별표 앞에 괄호가 오면 화면에 별표가 그대로 "
+    "보이니 절대 그렇게 쓰지 마세요.\n"
+    "- 영화 제목에 《》나 〈〉 같은 괄호는 쓰지 마세요.\n"
     "- 영화는 3~5편만 소개하세요. 도구가 더 많이 돌려줘도 가장 잘 맞는 것만 고르세요.\n"
     "- 편당 두세 문장이면 충분합니다. 줄거리를 그대로 옮기지 말고 왜 추천하는지 쓰세요.\n"
     "- 도구가 준 정보를 빠짐없이 나열하지 마세요. 질문에 답하는 데 필요한 것만 쓰세요."
@@ -96,6 +148,49 @@ def build_system_prompt(today: date | None = None) -> str:
         year=today.year,
         last_year=today.year - 1,
     )
+
+
+_DISCONNECT_REASON = "클라이언트 연결이 끊겨 실행이 중단되었습니다."
+
+
+class _RootRunRecorder(BaseCallbackHandler):
+    """LangSmith 루트 run id만 받아 적는다.
+
+    연결이 끊겼을 때 그 트레이스를 닫아주려면 id가 필요한데, 실행이 중간에
+    사라지면 어디서도 알려주지 않는다. 시작할 때 미리 적어둔다.
+    """
+
+    def __init__(self) -> None:
+        self.root_run_id = None
+
+    def on_chain_start(self, serialized, inputs, *, run_id, parent_run_id=None, **kwargs):
+        if parent_run_id is None and self.root_run_id is None:
+            self.root_run_id = run_id
+
+
+def close_abandoned_run(run_id) -> None:
+    """중단된 실행의 LangSmith 트레이스를 닫는다.
+
+    안 닫으면 대시보드에 'pending'으로 영원히 남는다. 클라이언트가 사라지면
+    파이썬이 `GeneratorExit`를 던지는데, 이건 `Exception`이 아니라
+    `BaseException`이라 LangChain의 오류 보고 경로를 타지 않아 종료 이벤트가
+    영영 발생하지 않는다(실측: 루트·agent·ChatOpenAI 3개가 pending으로 남음).
+
+    실패해도 조용히 넘어간다. 이미 끊어진 요청을 정리하는 중이라 여기서 예외를
+    올려봐야 받아줄 곳이 없다.
+    """
+    if run_id is None or not os.getenv("LANGSMITH_API_KEY"):
+        return
+    try:
+        from langsmith import Client
+
+        Client().update_run(
+            run_id,
+            end_time=datetime.now(timezone.utc),
+            error=_DISCONNECT_REASON,
+        )
+    except Exception:  # noqa: BLE001 - 정리 작업이 본 흐름을 방해하면 안 된다
+        logger.warning("중단된 트레이스를 닫지 못했습니다 (run=%s)", run_id)
 
 
 def _checkpointer():
@@ -209,18 +304,154 @@ class MovieRagGraph:
             "tool_calls": collect_turn_tool_calls(messages),
         }
 
+    def stream_answer(
+        self, question: str, session_id: str | None = None
+    ) -> Iterator[dict]:
+        """answer()와 같은 결과를 진행 상황과 함께 흘려보낸다.
+
+        이벤트는 네 종류다.
+
+        ============  ==========================================================
+        ``status``    도구 실행 같은 중간 상태. 한 줄을 계속 교체해 보여주면 된다.
+        ``token``     답변 텍스트 조각.
+        ``reset``     지금까지 받은 ``token``을 버리라는 신호. 드물게만 온다.
+        ``done``      확정된 ``answer``와 ``sources``. 항상 마지막에 한 번 온다.
+        ============  ==========================================================
+
+        **서두를 거르는 방법.** 모델은 도구를 부르기 전에 예고 문장을 먼저 쓴다
+        (실측: "이제 첫 번째 영화의 상세 정보를 확인하겠습니다."). 그 서두는 답변이
+        아니라서 화면에 남으면 안 되는데, 도구 호출이 뒤따를지는 라운드가 끝나야
+        알 수 있다(§4-21). 두 겹으로 막는다.
+
+        1. 시스템 프롬프트로 **서두를 아예 쓰지 말라**고 지시한다. 1라운드 흐름은
+           이걸로 잡히지만, 도구 결과를 받은 뒤 다음 라운드에서 여전히 샌다.
+        2. 앞 ``_PREAMBLE_HOLD_CHARS``자를 **쥐고 있다가** 넘어가면 그때 흘린다.
+           도구 라운드로 밝혀지면 쥔 채로 버리므로 화면에 뜨지 않는다.
+
+        ``reset``은 2가 뚫렸을 때(서두가 한도보다 길었을 때)만 나가는 안전망이다.
+
+        **출처는 스트리밍할 수 없다.** ``_used_sources()``가 완성된 답변 텍스트에서
+        제목을 찾아 거르기 때문에(§4-13) 턴이 끝나야 확정된다. 텍스트는 흘리고
+        카드는 ``done``에 한 번에 싣는 구조가 설계상 불가피하다.
+
+        비동기로 만들지 않았다. ``SqliteSaver``가 async 메서드에서
+        ``NotImplementedError``를 던지므로 ``CHECKPOINTER=sqlite``가 깨진다.
+        동기 제너레이터는 Starlette가 스레드풀에서 돌려주므로 서버도 막지 않는다.
+        """
+        thread_id = session_id or f"stream-{uuid.uuid4()}"
+        # 연결이 끊겼을 때 트레이스를 닫아주려면 루트 run id가 필요하다.
+        recorder = _RootRunRecorder()
+        config = {
+            "configurable": {"thread_id": thread_id},
+            "recursion_limit": _RECURSION_LIMIT,
+            "callbacks": [recorder],
+        }
+        # _to_result()를 그대로 재사용하려고 이번 턴 메시지를 모아둔다. 맨 앞의
+        # HumanMessage가 _turn_start()의 기준점이 된다.
+        turn: list = [HumanMessage(content=question)]
+        held: list[str] = []  # 서두일지 답변일지 아직 못 가린 텍스트
+        flushed = False  # 이번 라운드의 텍스트를 내보내기 시작했는가
+
+        yield {"type": "status", "text": _THINKING_STATUS}
+        try:
+            for mode, payload in self.app.stream(
+                {"messages": [turn[0]]},
+                config,
+                stream_mode=["updates", "messages"],
+            ):
+                if mode == "messages":
+                    chunk, meta = payload
+                    # tools 노드의 ToolMessage도 이 모드로 나온다. 도구 결과 원문을
+                    # 답변인 양 흘리면 안 되므로 agent 노드만 받는다.
+                    if meta.get("langgraph_node") != "agent":
+                        continue
+                    # .text는 텍스트 블록만 잇는다. 도구 인자가 실려오는 청크
+                    # (partial_json)는 빈 문자열이 되어 저절로 걸러진다.
+                    text = getattr(chunk, "text", "")
+                    if not text:
+                        continue
+                    if flushed:
+                        yield {"type": "token", "text": text}
+                        continue
+                    held.append(text)
+                    if sum(map(len, held)) >= _PREAMBLE_HOLD_CHARS:
+                        # 서두라기엔 너무 길다. 최종 답변으로 보고 흘리기 시작한다.
+                        yield {"type": "token", "text": "".join(held)}
+                        held.clear()
+                        flushed = True
+                    continue
+
+                for node, update in payload.items():
+                    if not isinstance(update, dict):
+                        continue
+                    messages = update.get("messages") or []
+                    turn.extend(messages)
+                    if node != "agent":
+                        continue
+                    names = [
+                        call["name"]
+                        for message in messages
+                        for call in (getattr(message, "tool_calls", None) or [])
+                    ]
+                    if not names:
+                        # 도구 호출이 없었으니 이 라운드가 최종 답변이다. 한도에
+                        # 못 미쳐 쥐고 있던 나머지를 마저 내보낸다.
+                        if held:
+                            yield {"type": "token", "text": "".join(held)}
+                            held.clear()
+                            flushed = True
+                        continue
+                    # 도구 라운드였다. 쥐고 있던 서두는 조용히 버리고, 한도를 넘겨
+                    # 이미 내보낸 게 있을 때만 취소를 통지한다.
+                    held.clear()
+                    if flushed:
+                        yield {"type": "reset"}
+                        flushed = False
+                    yield {"type": "status", "text": tool_status(names)}
+        except GeneratorExit:
+            # 클라이언트가 사라져 이 제너레이터가 뜯기는 중이다. 여기서 닫아주지
+            # 않으면 LangSmith에 끝나지 않는 트레이스가 남는다.
+            logger.info("스트림이 중단됐습니다 (thread=%s)", thread_id)
+            close_abandoned_run(recorder.root_run_id)
+            raise
+        except GraphRecursionError:
+            logger.warning("도구 호출 한도 초과 (thread=%s, q=%r)", thread_id, question)
+            self.app.update_state(
+                config, {"messages": [AIMessage(content=_RECURSION_FALLBACK)]}
+            )
+            # 쥐고 있던 텍스트는 화면에 안 나갔으니 그냥 버리고, 나간 게 있을
+            # 때만 취소를 통지한다.
+            held.clear()
+            if flushed:
+                yield {"type": "reset"}
+            yield {"type": "token", "text": _RECURSION_FALLBACK}
+            yield {"type": "done", "answer": _RECURSION_FALLBACK, "sources": []}
+            return
+
+        # 토큰을 이어 붙이지 않고 최종 메시지에서 다시 뽑는다. 클라이언트가 놓친
+        # reset 때문에 답변이 어긋나는 일이 없도록 done이 언제나 정본이다.
+        yield {"type": "done", **self._to_result(turn)}
+
     @staticmethod
     def _used_sources(answer: str, sources: list[dict]) -> list[dict]:
-        """답변이 실제로 언급한 영화만 남긴다.
+        """답변이 실제로 언급한 영화만, **답변이 소개한 순서대로** 남긴다.
 
         LLM은 후보를 넓게 훑고 그중 일부만 답변에 쓴다. 도구가 돌려준 것을 전부
         카드로 내보내면 "답변에 없는 영화가 출처로 뜨는" 상태가 된다(실측: 후보
         14편 수집, 답변엔 3편 언급).
 
+        순서도 맞춰야 한다. 도구는 평점순으로 주는데 LLM은 질문에 맞는 순으로
+        소개하기 때문에 둘이 자주 어긋난다. 카드가 다른 순서로 놓이면 "세 번째로
+        소개한 영화"를 카드에서 찾을 때 헷갈린다.
+
         제목이 하나도 안 걸리면 필터를 적용하지 않는다. 도구는 분명히 결과를
-        줬는데 카드가 0개가 되는 편이 더 나쁘다.
+        줬는데 카드가 0개가 되는 편이 더 나쁘다. 이때는 정렬 기준도 없으므로
+        도구가 준 순서를 그대로 쓴다.
         """
         used = [s for s in sources if s.get("title") and s["title"] in answer]
+        # 언급 위치가 같으면(제목이 서로의 부분 문자열인 경우 등) 도구가 준
+        # 순서를 지킨다 — 파이썬 정렬은 안정 정렬이다.
+        used.sort(key=lambda source: answer.index(source["title"]))
         return used or sources
 
     @classmethod

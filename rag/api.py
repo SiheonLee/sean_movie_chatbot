@@ -3,8 +3,9 @@ FastAPI 래핑 (LangGraph 버전).
 
 - 앱이 뜰 때(lifespan) StateGraph를 1회 컴파일해 파이프라인을 준비한다.
   (매 기동·매 요청마다 재인덱싱/모델 재로드를 하지 않는다.)
-- POST /query : 질문 → 답변 + 출처. session_id 로 멀티턴 대화 맥락 유지.
-- GET  /health: 헬스 체크.
+- POST /query        : 질문 → 답변 + 출처. session_id 로 멀티턴 대화 맥락 유지.
+- POST /query/stream : 같은 답변을 SSE로 흘려보낸다(진행 상태 + 토큰).
+- GET  /health       : 헬스 체크.
 
 실행:
     uvicorn rag.api:app --reload
@@ -12,10 +13,13 @@ FastAPI 래핑 (LangGraph 버전).
 
 from __future__ import annotations
 
+import json
 import logging
+from collections.abc import Iterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field, field_validator
 
 from rag.graph import MovieRagGraph
@@ -108,4 +112,47 @@ def query(req: QueryRequest) -> QueryResponse:
     return QueryResponse(
         answer=result["answer"],
         sources=[SourceModel(**s) for s in result["sources"]],
+    )
+
+
+def _sse(event: dict) -> str:
+    """이벤트 하나를 SSE 프레임으로. 한글이 \\uXXXX로 부풀지 않게 그대로 싣는다."""
+    return f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
+
+
+STREAM_ERROR_MESSAGE = "답변을 생성하지 못했습니다. 잠시 후 다시 시도해주세요."
+
+
+def _stream_events(graph, question: str, session_id: str | None) -> Iterator[str]:
+    """그래프 이벤트를 SSE 프레임으로 옮긴다.
+
+    출처는 /query와 같은 SourceModel을 통과시킨다. 두 엔드포인트가 같은 스키마를
+    내보내야 UI의 카드 렌더링 코드를 하나로 유지할 수 있다.
+    """
+    try:
+        for event in graph.stream_answer(question=question, session_id=session_id):
+            if event.get("type") == "done":
+                event = {
+                    **event,
+                    "sources": [
+                        SourceModel(**s).model_dump() for s in event.get("sources", [])
+                    ],
+                }
+            yield _sse(event)
+    except Exception:  # noqa: BLE001 - API 경계에서 내부 오류를 기록하고 숨김
+        # 응답이 이미 시작됐으면 500을 보낼 수 없다. 오류도 이벤트로 알린다.
+        logger.exception("영화 질문 스트리밍 중 오류가 발생했습니다.")
+        yield _sse({"type": "error", "message": STREAM_ERROR_MESSAGE})
+
+
+@app.post("/query/stream")
+def query_stream(req: QueryRequest) -> StreamingResponse:
+    return StreamingResponse(
+        _stream_events(app.state.graph, req.question, req.session_id),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            # 프록시가 응답을 모아뒀다 한 번에 보내면 스트리밍이 의미를 잃는다.
+            "X-Accel-Buffering": "no",
+        },
     )

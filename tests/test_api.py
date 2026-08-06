@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+import json
 import unittest
 from unittest.mock import Mock
 
 from fastapi import HTTPException
 from pydantic import ValidationError
 
-from rag.api import QueryRequest, app, query
+from rag.api import STREAM_ERROR_MESSAGE, QueryRequest, _stream_events, app, query
 
 
 class QueryRequestTests(unittest.TestCase):
@@ -65,6 +66,78 @@ class QueryEndpointTests(unittest.TestCase):
 
         self.assertEqual(raised.exception.status_code, 500)
         self.assertNotIn("secret internal error", raised.exception.detail)
+
+
+def frames(events: list) -> list[dict]:
+    graph = Mock()
+    graph.stream_answer.return_value = iter(events)
+    return [
+        json.loads(frame.removeprefix("data: ").strip())
+        for frame in _stream_events(graph, "기생충 감독은?", "session-1")
+    ]
+
+
+class StreamEventTests(unittest.TestCase):
+    def test_events_are_sse_frames(self):
+        graph = Mock()
+        graph.stream_answer.return_value = iter([{"type": "token", "text": "봉준호"}])
+
+        raw = list(_stream_events(graph, "기생충 감독은?", "session-1"))
+
+        self.assertEqual(raw, ['data: {"type": "token", "text": "봉준호"}\n\n'])
+
+    def test_korean_is_not_escaped(self):
+        """\\uXXXX로 부풀면 프레임이 3배가 된다."""
+        graph = Mock()
+        graph.stream_answer.return_value = iter([{"type": "status", "text": "찾는 중"}])
+
+        self.assertIn("찾는 중", next(iter(_stream_events(graph, "q", None))))
+
+    def test_done_sources_pass_through_source_model(self):
+        """/query와 같은 스키마여야 UI 카드 렌더링 코드가 하나로 유지된다."""
+        events = frames(
+            [
+                {
+                    "type": "done",
+                    "answer": "기생충입니다.",
+                    "sources": [
+                        {
+                            "title": "기생충",
+                            "year": 2019,
+                            "director": "봉준호",
+                            "genres": "드라마",
+                            "country": "한국",
+                            "vote_average": 8.5,
+                            "snippet": "요약",
+                        }
+                    ],
+                }
+            ]
+        )
+
+        source = events[0]["sources"][0]
+        # 도구가 안 채운 선택 필드도 기본값으로 채워져 나간다.
+        self.assertEqual(source["cast"], "")
+        self.assertEqual(source["poster_path"], "")
+        self.assertEqual(source["title"], "기생충")
+
+    def test_internal_error_becomes_an_error_event(self):
+        """응답이 시작된 뒤에는 500을 보낼 수 없다. 오류도 이벤트로 알린다."""
+
+        def explode(**kwargs):
+            yield {"type": "token", "text": "부"}
+            raise RuntimeError("secret internal error")
+
+        graph = Mock()
+        graph.stream_answer.side_effect = explode
+
+        events = [
+            json.loads(frame.removeprefix("data: ").strip())
+            for frame in _stream_events(graph, "q", None)
+        ]
+
+        self.assertEqual(events[-1], {"type": "error", "message": STREAM_ERROR_MESSAGE})
+        self.assertNotIn("secret internal error", json.dumps(events, ensure_ascii=False))
 
 
 if __name__ == "__main__":
