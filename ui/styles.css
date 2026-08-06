@@ -5,6 +5,18 @@
     --cine-panel: #17171d;
     --cine-line: rgba(255, 255, 255, 0.09);
     --cine-muted: #aaa7a4;
+
+    /* 타이포 스케일. 눈에 보이는 글자 크기는 전부 여기서만 고른다. 값을 직접
+       박으면 카드 안에서 줄거리와 출연 크기가 어긋나는 식으로 금방 흐트러진다. */
+    --cine-fs-body: 0.95rem;   /* 카드 제목, 본문 */
+    --cine-fs-sm: 0.82rem;     /* 보조 정보, 상태 줄 */
+    --cine-fs-xs: 0.78rem;     /* 카드 안 세부 정보 — 줄거리와 출연이 같은 값 */
+
+    /* 사이드바 접기/펼치기 버튼의 세로 중심. 두 버튼은 DOM 위치가 서로 다르고
+       (접기는 사이드바 안, 펼치기는 본문 헤더) 각자 이 값에 맞춰 앉힌다.
+       둘이 어긋나면 토글할 때 버튼이 위아래로 튄다.
+       값은 사이드바 제목 줄의 중심이다. */
+    --cine-toggle-center: 47px;
 }
 
 .stApp {
@@ -24,8 +36,83 @@
     border-right: 1px solid var(--cine-line);
 }
 
-[data-testid="stSidebar"] .block-container {
-    padding-top: 2rem;
+/* 사이드바 상단 여백의 정체는 두 가지였다. 헤더 영역과, 우리가 st.logo()를
+   쓰지 않는데도 자리를 잡고 있는 로고 스페이서. 후자는 통째로 지운다. */
+[data-testid="stLogoSpacer"] {
+    display: none;
+}
+
+/* 헤더는 접기 버튼 하나만 담는데 제 줄을 통째로 차지해서 제목을 아래로
+   밀어냈다. 줄 자체를 없애고(높이 0) 버튼은 절대 위치로 띄워서, 제목과 버튼이
+   같은 줄에 놓이게 한다 — 제목은 왼쪽, 버튼은 오른쪽 끝. */
+[data-testid="stSidebarContent"] {
+    position: relative;
+}
+
+[data-testid="stSidebarHeader"] {
+    height: 0;
+    min-height: 0;
+    padding: 0;
+}
+
+/* 절대 위치라 중심에서 버튼 높이의 절반(28px / 2)을 빼면 top이 나온다.
+   제목 크기나 stSidebarUserContent의 padding을 바꾸면 --cine-toggle-center를
+   다시 재서 맞춰야 한다. */
+[data-testid="stSidebarCollapseButton"] {
+    position: absolute;
+    right: 0.8rem;
+    top: calc(var(--cine-toggle-center) - 14px);
+    z-index: 3;
+}
+
+/* 펼치기 버튼은 본문 헤더 안에 흐름대로 놓여 있어(position: static) 자연 중심이
+   30px다. 접기 버튼과 같은 높이에 오도록 그 차이만큼 내린다. relative를 쓰는
+   이유는 레이아웃 박스를 그대로 두고 그리는 위치만 옮기기 위해서다 — 흐름에서
+   빼면 본문 헤더가 무너진다. */
+button[data-testid="stExpandSidebarButton"] {
+    position: relative;
+    top: calc(var(--cine-toggle-center) - 30px);
+}
+
+[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+    padding-top: 1rem;
+}
+
+/* 브랜드 이름이다. 히어로 제목과 같은 조판을 작게 옮겨 온다.
+   접기 버튼이 오른쪽 끝에 절대 위치로 앉으므로 그만큼 오른쪽을 비워둔다. */
+[data-testid="stSidebar"] h3 {
+    color: #faf7f2;
+    font-size: 1.45rem;
+    font-weight: 760;
+    letter-spacing: -0.035em;
+    line-height: 1.9rem;
+    margin: 0 0 1.1rem;
+    padding: 0 2.6rem 0 0;
+}
+
+/* Streamlit은 접기 버튼을 visibility: hidden으로 숨겨두고 사이드바에 마우스를
+   올려야 보여준다. 있는 줄 모르면 찾을 수가 없다. !important는 이 규칙을
+   이기기 위한 것이고, 다른 방법이 없다. */
+[data-testid="stSidebarCollapseButton"] {
+    visibility: visible !important;
+}
+
+/* 접기 버튼이 배경에 묻혀 있었다. 테두리를 줘서 버튼처럼 보이게 한다.
+   접었을 때 나타나는 펼치기 버튼은 별도 요소다(stExpandSidebarButton). */
+[data-testid="stSidebarCollapseButton"] button,
+button[data-testid="stExpandSidebarButton"] {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--cine-line);
+    border-radius: 0.55rem;
+    color: #e7e3de;
+    transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+[data-testid="stSidebarCollapseButton"] button:hover,
+button[data-testid="stExpandSidebarButton"]:hover {
+    background: rgba(208, 74, 74, 0.16);
+    border-color: rgba(208, 74, 74, 0.6);
+    color: #fff;
 }
 
 .cine-hero {
@@ -75,23 +162,243 @@
     transform: translateY(-1px);
 }
 
+/* --- 말풍선 --- */
+/* padding이 0.25rem이라 글자가 테두리에 붙어 답답했다. 아바타와 본문 사이도
+   벌린다. */
 [data-testid="stChatMessage"] {
     background: rgba(23, 23, 29, 0.82);
     border: 1px solid var(--cine-line);
     border-radius: 1rem;
-    margin-bottom: 0.85rem;
-    padding: 0.25rem 0.35rem;
+    gap: 0.85rem;
+    margin-bottom: 1.1rem;
+    padding: 1.05rem 1.25rem;
 }
 
-[data-testid="stExpander"] {
+[data-testid="stChatMessageAvatarUser"],
+[data-testid="stChatMessageAvatarAssistant"] {
+    flex: none;
+    margin-top: 0.1rem;
+}
+
+/* 말풍선 안 문단 간격. Streamlit 기본값은 채팅에는 촘촘하다. */
+[data-testid="stChatMessage"] [data-testid="stMarkdown"] p {
+    line-height: 1.75;
+    margin-bottom: 0.7rem;
+}
+
+/* --- 진행 상태 --- */
+/* 첫 답변 토큰까지 도구 실행이 선행돼 수 초가 걸린다. 그동안 멈춘 것처럼
+   보이지 않도록 한 줄을 계속 교체해 보여준다. */
+.cine-thinking {
+    align-items: center;
+    color: var(--cine-muted);
+    display: flex;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem; /* stMarkdownContainer의 -16px 상쇄. 아래 .cine-cards 참고 */
+    padding: 0.15rem 0;
+}
+
+.cine-thinking-dot {
+    animation: cine-pulse 1.2s ease-in-out infinite;
+    background: var(--cine-gold);
+    border-radius: 50%;
+    flex: none;
+    height: 0.5rem;
+    width: 0.5rem;
+}
+
+@keyframes cine-pulse {
+    0%, 100% { opacity: 0.25; transform: scale(0.8); }
+    50%      { opacity: 1;    transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cine-thinking-dot {
+        animation: none;
+        opacity: 0.8;
+    }
+}
+
+/* --- 출처 카드 --- */
+/* expander로 접어두면 포스터가 묻힌다. 카드는 '빠른 시각 참조'라 항상 보여야
+   한다. 그리드에 맡기면 카드 높이가 서로 맞고 좁은 화면에서 알아서 접힌다. */
+.cine-sources-label {
+    color: var(--cine-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    margin: 1rem 0 0.5rem;
+}
+
+/* 줄바꿈 대신 가로 스크롤. 카드가 6장이면 두 줄이 되어 답변보다 자리를 더
+   차지했다. 한 줄로 고정하고 넘치면 옆으로 민다. */
+.cine-cards {
+    display: flex;
+    gap: 0.6rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    /* 카드를 펼치면 그 카드만 길어진다. stretch면 나머지도 같이 늘어난다. */
+    align-items: flex-start;
+    /* 스크롤바가 카드 아래를 덮지 않도록 자리를 준다. */
+    padding-bottom: 0.55rem;
+    scroll-snap-type: x proximity;
+    /* Streamlit은 stMarkdownContainer에 margin-bottom: -16px를 건다. 마지막 자식이
+       제 몫의 아래 여백을 가진 <p>라고 가정한 값이다. 우리 마지막 자식은 이
+       컨테이너라 상쇄해주지 않으면 카드가 말풍선 밖으로 삐져나온다. */
+    margin-bottom: 1rem;
+}
+
+.cine-cards::-webkit-scrollbar {
+    height: 0.4rem;
+}
+
+.cine-cards::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 1rem;
+}
+
+.cine-cards::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.cine-card {
     background: rgba(11, 11, 14, 0.58);
     border: 1px solid var(--cine-line);
     border-radius: 0.8rem;
-    margin-top: 0.55rem;
+    /* 줄어들지도 늘어나지도 않는 고정 폭. 그래야 가로 스크롤이 성립한다. */
+    flex: 0 0 9.5rem;
+    overflow: hidden;
+    scroll-snap-align: start;
+    transition: border-color 140ms ease;
 }
 
-[data-testid="stExpander"] summary:hover {
+.cine-card:hover {
+    border-color: rgba(233, 185, 73, 0.45);
+}
+
+/* 접힌 상태에서 보이는 부분. 기본 삼각형 마커는 지우고 포스터 위에 우리 표시를
+   올린다. */
+.cine-card-head {
+    cursor: pointer;
+    display: block;
+    list-style: none;
+    position: relative;
+}
+
+.cine-card-head::-webkit-details-marker {
+    display: none;
+}
+
+.cine-card-caption {
+    display: block;
+    padding: 0.55rem 0.65rem 0.7rem;
+}
+
+/* 펼침 표시. 연도·평점 줄 오른쪽 끝에 맞춘다. 포스터 높이가 아니라 바닥을
+   기준으로 잡아야 제목이 한 줄이든 두 줄이든 자리가 안 흔들린다. */
+.cine-card-head::after {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--cine-line);
+    border-radius: 50%;
+    bottom: 0.6rem;
+    color: #cfcbc6;
+    content: "▾";
+    display: flex;
+    font-size: 0.68rem;
+    height: 1.3rem;
+    justify-content: center;
+    position: absolute;
+    right: 0.5rem;
+    transition: transform 160ms ease;
+    width: 1.3rem;
+}
+
+.cine-card:hover .cine-card-head::after {
+    border-color: rgba(233, 185, 73, 0.5);
     color: var(--cine-gold);
+}
+
+.cine-card[open] .cine-card-head::after {
+    transform: rotate(180deg);
+}
+
+.cine-card-body {
+    border-top: 1px solid var(--cine-line);
+    padding: 0.6rem 0.65rem 0.7rem;
+}
+
+.cine-card-poster {
+    aspect-ratio: 2 / 3;
+    display: block;
+    object-fit: cover;
+    width: 100%;
+}
+
+.cine-card-poster-empty {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    display: flex;
+    font-size: 1.8rem;
+    justify-content: center;
+    opacity: 0.5;
+}
+
+/* 제목·평점은 <span>이라 블록으로 세워야 줄이 나뉜다.
+   제목은 두 줄에서 자른다. 길이에 따라 카드 높이가 들쭉날쭉해지면 가로로
+   늘어놓았을 때 아래 선이 안 맞는다. */
+.cine-card-title {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: #f4f1ec;
+    display: -webkit-box;
+    font-size: var(--cine-fs-body);
+    font-weight: 650;
+    line-height: 1.35;
+    min-height: 2.7em;
+    overflow: hidden;
+}
+
+.cine-card-meta {
+    color: var(--cine-gold);
+    display: block;
+    font-size: var(--cine-fs-sm);
+    margin-top: 0.2rem;
+}
+
+/* 카드 안 세부 정보는 전부 --cine-fs-xs 하나로 맞춘다.
+   .stMarkdown p 규칙(명시도 0,1,1)이 클래스 하나(0,1,0)를 이기므로 선택자를
+   겹쳐 올린다. 줄거리가 <p>였을 때 이것 때문에 출연진보다 커 보였다. */
+.cine-card .cine-card-field,
+.cine-card .cine-card-snippet {
+    font-size: var(--cine-fs-xs);
+    line-height: 1.6;
+}
+
+.cine-card-field {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.cine-card-key {
+    color: #6f6c69;
+    flex: none;
+}
+
+.cine-card-value {
+    color: var(--cine-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cine-card-snippet {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    color: #918e8b;
+    display: -webkit-box;
+    margin: 0.5rem 0 0;
+    overflow: hidden;
 }
 
 [data-testid="stChatInput"] {
@@ -121,6 +428,152 @@
 .cine-status-dot.offline {
     background: #eb6a6a;
     box-shadow: 0 0 0 4px rgba(235, 106, 106, 0.1);
+}
+
+/* --- 지난 대화 --- */
+.cine-past-label {
+    border-top: 1px solid var(--cine-line);
+    color: var(--cine-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    margin: 1.4rem 0 0.6rem;
+    padding-top: 1rem;
+}
+
+/* 목록 버튼은 제목이 길어도 한 줄로 자른다. 사이드바가 좁아 줄바꿈되면
+   목록이 아니라 문단처럼 보인다. */
+[data-testid="stSidebar"] .stButton > button p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+[data-testid="stSidebar"] .stButton > button {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+/* 지금 열어 둔 대화는 비활성이라 흐려진다. 그래도 어느 것인지 보이게 한다. */
+[data-testid="stSidebar"] .stButton > button:disabled {
+    border-color: rgba(233, 185, 73, 0.4);
+    opacity: 0.75;
+}
+
+.cine-readonly {
+    background: rgba(233, 185, 73, 0.08);
+    border: 1px solid rgba(233, 185, 73, 0.28);
+    border-radius: 0.7rem;
+    color: var(--cine-gold);
+    font-size: var(--cine-fs-sm);
+    margin-bottom: 1rem;
+    padding: 0.6rem 0.9rem;
+}
+
+/* --- 도움말 --- */
+/* 환영 화면은 첫 질문과 함께 사라지므로 사용법을 다시 볼 곳이 필요하다.
+   화면에 고정해 어디까지 스크롤했든 늘 같은 자리에 둔다. */
+.cine-help {
+    bottom: 1.6rem;
+    position: fixed;
+    right: 1.6rem;
+    /* Streamlit의 하단 바(stBottom)가 z-index 99에 불투명 배경으로 화면 아래
+       132px를 덮는다. 그보다 위에 있어야 버튼이 보인다. */
+    z-index: 101;
+}
+
+/* 배경색(#0b0b0e)과 패널색(#17171d)이 거의 같아서, 기본 테두리(흰색 9%)만으로는
+   눈에 안 띈다. 도움말 버튼은 찾을 수 있어야 의미가 있으므로 대비를 올린다. */
+.cine-help-toggle {
+    align-items: center;
+    background: #23232c;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 50%;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+    color: #e7e3de;
+    cursor: pointer;
+    display: flex;
+    font-size: 1.05rem;
+    font-weight: 700;
+    height: 2.4rem;
+    justify-content: center;
+    list-style: none;
+    margin-left: auto;
+    transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    width: 2.4rem;
+}
+
+.cine-help-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.cine-help-toggle:hover,
+.cine-help[open] .cine-help-toggle {
+    background: rgba(233, 185, 73, 0.16);
+    border-color: rgba(233, 185, 73, 0.7);
+    color: var(--cine-gold);
+}
+
+.cine-help-panel {
+    background: rgba(17, 17, 22, 0.97);
+    border: 1px solid var(--cine-line);
+    border-radius: 0.9rem;
+    bottom: 3rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0.95rem 1.05rem;
+    position: absolute;
+    right: 0;
+    width: 17rem;
+}
+
+.cine-help-title {
+    color: #f4f1ec;
+    font-size: var(--cine-fs-sm);
+    font-weight: 650;
+    margin-bottom: 0.6rem;
+}
+
+.cine-help-list {
+    display: grid;
+    gap: 0.45rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cine-help-list li {
+    display: grid;
+    font-size: var(--cine-fs-xs);
+    gap: 0.15rem;
+}
+
+.cine-help-tag {
+    color: var(--cine-gold);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+}
+
+.cine-help-list li span:last-child {
+    color: var(--cine-muted);
+    line-height: 1.45;
+}
+
+.cine-help-note {
+    border-top: 1px solid var(--cine-line);
+    color: #9c9995;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    margin-top: 0.75rem;
+    padding-top: 0.65rem;
+}
+
+/* 좁은 화면에서는 입력창과 겹치므로 위로 올린다. */
+@media (max-width: 900px) {
+    .cine-help {
+        bottom: 6.2rem;
+        right: 1rem;
+    }
 }
 
 #MainMenu,
