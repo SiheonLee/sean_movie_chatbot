@@ -1,3 +1,12 @@
+/* Pretendard. @import는 스타일시트의 **맨 앞**에 있어야 한다 — 다른 규칙 뒤에
+   오면 브라우저가 통째로 무시한다. 이 파일이 통째로 <style> 하나로 주입되므로
+   (ui/app.py의 load_styles) 파일 첫 줄이 곧 스타일시트 첫 줄이다.
+
+   dynamic-subset을 쓴다. 한글 글리프를 유니코드 구간별로 쪼개 둔 판이라 화면에
+   실제로 뜬 글자의 조각만 받는다. 통짜 woff2는 4MB가 넘는다.
+   가변 폰트(weight 45~920)라 히어로 제목의 760 같은 값도 별도 파일 없이 나온다. */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
 :root {
     --cine-red: #d04a4a;
     --cine-gold: #e9b949;
@@ -17,6 +26,34 @@
        둘이 어긋나면 토글할 때 버튼이 위아래로 튄다.
        값은 사이드바 제목 줄의 중심이다. */
     --cine-toggle-center: 47px;
+
+    --cine-font: "Pretendard Variable", Pretendard, -apple-system,
+        BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
+        system-ui, sans-serif;
+}
+
+/* Streamlit 기본값은 "Source Sans"라 한글이 시스템 폴백으로 떨어진다. 폴백은
+   OS마다 달라서(맥은 Apple SD Gothic Neo, 윈도우는 맑은 고딕) 자간과 두께가
+   화면마다 딴판이 된다. 여기서 한 번에 갈아끼운다.
+
+   **아이콘 요소는 반드시 비켜간다.** Material Symbols는 글리프가 아니라
+   `bookmark` 같은 **이름을 텍스트로** 담고 있어서, 본문 폰트가 덮어쓰면
+   아이콘 자리에 그 글자가 그대로 뜬다.
+
+   form 요소(button/input/textarea)는 상속을 안 받으므로 따로 적어준다. */
+html,
+body,
+.stApp,
+[data-testid="stSidebar"],
+button,
+input,
+textarea,
+select {
+    font-family: var(--cine-font);
+}
+
+.stApp *:not([data-testid="stIconMaterial"]):not([class*="material-"]):not(code):not(pre):not(kbd):not(samp) {
+    font-family: inherit;
 }
 
 .stApp {
@@ -120,12 +157,31 @@ button[data-testid="stExpandSidebarButton"]:hover {
     text-align: center;
 }
 
+/* Streamlit은 제목마다 앵커 링크(호버하면 뜨는 🔗)를 **자식 요소로** 끼워 넣는다.
+   16px짜리 inline-flex라 가운데 정렬 계산에 그대로 들어가고, 보이는 글자만
+   그 절반쯤 왼쪽으로 밀린다. 실측: 제목 잉크 중심 858.43 vs 나머지 두 줄 870.
+   이 앱에 제목 앵커를 쓸 데가 없으므로 통째로 지운다.
+
+   **눈으로도, 상자 크기로도 안 잡힌다.** Range로 요소 전체를 재면 이 앵커까지
+   포함해서 정확히 가운데로 나온다. 보이는 글자 노드만 따로 집어서 재야 드러난다. */
+[data-testid="stHeaderActionElements"] {
+    display: none;
+}
+
+/* text-indent가 letter-spacing과 같은 값인 이유:
+   letter-spacing은 **마지막 글자 뒤에도** 붙는다. 그래서 가운데 정렬을 하면
+   줄 상자는 정확히 가운데인데 글자는 그 여백의 절반만큼 밀린다. 히어로는 세
+   줄의 자간이 제각각(+0.22em / -0.05em / 없음)이라 서로 어긋나 보였다.
+   text-indent를 자간과 같게 주면 줄이 그 절반만큼 되밀려 글자 중심이 맞는다.
+   실측(1280px): eyebrow 788.66 · title 791.10 · subtitle 790.00 → 셋 다 790.00 */
 .cine-eyebrow {
     color: var(--cine-red);
     font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.22em;
-    margin-bottom: 0.6rem;
+    /* 위아래 틈은 .cine-title의 margin 한 곳에서만 준다. 아래 주석 참고. */
+    margin-bottom: 0;
+    text-indent: 0.22em;
     text-transform: uppercase;
 }
 
@@ -136,12 +192,39 @@ button[data-testid="stExpandSidebarButton"]:hover {
     letter-spacing: -0.05em;
     line-height: 1;
     margin: 0;
+    /* 자간이 음수라 반대쪽으로 밀린다. 위 .cine-eyebrow 주석 참고. */
+    text-indent: -0.05em;
 }
 
 .cine-subtitle {
     color: #bbb7b1;
     font-size: 1.05rem;
     margin: 1rem 0 0;
+}
+
+/* 히어로 세 줄의 위아래 틈은 **여기 한 곳**에서만 준다.
+
+   Streamlit이 h1에 `padding: 20px 0 16px`을, p에 자체 margin을 걸어둔다. 위 두
+   규칙은 명시도가 낮아 여백에 관해서는 지고 있고(그래서 위 틈 44.57px / 아래 틈
+   31.58px로 어긋났다), `.cine-hero`를 앞에 붙여야 이긴다.
+
+   **여백만 올린다.** font-size나 line-height까지 여기로 옮기면 그것들도 같이
+   이겨버려서 제목이 44px에서 73.6px로 뛴다 — 위 .cine-title의 clamp는 지금
+   Streamlit의 h1 규칙에 져서 실제로는 안 먹고 있다(다듬을 것 목록 참고).
+
+   실측(1440px): 아래 두 값을 0으로 두면 **광학** 틈이 위 14.97px / 아래 15.59px다.
+   0.62px 차이는 위쪽엔 eyebrow의 디센더가, 아래쪽엔 제목의 디센더가 각각 다른
+   깊이로 물려 있어서다. 그 차이만큼 어긋나게 줘서 실제 틈을 32px로 맞춘다.
+
+   틈은 상자가 아니라 **글자가 칠해지는 범위(잉크 박스)** 기준이다. 상자로 재면
+   line-height의 반쪽 여백이 섞여 눈에 보이는 것과 다른 값이 나온다. */
+.cine-hero .cine-title {
+    margin: 17px 0 16.4px;
+    padding: 0;
+}
+
+.cine-hero .cine-subtitle {
+    margin: 0;
 }
 
 .cine-suggestions-label {
@@ -295,23 +378,28 @@ button[data-testid="stExpandSidebarButton"]:hover {
 }
 
 /* 펼침 표시. 연도·평점 줄 오른쪽 끝에 맞춘다. 포스터 높이가 아니라 바닥을
-   기준으로 잡아야 제목이 한 줄이든 두 줄이든 자리가 안 흔들린다. */
+   기준으로 잡아야 제목이 한 줄이든 두 줄이든 자리가 안 흔들린다.
+
+   크기는 연도·평점 글자와 부딪히지 않는 선에서 정한다. 카드 폭이 152px로
+   고정이라 여유를 실측할 수 있다 — 20.8px일 때 평점 글자 오른쪽 끝까지
+   45.3px가 남았다. 27.2px로 키워도 38.9px가 남는다. */
 .cine-card-head::after {
     align-items: center;
     background: rgba(255, 255, 255, 0.07);
     border: 1px solid var(--cine-line);
     border-radius: 50%;
-    bottom: 0.6rem;
+    bottom: 0.55rem;
     color: #cfcbc6;
     content: "▾";
     display: flex;
-    font-size: 0.68rem;
-    height: 1.3rem;
+    font-size: 0.9rem;
+    height: 1.7rem;
     justify-content: center;
+    line-height: 1;
     position: absolute;
-    right: 0.5rem;
+    right: 0.45rem;
     transition: transform 160ms ease;
-    width: 1.3rem;
+    width: 1.7rem;
 }
 
 .cine-card:hover .cine-card-head::after {
@@ -472,6 +560,20 @@ button[data-testid="stExpandSidebarButton"]:hover {
 /* --- 도움말 --- */
 /* 환영 화면은 첫 질문과 함께 사라지므로 사용법을 다시 볼 곳이 필요하다.
    화면에 고정해 어디까지 스크롤했든 늘 같은 자리에 둔다. */
+/* 재실행이 시작되면 Streamlit은 아직 새로 안 그려진 요소에 stale 클래스를 붙여
+   `opacity: 0.33; transition: opacity 1s ease-in 0.5s`로 흐리게 만든다. 화면을
+   갈아끼우는 요소라면 "지금 뭔가 도는 중"이라는 신호가 되지만, 도움말은
+   position: fixed라 내용이 바뀌지도 않으면서 늘 눈에 있다. 재실행이 0.5초를
+   넘길 때마다 혼자 흐려졌다 돌아오니 깜빡임으로만 보인다.
+
+   실측: stale 클래스를 강제로 물리면 0.5초까지 1.0 → 1.5초에 0.33.
+   재실행이 90ms인 개발 기기에서는 안 보이고, 답변 스트리밍처럼 오래 걸리는
+   재실행에서만 드러난다. */
+[data-testid="stElementContainer"]:has(.cine-help) {
+    opacity: 1 !important;
+    transition: none !important;
+}
+
 .cine-help {
     bottom: 1.6rem;
     position: fixed;
