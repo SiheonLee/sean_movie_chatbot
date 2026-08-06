@@ -2,8 +2,11 @@
 모델 제공자 추상화.
 
 임베딩과 LLM을 만드는 책임을 이 한 곳에 모은다. 임베딩은 Google Gemini로
-통일하고, 답변 LLM은 환경 변수로 Claude ↔ Ollama ↔ Gemini ↔ HuggingFace를
-독립적으로 교체할 수 있다.
+통일하고, 답변 LLM은 환경 변수로 OpenAI ↔ Claude ↔ Gemini를 독립적으로
+교체할 수 있다.
+
+**임베딩과 답변 LLM은 따로 논다.** 답변 LLM을 바꿔도 색인 지문(rag/store.py)에는
+임베딩 설정만 들어가므로 재색인이 필요 없다.
 
 import 는 각 분기 안에서 한다. 안 쓰는 제공자의 무거운 패키지(torch 등)를
 불필요하게 로딩하지 않기 위함이다.
@@ -170,11 +173,34 @@ def get_embeddings() -> Embeddings:
 def get_llm() -> BaseChatModel:
     """설정에 맞는 Chat LLM 객체를 반환한다.
 
-    도구 호출(bind_tools)이 이 파이프라인의 전제라서 제공자를 둘로 좁혔다.
+    도구 호출(bind_tools)이 이 파이프라인의 전제라서 제공자를 셋으로 좁혔다.
     HuggingFace Endpoint/Pipeline과 Ollama의 소형 모델은 tool calling을 안정적으로
     지원하지 않아 그래프가 도구를 아예 못 부르는 상태가 된다.
     """
     provider = settings.llm_provider
+
+    if provider == "openai":
+        if not settings.openai_api_key:
+            raise RuntimeError(
+                "OPENAI_API_KEY가 설정되지 않았습니다. .env에 OpenAI API 키를 입력하세요."
+            )
+
+        from langchain_openai import ChatOpenAI
+
+        # max_tokens는 langchain-openai가 max_completion_tokens로 바꿔 보낸다.
+        # GPT-5 계열에서는 이 값이 "추론 + 답변" 합계다.
+        options: dict = {
+            "model": settings.openai_model,
+            "api_key": settings.openai_api_key,
+            "max_tokens": settings.llm_max_tokens,
+        }
+        # temperature와 reasoning_effort는 넣지 않으면 payload에서 아예 빠진다.
+        # 추론 모델이 temperature를 거부하는 경우가 있어(400) 뺄 수 있어야 한다.
+        if settings.llm_temperature is not None:
+            options["temperature"] = settings.llm_temperature
+        if settings.openai_reasoning_effort:
+            options["reasoning_effort"] = settings.openai_reasoning_effort
+        return ChatOpenAI(**options)
 
     if provider == "google":
         if not settings.google_api_key:
@@ -193,7 +219,7 @@ def get_llm() -> BaseChatModel:
     if provider != "anthropic":
         raise RuntimeError(
             f"지원하지 않는 LLM_PROVIDER입니다: {provider!r}. "
-            "도구 호출이 필요하므로 anthropic 또는 google만 사용할 수 있습니다."
+            "도구 호출이 필요하므로 openai, anthropic, google만 사용할 수 있습니다."
         )
 
     if not settings.anthropic_api_key:

@@ -23,6 +23,7 @@ dependencies = [
     # sqlite 체크포인터(영속 멀티턴 메모리)를 쓸 때만 필요:
     "langgraph-checkpoint-sqlite>=2.0.0",
     "langchain-tavily>=0.2.18",
+    "langchain-openai>=1.4.1",
 ]
 
 [project.optional-dependencies]

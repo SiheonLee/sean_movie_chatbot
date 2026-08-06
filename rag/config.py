@@ -24,6 +24,12 @@ def _get(name: str, default: str) -> str:
     return os.getenv(name, default)
 
 
+def _optional_float(name: str, default: str) -> float | None:
+    """빈 문자열이면 None. '설정 안 함'과 '0으로 설정'을 구분해야 할 때 쓴다."""
+    raw = os.getenv(name, default).strip()
+    return float(raw) if raw else None
+
+
 @dataclass
 class Settings:
     # --- 경로 ---
@@ -84,18 +90,36 @@ class Settings:
     )
 
     # --- LLM 제공자 ---
-    # 도구 호출(bind_tools)이 전제라 anthropic(기본) | google 만 지원한다.
-    llm_provider: str = field(default_factory=lambda: _get("LLM_PROVIDER", "anthropic").lower())
+    # 도구 호출(bind_tools)이 전제라 openai(기본) | anthropic | google 만 지원한다.
+    llm_provider: str = field(default_factory=lambda: _get("LLM_PROVIDER", "openai").lower())
+    openai_model: str = field(default_factory=lambda: _get("OPENAI_MODEL", "gpt-5.6-luna"))
     anthropic_model: str = field(
         default_factory=lambda: _get("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001")
     )
     google_llm_model: str = field(default_factory=lambda: _get("GOOGLE_MODEL", "gemini-2.5-flash"))
     # 0.1에서도 골든셋이 실행할 때마다 다른 케이스에서 실패했다(라우팅 변동성).
     # 도구 선택은 창의성이 필요한 작업이 아니므로 0으로 내린다.
-    llm_temperature: float = field(default_factory=lambda: float(_get("LLM_TEMPERATURE", "0")))
+    #
+    # None이 될 수 있다. GPT-5 계열 추론 모델은 temperature를 아예 거부하기도 해서
+    # (400) 파라미터 자체를 빼야 할 때가 있다. LLM_TEMPERATURE를 빈 값으로 두면
+    # None이 되고, 제공자에 넘기지 않는다.
+    llm_temperature: float | None = field(default_factory=lambda: _optional_float("LLM_TEMPERATURE", "0"))
     # 512는 부족하다. 영화 5편을 소개하면 stop_reason=max_tokens로 문장 중간에서
     # 잘린다(실측). 웹 검색 기반 평단 반응 요약은 더 길다.
+    #
+    # 추론 모델에서는 이 값이 "추론 + 답변" 합계라서 더 크게 잡아야 한다. 모자라면
+    # 추론에 다 쓰고 답변이 빈 문자열로 온다.
     llm_max_tokens: int = field(default_factory=lambda: int(_get("LLM_MAX_TOKENS", "2048")))
+    # 추론 강도. 비워 두면 파라미터를 안 보내고 API 기본값을 쓴다.
+    #
+    # "none"에는 부수 효과가 있다. langchain-openai는 gpt-5 계열(chat 제외)에서
+    # reasoning_effort가 "none"이 아니면 temperature를 payload에서 빼버린다.
+    # 즉 **"none"으로 둬야 LLM_TEMPERATURE=0이 실제로 전달된다**(§4-17의 라우팅
+    # 변동성 완화책). 대신 추론을 끄므로 함정 질의의 라우팅 정확도가 달라질 수
+    # 있다 — 골든셋으로 양쪽을 재보고 정하는 게 맞다.
+    openai_reasoning_effort: str | None = field(
+        default_factory=lambda: os.getenv("OPENAI_REASONING_EFFORT", "").strip() or None
+    )
 
     # --- 웹 검색 ---
     # 평단·수상·화제·비하인드·해석만 담당한다. 결과 수를 늘려도 정확도가 오르지
@@ -105,6 +129,7 @@ class Settings:
     )
 
     # --- 키 ---
+    openai_api_key: str | None = field(default_factory=lambda: os.getenv("OPENAI_API_KEY"))
     anthropic_api_key: str | None = field(default_factory=lambda: os.getenv("ANTHROPIC_API_KEY"))
     google_api_key: str | None = field(default_factory=lambda: os.getenv("GOOGLE_API_KEY"))
     tavily_api_key: str | None = field(default_factory=lambda: os.getenv("TAVILY_API_KEY"))

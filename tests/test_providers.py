@@ -134,6 +134,71 @@ class GoogleEmbeddingProviderTests(unittest.TestCase):
                 get_embeddings()
 
 
+class OpenAIProviderTests(unittest.TestCase):
+    """기본 제공자. GPT-5 계열은 추론 모델이라 파라미터를 뺄 수 있어야 한다."""
+
+    def test_openai_requires_api_key(self):
+        with (
+            patch.object(settings, "llm_provider", "openai"),
+            patch.object(settings, "openai_api_key", None),
+        ):
+            with self.assertRaisesRegex(RuntimeError, "OPENAI_API_KEY"):
+                get_llm()
+
+    def test_openai_uses_configured_model(self):
+        with self.patched(), patch("langchain_openai.ChatOpenAI") as chat_openai:
+            get_llm()
+
+        # max_tokens는 langchain-openai가 max_completion_tokens로 바꿔 보낸다.
+        chat_openai.assert_called_once_with(
+            model="gpt-5.6-luna",
+            api_key="test-key",
+            max_tokens=2048,
+            temperature=0,
+        )
+
+    def test_temperature_is_omitted_when_unset(self):
+        """추론 모델이 temperature를 거부하면(400) 파라미터 자체를 빼야 한다."""
+        with (
+            self.patched(),
+            patch.object(settings, "llm_temperature", None),
+            patch("langchain_openai.ChatOpenAI") as chat_openai,
+        ):
+            get_llm()
+
+        self.assertNotIn("temperature", chat_openai.call_args.kwargs)
+
+    def test_reasoning_effort_is_sent_only_when_configured(self):
+        """값이 모델마다 달라서 함부로 기본값을 정하지 않는다."""
+        with self.patched(), patch("langchain_openai.ChatOpenAI") as chat_openai:
+            get_llm()
+        self.assertNotIn("reasoning_effort", chat_openai.call_args.kwargs)
+
+        with (
+            self.patched(),
+            patch.object(settings, "openai_reasoning_effort", "low"),
+            patch("langchain_openai.ChatOpenAI") as chat_openai,
+        ):
+            get_llm()
+        self.assertEqual(chat_openai.call_args.kwargs["reasoning_effort"], "low")
+
+    @staticmethod
+    def patched():
+        from contextlib import ExitStack
+
+        stack = ExitStack()
+        for attribute, value in [
+            ("llm_provider", "openai"),
+            ("openai_api_key", "test-key"),
+            ("openai_model", "gpt-5.6-luna"),
+            ("llm_temperature", 0),
+            ("llm_max_tokens", 2048),
+            ("openai_reasoning_effort", None),
+        ]:
+            stack.enter_context(patch.object(settings, attribute, value))
+        return stack
+
+
 class AnthropicProviderTests(unittest.TestCase):
     def test_anthropic_requires_api_key(self):
         with (
