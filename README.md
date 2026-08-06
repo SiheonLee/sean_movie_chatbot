@@ -69,7 +69,7 @@ LLM이 알아서 재호출합니다.
 ```
 rag/                     서버가 import 하는 것만
 ├── config.py            설정 일원화 (.env → Settings)
-├── providers.py         LLM·임베딩 (anthropic | google)
+├── providers.py         LLM·임베딩 (openai | anthropic | google)
 ├── vocab.py             무드 태그 어휘 + VOCAB_VERSION
 ├── schemas.py           MovieVibe (Literal로 어휘 강제)
 ├── store.py             get_vectorstore() + 색인 지문 검증
@@ -150,7 +150,7 @@ TMDB에서 여섯 축으로 모읍니다.
 - [uv](https://docs.astral.sh/uv/)
 - API 키
   - **TMDB** — [themoviedb.org](https://www.themoviedb.org/) → 설정 → API (무료)
-  - **Anthropic** — 답변 생성
+  - **OpenAI** — 답변 생성 (기본: `gpt-5.6-luna`)
   - **Google AI Studio** — 임베딩 (무료 티어)
   - **Tavily** — [tavily.com](https://tavily.com) 웹 검색 (무료 티어)
   - LangSmith — 추적·평가 (선택)
@@ -270,9 +270,11 @@ docker compose up --build
 
 | 변수 | 기본값 | 설명 |
 |---|---|---|
-| `LLM_PROVIDER` | `anthropic` | `anthropic` \| `google`. 도구 호출이 전제라 이 둘만 지원 |
+| `LLM_PROVIDER` | `openai` | `openai` \| `anthropic` \| `google`. 도구 호출이 전제라 이 셋만 지원 |
+| `OPENAI_MODEL` | `gpt-5.6-luna` | 답변 LLM. 바꿔도 재색인 불필요(색인 지문은 임베딩만 봄) |
+| `OPENAI_REASONING_EFFORT` | (없음) | 비우면 API 기본값. `none`이라야 `LLM_TEMPERATURE`가 전달됨 |
 | `LLM_TEMPERATURE` | `0` | 도구 선택은 창의성이 필요 없음 |
-| `LLM_MAX_TOKENS` | `2048` | 상한이지 목표가 아님. 실제 생성한 만큼만 과금 |
+| `LLM_MAX_TOKENS` | `8192` | 상한이지 목표가 아님. 추론 모델은 "추론+답변" 합계라 넉넉히 |
 | `TMDB_MIN_VOTE_COUNT` | `100` | 표본 부족 작품을 수집 단계에서 배제 |
 | `TMDB_QUIET_PAGES` | `3` | 잔잔한 계열 수집축 페이지 수 |
 | `GOOGLE_EMBEDDING_BATCH_SIZE` | `50` | 요청당 문서 수. 90이면 429가 남 |
@@ -293,4 +295,5 @@ docker compose up --build
 - [TMDB API](https://developer.themoviedb.org/docs)
 - [Chroma](https://docs.trychroma.com/)
 - [Tavily](https://docs.tavily.com/)
+- [OpenAI API](https://platform.openai.com/docs/)
 - [Anthropic API](https://docs.anthropic.com/)
