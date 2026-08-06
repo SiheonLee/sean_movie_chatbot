@@ -23,3 +23,6 @@ __pycache__/
 
 # macOS 잡파일
 .DS_Store
+
+# Claude Code 로컬 설정 (미리보기 실행 구성 등)
+.claude/
