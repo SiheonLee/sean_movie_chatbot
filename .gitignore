@@ -1,16 +1,20 @@
 # 환경 변수 / 비밀키
 .env
 
-# TMDB에서 받아온 영화정보 (scripts.fetch_tmdb.py 실행)
-data/
+# 배포에 쓰는 고정 카탈로그만 추적한다. 대화·보관함 등 사용자 데이터는 제외한다.
+data/*
+!data/movies.json
+!data/enriched.json
 tmp/
 
-# 영속 벡터스토어 (재생성 가능)
-chroma_db/
+# 배포에 쓰는 Chroma 스냅샷은 추적한다. 갱신은 릴리스 시점에만 수행한다.
 
 # LangGraph sqlite 체크포인터(대화 메모리)
 graph_checkpoints.sqlite
 *.sqlite
+!chroma_db/chroma.sqlite3
+*.sqlite-shm
+*.sqlite-wal
 
 # 파이썬
 __pycache__/
