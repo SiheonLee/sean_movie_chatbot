@@ -19,10 +19,12 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev --no-install-project
 
 COPY rag ./rag
-COPY scripts ./scripts
 COPY ui ./ui
-COPY data ./data
 COPY .streamlit ./.streamlit
+
+# 영화 카탈로그/Chroma는 이미지에 넣지 않고 실행 시 읽기 전용으로 마운트한다.
+# checkpoint와 UI 사용자 데이터만 별도 영구 볼륨에서 쓴다.
+RUN mkdir -p /app/catalog /app/chroma_db /app/state /app/user_data
 
 EXPOSE 8000 8501
 

@@ -11,6 +11,11 @@ services:
       LLM_PROVIDER: openai
       GRAPH_NATIVE_STRUCTURED_OUTPUT: "true"
 
+      # 준비된 런타임 아티팩트. 컨테이너에서는 읽기만 한다.
+      MOVIES_FILE: /app/catalog/movies.json
+      ENRICHED_FILE: /app/catalog/enriched.json
+      CHROMA_DIR: /app/chroma_db
+
       # API 키 없이 먼저 실행
       LANGSMITH_TRACING: "false"
 
@@ -19,17 +24,33 @@ services:
       CHECKPOINT_DB: /app/state/graph_checkpoints.sqlite
 
     command:
-      - /bin/sh
-      - -c
-      - |
-        python -m scripts.ingest
-        exec uvicorn rag.api:app --host 0.0.0.0 --port 8000
+      - uvicorn
+      - rag.api:app
+      - --host=0.0.0.0
+      - --port=8000
 
     ports:
       - "127.0.0.1:8000:8000"
 
     volumes:
-      - chroma_data:/app/chroma_db
+      - type: bind
+        source: ./data/movies.json
+        target: /app/catalog/movies.json
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./data/enriched.json
+        target: /app/catalog/enriched.json
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./chroma_db
+        target: /app/chroma_db
+        read_only: true
+        bind:
+          create_host_path: false
       - checkpoint_data:/app/state
 
     healthcheck:
@@ -41,7 +62,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 12
-      start_period: 360s
+      start_period: 30s
 
     restart: unless-stopped
 
@@ -53,6 +74,10 @@ services:
     environment:
       # Compose 네트워크에서는 서비스 이름이 호스트 이름
       RAG_API_URL: http://api:8000
+
+      # 영화 아티팩트와 섞지 않는 UI 전용 사용자 데이터 경로
+      CINEBOT_HISTORY_DIR: /app/user_data/conversations
+      CINEBOT_WATCHLIST_DIR: /app/user_data/watchlist
 
     command:
       - streamlit
@@ -68,6 +93,9 @@ services:
       api:
         condition: service_healthy
 
+    volumes:
+      - user_data:/app/user_data
+
     healthcheck:
       test:
         - CMD
@@ -82,5 +110,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  chroma_data:
   checkpoint_data:
+  user_data:

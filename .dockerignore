@@ -5,11 +5,15 @@ __pycache__
 .env
 .DS_Store
 
+# 런타임에 필요한 두 JSON과 Chroma는 Compose가 읽기 전용으로 마운트한다.
+# 같은 디렉터리의 대화·보관함은 사용자 데이터라 이미지에 들어가면 안 된다.
+data
 chroma_db
 graph_checkpoints.sqlite
 *.sqlite
 
 .ai
+scripts
 tests
 tmp
 docs
