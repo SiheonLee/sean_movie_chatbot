@@ -49,7 +49,16 @@ def call(tool, **kwargs):
     return result.content, result.artifact
 
 
+def sources_of(artifact: dict) -> list[dict]:
+    return artifact["sources"]
+
+
 class SourceConversionTests(unittest.TestCase):
+    def test_tmdb_id_is_preserved_for_structural_attribution(self):
+        with patch("rag.tmdb.genre_id_to_name", return_value=GENRE_IDS):
+            card = tmdb_to_source(LIST_MOVIE)
+        self.assertEqual(card["movie_id"], 1)
+
     def test_list_shape_has_no_director_or_country(self):
         with patch("rag.tmdb.genre_id_to_name", return_value=GENRE_IDS):
             card = tmdb_to_source(LIST_MOVIE)
@@ -101,7 +110,7 @@ class SearchMoviesTests(unittest.TestCase):
         with patch("rag.tools._scope_hint", return_value=""):
             content, artifact = call(tools.search_movies, sort_by="rating_desc")
         self.assertIn("범위", content)
-        self.assertEqual(artifact, [])
+        self.assertFalse(artifact["success"])
 
     def test_scoped_rating_sort_proceeds(self):
         with (
@@ -113,7 +122,23 @@ class SearchMoviesTests(unittest.TestCase):
                 tools.search_movies, genre="액션", sort_by="rating_desc"
             )
         self.assertIn("기생충", content)
-        self.assertEqual(len(artifact), 1)
+        self.assertEqual(len(sources_of(artifact)), 1)
+        self.assertEqual(disc.call_args.kwargs["sort_by"], "vote_average.desc")
+
+    def test_country_scopes_rating_sort(self):
+        """국가가 범위인데도 빠져 있어 '평점 높은 한국 영화'를 되물었다."""
+        with (
+            patch("rag.tmdb.resolve_country_code", return_value="KR"),
+            patch("rag.tmdb.genre_id_to_name", return_value=GENRE_IDS),
+            patch("rag.tmdb.discover", return_value={"results": [LIST_MOVIE]}) as disc,
+        ):
+            content, artifact = call(
+                tools.search_movies, country="한국", sort_by="rating_desc"
+            )
+
+        self.assertIn("기생충", content)
+        self.assertTrue(artifact["success"])
+        self.assertEqual(disc.call_args.kwargs["with_origin_country"], "KR")
         self.assertEqual(disc.call_args.kwargs["sort_by"], "vote_average.desc")
 
     def test_vote_count_floor_always_applied(self):
@@ -163,13 +188,13 @@ class SearchMoviesTests(unittest.TestCase):
 
         self.assertIn("로맨틱 코미디", content)
         self.assertIn("쉼표", content)
-        self.assertEqual(artifact, [])
+        self.assertFalse(artifact["success"])
 
     def test_unknown_genre_lists_supported_ones(self):
         with patch("rag.tmdb.genre_name_to_id", return_value={"액션": 28, "SF": 878}):
             content, artifact = call(tools.search_movies, genre="없는장르")
         self.assertIn("액션", content)
-        self.assertEqual(artifact, [])
+        self.assertFalse(artifact["success"])
 
     def test_unknown_provider_says_unconfirmed_not_unsupported(self):
         with patch("rag.tmdb.resolve_provider_id", return_value=None):
@@ -180,20 +205,21 @@ class SearchMoviesTests(unittest.TestCase):
         with patch("rag.tmdb.find_person_id", return_value=None):
             content, artifact = call(tools.search_movies, person="없는사람")
         self.assertIn("찾지 못했습니다", content)
-        self.assertEqual(artifact, [])
+        self.assertFalse(artifact["success"])
 
     def test_count_only_returns_total_without_sources(self):
         with patch("rag.tmdb.discover", return_value={"total_results": 266}):
             content, artifact = call(tools.search_movies, year_from=2020, count_only=True)
         self.assertIn("266편", content)
-        self.assertEqual(artifact, [])
+        self.assertTrue(artifact["success"])
+        self.assertEqual(sources_of(artifact), [])
 
     def test_empty_result_suggests_relaxing(self):
         """LLM이 조건을 풀어 재호출하도록 유도하는 문구가 있어야 한다."""
         with patch("rag.tmdb.discover", return_value={"results": []}):
             content, artifact = call(tools.search_movies, year_from=2020)
         self.assertIn("완화", content)
-        self.assertEqual(artifact, [])
+        self.assertFalse(artifact["success"])
 
     def test_status_uses_dedicated_endpoint(self):
         with (
@@ -203,11 +229,31 @@ class SearchMoviesTests(unittest.TestCase):
             call(tools.search_movies, status="now_playing")
         self.assertEqual(ep.call_args.args[0], "/movie/now_playing")
 
+    def test_status_composite_filters_are_explicitly_rejected(self):
+        """전용 endpoint가 받지 않는 조건을 조용히 버리면 안 된다."""
+        cases = {
+            "국가": {"country": "한국"},
+            "장르": {"genre": "스릴러"},
+            "연도": {"year_from": 2020},
+            "OTT": {"watch_provider": "넷플릭스"},
+            "평점": {"min_rating": 8.0},
+            "정렬": {"sort_by": "rating_desc"},
+        }
+        for label, condition in cases.items():
+            with self.subTest(label=label), patch("rag.tmdb.list_endpoint") as endpoint:
+                content, artifact = call(
+                    tools.search_movies, status="now_playing", **condition
+                )
+            self.assertIn(label, content)
+            self.assertIn("함께 지원하지 않습니다", content)
+            self.assertFalse(artifact["success"])
+            endpoint.assert_not_called()
+
     def test_tmdb_error_becomes_user_message(self):
         with patch("rag.tmdb.discover", side_effect=tools.tmdb.TmdbError("503")):
             content, artifact = call(tools.search_movies, year_from=2020)
         self.assertIn("가져오지 못했습니다", content)
-        self.assertEqual(artifact, [])
+        self.assertFalse(artifact["success"])
 
 
 def vibe_doc(title: str, *, genres: str = "|드라마|", **meta) -> Document:
@@ -267,7 +313,7 @@ class SearchByVibeTests(unittest.TestCase):
         ctx, _ = self.patched_store(docs)
         with ctx:
             content, artifact = call(tools.search_by_vibe, vibe="통쾌한", genre="액션")
-        self.assertEqual([s["title"] for s in artifact], ["진짜액션"])
+        self.assertEqual([s["title"] for s in sources_of(artifact)], ["진짜액션"])
 
     def test_genre_filter_widens_fetch_k(self):
         ctx, store = self.patched_store([vibe_doc("기생충")])
@@ -282,27 +328,27 @@ class SearchByVibeTests(unittest.TestCase):
         with ctx:
             _, artifact = call(tools.search_by_vibe, vibe="몽환적인",
                                exclude_titles=["인셉션"])
-        self.assertEqual([s["title"] for s in artifact], ["기생충"])
+        self.assertEqual([s["title"] for s in sources_of(artifact)], ["기생충"])
 
     def test_limit_is_applied_after_filtering(self):
         docs = [vibe_doc(f"영화{i}") for i in range(10)]
         ctx, _ = self.patched_store(docs)
         with ctx:
             _, artifact = call(tools.search_by_vibe, vibe="잔잔한", limit=3)
-        self.assertEqual(len(artifact), 3)
+        self.assertEqual(len(sources_of(artifact)), 3)
 
     def test_empty_result_suggests_relaxing(self):
         ctx, _ = self.patched_store([])
         with ctx:
             content, artifact = call(tools.search_by_vibe, vibe="잔잔한", max_violence=1)
         self.assertIn("완화", content)
-        self.assertEqual(artifact, [])
+        self.assertFalse(artifact["success"])
 
     def test_missing_index_returns_message_not_crash(self):
         with patch("rag.tools._vectorstore", side_effect=RuntimeError("색인 없음")):
             content, artifact = call(tools.search_by_vibe, vibe="잔잔한")
         self.assertIn("사용할 수 없습니다", content)
-        self.assertEqual(artifact, [])
+        self.assertFalse(artifact["success"])
 
 
 class WebSearchTests(unittest.TestCase):
@@ -326,15 +372,24 @@ class WebSearchTests(unittest.TestCase):
         self.assertIn("https://x/1", content)
         self.assertIn("아카데미 4관왕", content)
 
-    def test_produces_no_source_cards(self):
-        """웹 결과는 영화가 아니라 기사다. 출처 카드 스키마에 넣으면 빈 카드가 된다."""
-        response = {"results": [{"title": "t", "content": "c", "url": "u"}]}
+    def test_preserves_web_urls_in_a_separate_artifact(self):
+        """웹 결과는 영화 카드와 섞지 않고 제목·URL을 구조적으로 보존한다."""
+        response = {
+            "results": [
+                {"title": "기생충 평가", "content": "c", "url": "https://x/1"}
+            ]
+        }
         with self.patched_client(response):
             result = tools.web_search.invoke(
                 {"type": "tool_call", "name": "web_search",
                  "args": {"query": "q"}, "id": "t"}
             )
-        self.assertIsNone(getattr(result, "artifact", None))
+        self.assertTrue(result.artifact["success"])
+        self.assertEqual(result.artifact["sources"], [])
+        self.assertEqual(
+            result.artifact["web_sources"],
+            [{"title": "기생충 평가", "url": "https://x/1"}],
+        )
 
     def test_long_content_is_truncated(self):
         response = {"results": [
@@ -346,8 +401,10 @@ class WebSearchTests(unittest.TestCase):
 
     def test_empty_results_reported(self):
         with self.patched_client({"results": []}):
-            content = tools.web_search.invoke({"query": "없는영화"})
+            content, artifact = call(tools.web_search, query="없는영화")
         self.assertIn("결과가 없습니다", content)
+        self.assertFalse(artifact["success"])
+        self.assertEqual(artifact["web_sources"], [])
 
     def test_missing_api_key_returns_message_not_crash(self):
         """키가 없어도 나머지 도구는 정상 동작해야 한다."""
@@ -375,7 +432,7 @@ class GetMovieDetailsTests(unittest.TestCase):
         self.assertIn("봉준호", content)
         self.assertIn("송강호", content)
         self.assertIn("wavve", content)
-        self.assertEqual(artifact[0]["director"], "봉준호")
+        self.assertEqual(sources_of(artifact)[0]["director"], "봉준호")
 
     def test_missing_provider_says_unconfirmed(self):
         detail = {**DETAIL_MOVIE, "watch/providers": {"results": {}}}
@@ -391,7 +448,7 @@ class GetMovieDetailsTests(unittest.TestCase):
         with patch("rag.tmdb.search_by_title", return_value={"results": []}):
             content, artifact = call(tools.get_movie_details, title="없는영화")
         self.assertIn("찾지 못했습니다", content)
-        self.assertEqual(artifact, [])
+        self.assertFalse(artifact["success"])
 
 
 # 실측값이다. /search/movie는 인기순이라 'Oldboy'로 물으면 리메이크가 먼저 온다.

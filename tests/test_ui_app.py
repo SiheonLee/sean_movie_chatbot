@@ -210,6 +210,25 @@ class AttributionTests(unittest.TestCase):
         self.assertIn("TMDB", markup)
         self.assertNotIn("새로운출처", markup)
 
+    def test_web_source_url_is_rendered_as_a_clickable_link(self):
+        markup = attribution_html(
+            ["web"],
+            [{"title": "기생충 평가", "url": "https://example.com/review"}],
+        )
+
+        self.assertIn('href="https://example.com/review"', markup)
+        self.assertIn("기생충 평가", markup)
+        self.assertIn('rel="noopener noreferrer"', markup)
+
+    def test_non_http_web_source_url_is_not_rendered(self):
+        markup = attribution_html(
+            ["web"],
+            [{"title": "위험한 링크", "url": "javascript:alert(1)"}],
+        )
+
+        self.assertNotIn("javascript:", markup)
+        self.assertNotIn("위험한 링크", markup)
+
 
 # 주석을 걷어낸 스타일시트. 주석 안에도 `margin-bottom: -16px` 같은 문장이
 # 있어서(그 값을 설명하는 주석이다) 그대로 두면 파서가 그것을 선언으로 읽는다.

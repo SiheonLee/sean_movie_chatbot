@@ -34,12 +34,18 @@ class RagApiClientTests(unittest.TestCase):
         response.json.return_value = {
             "answer": "기생충의 감독은 봉준호입니다.",
             "sources": [],
+            "web_sources": [
+                {"title": "기생충 평가", "url": "https://example.com/review"}
+            ],
         }
         post.return_value = response
 
         result = self.client.query("기생충 감독은?", "session-1")
 
         self.assertEqual(result["answer"], "기생충의 감독은 봉준호입니다.")
+        self.assertEqual(
+            result["web_sources"][0]["url"], "https://example.com/review"
+        )
         post.assert_called_once_with(
             "http://127.0.0.1:8000/query",
             json={"question": "기생충 감독은?", "session_id": "session-1"},

@@ -4,12 +4,13 @@ from __future__ import annotations
 
 import json
 from collections.abc import Iterator
-from typing import TypedDict
+from typing import NotRequired, TypedDict
 
 import httpx
 
 
 class Source(TypedDict):
+    movie_id: NotRequired[int]
     title: str
     year: int
     director: str
@@ -21,9 +22,15 @@ class Source(TypedDict):
     snippet: str
 
 
+class WebSource(TypedDict):
+    title: str
+    url: str
+
+
 class QueryResult(TypedDict):
     answer: str
     sources: list[Source]
+    web_sources: list[WebSource]
     # 무엇을 보고 답했는지. "tmdb" | "local" | "web" | "justwatch"
     attributions: list[str]
 
@@ -37,7 +44,7 @@ class StreamEvent(TypedDict, total=False):
     ``status``  ``text`` — 진행 상태 한 줄. 계속 교체해 보여준다.
     ``token``   ``text`` — 답변 텍스트 조각.
     ``reset``   (없음) — 지금까지 받은 token을 버린다.
-    ``done``    ``answer``, ``sources``, ``attributions`` — 확정된 답변.
+    ``done``    ``answer``, ``sources``, ``web_sources``, ``attributions`` — 확정된 답변.
                 마지막에 한 번 온다.
     ==========  ==============================================================
     """
@@ -46,6 +53,7 @@ class StreamEvent(TypedDict, total=False):
     text: str
     answer: str
     sources: list[Source]
+    web_sources: list[WebSource]
     attributions: list[str]
 
 
@@ -118,6 +126,8 @@ class RagApiClient:
         return {
             "answer": answer,
             "sources": sources,
+            # 서버가 옛 버전이면 없을 수 있다. 영화 sources와 분리한 additive 필드다.
+            "web_sources": payload.get("web_sources") or [],
             # 서버가 옛 버전이면 없을 수 있다. 없으면 표시를 생략한다.
             "attributions": payload.get("attributions") or [],
         }

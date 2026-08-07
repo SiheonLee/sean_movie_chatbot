@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import logging
 import os
-import re
 import sqlite3
 import uuid
 from collections.abc import Iterator
@@ -252,17 +251,60 @@ def collect_turn_tool_calls(messages: list) -> list[dict]:
 def collect_turn_attributions(messages: list) -> list[str]:
     """이번 턴이 무엇을 보고 답했는지(TMDB·로컬 색인·웹·JustWatch).
 
-    답변 텍스트가 아니라 **부른 도구**에서 얻는다. 텍스트로는 어느 저장소에서
-    나온 문장인지 알아낼 방법이 없고, 도구 호출은 이미 남아 있다.
+    답변 텍스트나 호출 시도가 아니라 **성공한 ToolMessage artifact**에서 얻는다.
+    도구 호출 ID로 원래 호출의 이름·인자와 연결하므로 실패·빈 결과에는 표기가
+    붙지 않고, OTT 검색의 JustWatch 표기도 유지된다.
     """
     marks = set()
-    for call in collect_turn_tool_calls(messages):
-        marks.update(attributions_for(call.get("name", ""), call.get("args")))
+    calls_by_id: dict[str, dict] = {}
+    for message in messages[_turn_start(messages) :]:
+        if isinstance(message, AIMessage):
+            for call in message.tool_calls or []:
+                if call.get("id"):
+                    calls_by_id[call["id"]] = call
+            continue
+        if not isinstance(message, ToolMessage) or not _artifact_succeeded(message):
+            continue
+        call = calls_by_id.get(message.tool_call_id)
+        if call:
+            marks.update(attributions_for(call.get("name", ""), call.get("args")))
     return [mark for mark in ATTRIBUTION_ORDER if mark in marks]
 
 
+def _artifact_succeeded(message: ToolMessage) -> bool:
+    """새 artifact와 기존 체크포인트의 목록 artifact를 함께 읽는다."""
+    if getattr(message, "status", "success") == "error":
+        return False
+    artifact = message.artifact
+    if isinstance(artifact, dict):
+        return artifact.get("success") is True
+    # D3 이전 체크포인트의 영화 도구 artifact는 영화 dict 목록이었다.
+    return isinstance(artifact, list) and bool(artifact)
+
+
+def _movie_sources(message: ToolMessage) -> list[dict]:
+    if not _artifact_succeeded(message):
+        return []
+    artifact = message.artifact
+    if isinstance(artifact, dict):
+        sources = artifact.get("sources", [])
+    else:
+        sources = artifact
+    return [source for source in sources if isinstance(source, dict)]
+
+
+def _web_sources(message: ToolMessage) -> list[dict]:
+    if not _artifact_succeeded(message) or not isinstance(message.artifact, dict):
+        return []
+    return [
+        source
+        for source in message.artifact.get("web_sources", [])
+        if isinstance(source, dict) and source.get("url")
+    ]
+
+
 def collect_turn_sources(messages: list) -> list[dict]:
-    """이번 턴에 호출된 도구의 출처만 모은다.
+    """이번 턴에 성공한 도구가 반환한 영화만 구조적으로 모은다.
 
     체크포인터가 전체 대화를 보존하므로 그냥 순회하면 몇 턴 전 출처까지 딸려온다.
     뒤에서부터 훑어 이번 턴의 시작(마지막 HumanMessage)을 찾고, 거기서부터 정방향으로
@@ -272,54 +314,33 @@ def collect_turn_sources(messages: list) -> list[dict]:
     sources: list[dict] = []
     seen: set[tuple] = set()
     for message in messages[_turn_start(messages) :]:
-        if isinstance(message, ToolMessage) and message.artifact:
-            for source in message.artifact:
-                key = (source.get("title"), source.get("year"))
+        if isinstance(message, ToolMessage):
+            for source in _movie_sources(message):
+                movie_id = int(source.get("movie_id") or 0)
+                key = ("id", movie_id) if movie_id else (
+                    "title-year",
+                    source.get("title"),
+                    source.get("year"),
+                )
                 if key not in seen:
                     seen.add(key)
                     sources.append(source)
     return sources
 
 
-# 제목 바로 뒤에 붙은 연도. "올드보이(2003)", "**올드보이**(2003)", "올드보이 - 2003"을
-# 모두 잡는다.
-#
-# 사이에 낄 수 있는 것은 공백과 구두점뿐이다. 아무 글자나 허용하면 "올드보이 이후
-# 2013년에는…"의 연도까지 그 영화의 연도로 읽어서, 멀쩡한 카드를 연도 불일치로
-# 떨어뜨린다(실측).
-_YEAR_AFTER_TITLE = re.compile(r"[\s*_(\[,:·\-–—'\"“”]{0,4}(\d{4})")
-
-
-# 제목을 맞춰볼 때 지우는 것들. 표기가 조금씩 달라서 같은 영화를 놓치는 일을
-# 막는다 — '너의 이름은.'의 마침표, '토르: 라그나로크'의 콜론, 답변이 제목 사이에
-# 넣는 공백 같은 것들.
-_TRIVIA = re.compile(r"[\s.,:;!?'\"“”‘’·・~\-–—()\[\]]")
-
-
-def _normalized(text: str) -> str:
-    """비교용으로 다듬은 문자열."""
-    return _TRIVIA.sub("", text)
-
-
-def _years_stated_for(answer: str, title: str) -> set[int]:
-    """답변이 그 제목 옆에 적어 둔 연도들. 안 적었으면 빈 집합."""
-    years = set()
-    for match in re.finditer(re.escape(title), answer):
-        stated = _YEAR_AFTER_TITLE.match(answer, match.end())
-        if stated:
-            years.add(int(stated.group(1)))
-    return years
-
-
-def _year_agrees(answer: str, source: dict) -> bool:
-    """카드의 연도가 답변이 말한 연도와 맞는지.
-
-    답변이 연도를 안 적었거나 카드에 연도가 없으면 판단할 근거가 없으므로
-    통과시킨다. 근거가 있을 때만 거른다.
-    """
-    year = int(source.get("year") or 0)
-    stated = _years_stated_for(answer, source["title"])
-    return not (year and stated) or year in stated
+def collect_turn_web_sources(messages: list) -> list[dict]:
+    """이번 턴에 성공한 웹 검색이 실제 반환한 제목·URL을 모은다."""
+    sources: list[dict] = []
+    seen_urls: set[str] = set()
+    for message in messages[_turn_start(messages) :]:
+        if not isinstance(message, ToolMessage):
+            continue
+        for source in _web_sources(message):
+            url = source["url"]
+            if url not in seen_urls:
+                seen_urls.add(url)
+                sources.append(source)
+    return sources
 
 
 class MovieRagGraph:
@@ -401,9 +422,8 @@ class MovieRagGraph:
 
         ``reset``은 2가 뚫렸을 때(서두가 한도보다 길었을 때)만 나가는 안전망이다.
 
-        **출처는 스트리밍할 수 없다.** ``_used_sources()``가 완성된 답변 텍스트에서
-        제목을 찾아 거르기 때문에(§4-13) 턴이 끝나야 확정된다. 텍스트는 흘리고
-        카드는 ``done``에 한 번에 싣는 구조가 설계상 불가피하다.
+        출처는 성공한 ToolMessage artifact에서 모아 ``done``에 한 번에 싣는다.
+        답변 문자열에서 제목이나 URL을 다시 추측하지 않는다.
 
         비동기로 만들지 않았다. ``SqliteSaver``가 async 메서드에서
         ``NotImplementedError``를 던지므로 ``CHECKPOINTER=sqlite``가 깨진다.
@@ -496,7 +516,13 @@ class MovieRagGraph:
             if flushed:
                 yield {"type": "reset"}
             yield {"type": "token", "text": _RECURSION_FALLBACK}
-            yield {"type": "done", "answer": _RECURSION_FALLBACK, "sources": []}
+            yield {
+                "type": "done",
+                "answer": _RECURSION_FALLBACK,
+                "sources": [],
+                "web_sources": [],
+                "attributions": [],
+            }
             return
 
         # 토큰을 이어 붙이지 않고 최종 메시지에서 다시 뽑는다. 클라이언트가 놓친
@@ -504,45 +530,7 @@ class MovieRagGraph:
         yield {"type": "done", **self._to_result(turn)}
 
     @staticmethod
-    def _used_sources(answer: str, sources: list[dict]) -> list[dict]:
-        """답변이 실제로 언급한 영화만, **답변이 소개한 순서대로** 남긴다.
-
-        LLM은 후보를 넓게 훑고 그중 일부만 답변에 쓴다. 도구가 돌려준 것을 전부
-        카드로 내보내면 "답변에 없는 영화가 출처로 뜨는" 상태가 된다(실측: 후보
-        14편 수집, 답변엔 3편 언급).
-
-        순서도 맞춰야 한다. 도구는 평점순으로 주는데 LLM은 질문에 맞는 순으로
-        소개하기 때문에 둘이 자주 어긋난다. 카드가 다른 순서로 놓이면 "세 번째로
-        소개한 영화"를 카드에서 찾을 때 헷갈린다.
-
-        **제목만으로는 원작과 리메이크를 가르지 못한다.** 답변이 제목 옆에 연도를
-        적어 뒀다면 그 연도가 맞는 카드만 남긴다(실측: '박찬욱에 대해 알려줘'에
-        올드보이(2003) 문장 옆에 스파이크 리의 올드보이(2013) 카드가 붙었다).
-        어긋나는 카드는 아예 빼는 편이 낫다 — 카드가 없으면 답변만 읽지만,
-        틀린 카드가 붙으면 답변까지 틀린 것으로 읽힌다.
-
-        **하나도 안 걸리면 카드를 내보내지 않는다.** 예전에는 그때 도구 결과를
-        전부 보여줬는데("카드 0개보다는 낫다"), 그건 정반대였다. 하나도 안
-        걸린다는 것은 답변이 도구 결과를 쓰지 않았다는 신호다 — 실측: '2010년대
-        로맨틱 코미디'에 후보 15편(기생충·토르·토이 스토리…)이 왔지만 맞는 것이
-        없자 모델이 제 지식으로 다섯 편을 추천했고, 그 15편이 통째로 '답변에
-        사용된 영화'라는 이름표를 달고 나갔다. 근거가 없으면 없다고 하는 편이
-        거짓 근거를 붙이는 것보다 낫다.
-        """
-        normalized_answer = _normalized(answer)
-        mentioned = [
-            source
-            for source in sources
-            if source.get("title") and _normalized(source["title"]) in normalized_answer
-        ]
-        used = [s for s in mentioned if _year_agrees(answer, s)]
-        # 언급 위치가 같으면(제목이 서로의 부분 문자열인 경우 등) 도구가 준
-        # 순서를 지킨다 — 파이썬 정렬은 안정 정렬이다.
-        used.sort(key=lambda s: normalized_answer.index(_normalized(s["title"])))
-        return used
-
-    @classmethod
-    def _to_result(cls, messages: list) -> dict:
+    def _to_result(messages: list) -> dict:
         answer = messages[-1].content if messages else ""
         if isinstance(answer, list):
             # 일부 제공자는 content를 블록 리스트로 준다. 텍스트 블록만 잇는다.
@@ -553,6 +541,7 @@ class MovieRagGraph:
             )
         return {
             "answer": answer,
-            "sources": cls._used_sources(answer, collect_turn_sources(messages)),
+            "sources": collect_turn_sources(messages),
+            "web_sources": collect_turn_web_sources(messages),
             "attributions": collect_turn_attributions(messages),
         }

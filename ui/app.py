@@ -11,6 +11,7 @@ import uuid
 from datetime import date
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
@@ -21,7 +22,7 @@ import streamlit.components.v1 as components
 from dotenv import load_dotenv
 
 from ui import history, identity, watchlist
-from ui.api_client import ApiClientError, RagApiClient, Source
+from ui.api_client import ApiClientError, RagApiClient, Source, WebSource
 
 load_dotenv()
 
@@ -746,7 +747,7 @@ def source_card_html(source: Source) -> str:
     )
 
 
-def sources_html(sources: list[Source], label: str = "답변에 사용된 영화") -> str:
+def sources_html(sources: list[Source], label: str = "검색 근거 영화") -> str:
     """카드 묶음 전체를 HTML 한 덩어리로. 없으면 빈 문자열.
 
     저장 목록 화면에서도 같은 카드를 쓰므로 머리말은 밖에서 정한다.
@@ -796,16 +797,30 @@ ATTRIBUTION_LABELS = {
 }
 
 
-def attribution_html(attributions: list[str]) -> str:
-    """출처 표기 한 줄. 알 수 없는 값은 조용히 버린다."""
+def attribution_html(
+    attributions: list[str], web_sources: list[WebSource] | None = None
+) -> str:
+    """출처 표기와 웹 검색의 구체적인 링크. 안전한 HTTP(S) URL만 렌더링한다."""
     labels = [
         ATTRIBUTION_LABELS[mark] for mark in attributions if mark in ATTRIBUTION_LABELS
     ]
-    if not labels:
+    links = []
+    for source in web_sources or []:
+        url = (source.get("url") or "").strip()
+        parsed = urlsplit(url)
+        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+            continue
+        title = (source.get("title") or parsed.netloc).strip()
+        links.append(
+            f'<a href="{html.escape(url, quote=True)}" target="_blank" '
+            f'rel="noopener noreferrer">{html.escape(title)}</a>'
+        )
+    if not labels and not links:
         return ""
+    parts = [*(f"<span>{html.escape(label)}</span>" for label in labels), *links]
     return (
         '<div class="cine-attribution">출처 '
-        + " · ".join(f"<span>{html.escape(label)}</span>" for label in labels)
+        + " · ".join(parts)
         + "</div>"
     )
 
@@ -1012,7 +1027,10 @@ def render_message(message: dict[str, Any], index: int) -> None:
         st.markdown(sources_html(sources), unsafe_allow_html=True)
         render_watchlist_picker(sources, index)
         st.markdown(
-            attribution_html(message.get("attributions", [])), unsafe_allow_html=True
+            attribution_html(
+                message.get("attributions", []), message.get("web_sources", [])
+            ),
+            unsafe_allow_html=True,
         )
 
 
@@ -1060,18 +1078,20 @@ def stream_answer(question: str, index: int) -> dict[str, Any]:
             elif kind == "done":
                 answer = event.get("answer", "")
                 sources = event.get("sources", [])
+                web_sources = event.get("web_sources", [])
                 attributions = event.get("attributions", [])
                 body.markdown(answer)
                 cards.markdown(sources_html(sources), unsafe_allow_html=True)
                 with picker.container():
                     render_watchlist_picker(sources, index)
                 attribution.markdown(
-                    attribution_html(attributions), unsafe_allow_html=True
+                    attribution_html(attributions, web_sources), unsafe_allow_html=True
                 )
                 return {
                     "role": "assistant",
                     "content": answer,
                     "sources": sources,
+                    "web_sources": web_sources,
                     # 이력에 함께 남긴다. 지난 대화를 열어봐도 근거가 보여야 하고,
                     # JustWatch 표기는 그때도 붙어 있어야 한다.
                     "attributions": attributions,
@@ -1085,6 +1105,7 @@ def stream_answer(question: str, index: int) -> dict[str, Any]:
             "role": "assistant",
             "content": str(exc),
             "sources": [],
+            "web_sources": [],
             "attributions": [],
             "error": True,
         }

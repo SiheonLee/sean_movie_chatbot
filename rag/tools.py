@@ -63,6 +63,24 @@ _TOOL_ATTRIBUTIONS = {
 }
 
 
+def _artifact(
+    *,
+    success: bool,
+    sources: list[dict] | None = None,
+    web_sources: list[dict] | None = None,
+) -> dict:
+    """도구 실행 결과의 구조화된 근거.
+
+    본문 문자열은 LLM용이고, API 출처는 이 artifact만 신뢰한다. 실패·빈 결과도
+    같은 모양으로 남겨 호출 시도와 성공한 조회를 구분한다.
+    """
+    return {
+        "success": success,
+        "sources": list(sources or []),
+        "web_sources": list(web_sources or []),
+    }
+
+
 def attributions_for(name: str, args: dict | None = None) -> tuple[str, ...]:
     """도구 호출 하나가 어떤 출처를 쓴 것인지."""
     marks = _TOOL_ATTRIBUTIONS.get(name, ())
@@ -250,14 +268,40 @@ def search_movies(
     """
     # 범위 없는 최상급은 답이 표본 하한에 따라 뒤집힌다. 단정하지 말고 되묻는다.
     if sort_by.startswith("rating") and not any(
-        (person, genre, year_from, year_to, min_rating, watch_provider, status)
+        (person, genre, country, year_from, year_to, min_rating, watch_provider, status)
     ):
         return (
             "범위가 지정되지 않아 순위를 확정할 수 없습니다. 기준 표본을 얼마로 두느냐에 "
             f"따라 1위가 바뀝니다.{_scope_hint()} "
             "장르·연도·국가·인물 중 하나로 좁혀 주시면 정확히 답할 수 있습니다.",
-            [],
+            _artifact(success=False),
         )
+
+    # TMDB의 상영 상태 전용 endpoint는 아래 조건들을 받지 않는다. 예전에는 인자를
+    # 넘겨받고도 조용히 버려서 "지금 상영 중인 한국 영화"가 전 세계 목록이 됐다.
+    # 첫 페이지만 받아 로컬에서 거르면 정확한 결과·개수를 보장할 수 없으므로,
+    # 지원하는 척하지 않고 조건을 나눠 달라고 명시한다.
+    if status:
+        combined = [
+            label
+            for enabled, label in (
+                (person, "인물"),
+                (genre, "장르"),
+                (country, "국가"),
+                (year_from or year_to, "연도"),
+                (watch_provider, "OTT"),
+                (min_rating is not None, "평점"),
+                (sort_by != "popularity", "정렬"),
+                (count_only, "개수 집계"),
+            )
+            if enabled
+        ]
+        if combined:
+            return (
+                f"상영 상태 검색은 {', '.join(combined)} 조건을 함께 지원하지 않습니다. "
+                "상영 상태와 세부 조건을 나눠서 질문해주세요.",
+                _artifact(success=False),
+            )
 
     try:
         if status:
@@ -271,7 +315,10 @@ def search_movies(
             if person:
                 person_id = tmdb.find_person_id(person)
                 if person_id is None:
-                    return f"'{person}'을(를) TMDB에서 찾지 못했습니다.", []
+                    return (
+                        f"'{person}'을(를) TMDB에서 찾지 못했습니다.",
+                        _artifact(success=False),
+                    )
                 params["with_people"] = person_id
 
             if genre:
@@ -283,7 +330,7 @@ def search_movies(
                         "'로맨틱 코미디'처럼 두 장르가 섞인 요청은 "
                         "genre=\"로맨스, 코미디\"처럼 쉼표로 나눠 주세요. "
                         f"사용 가능한 장르: {supported}",
-                        [],
+                        _artifact(success=False),
                     )
                 # 쉼표로 이으면 TMDB는 AND로 읽는다. 파이프(|)면 OR이 되어
                 # 로맨스'거나' 코미디인 영화가 다 나온다 — 그건 좁히는 게 아니다.
@@ -295,7 +342,7 @@ def search_movies(
                     return (
                         f"'{country}'는 지원하지 않는 국가입니다. "
                         f"사용 가능: {tmdb.supported_country_names()}",
-                        [],
+                        _artifact(success=False),
                     )
                 params["with_origin_country"] = code
 
@@ -306,7 +353,7 @@ def search_movies(
                         f"'{watch_provider}'의 편성 정보는 확인되지 않습니다. "
                         "국내에서 확인 가능한 서비스는 넷플릭스, 왓챠, 웨이브, 티빙, "
                         "디즈니플러스 등입니다.",
-                        [],
+                        _artifact(success=False),
                     )
                 params["with_watch_providers"] = provider_id
                 params["watch_region"] = tmdb.WATCH_REGION
@@ -320,17 +367,26 @@ def search_movies(
 
             data = tmdb.discover(**params)
     except tmdb.TmdbError as exc:
-        return f"영화 정보를 가져오지 못했습니다: {exc}", []
+        return f"영화 정보를 가져오지 못했습니다: {exc}", _artifact(success=False)
 
     if count_only:
-        return f"조건에 맞는 영화는 총 {data.get('total_results', 0)}편입니다.", []
+        return (
+            f"조건에 맞는 영화는 총 {data.get('total_results', 0)}편입니다.",
+            _artifact(success=True),
+        )
 
     results = data.get("results", [])[:limit]
     if not results:
-        return "조건에 맞는 영화가 없습니다. 조건을 완화해 다시 시도해보세요.", []
+        return (
+            "조건에 맞는 영화가 없습니다. 조건을 완화해 다시 시도해보세요.",
+            _artifact(success=False),
+        )
 
     sources = _hydrated_sources(results)
-    return _format_movies(results, sources=sources), sources
+    return (
+        _format_movies(results, sources=sources),
+        _artifact(success=True, sources=sources),
+    )
 
 
 def _best_hit(hits: list[dict], title: str, year: int | None = None) -> dict:
@@ -377,10 +433,13 @@ def get_movie_details(title: str, year: int | None = None):
     try:
         hits = tmdb.search_by_title(title).get("results", [])
         if not hits:
-            return f"'{title}'을(를) TMDB에서 찾지 못했습니다.", []
+            return (
+                f"'{title}'을(를) TMDB에서 찾지 못했습니다.",
+                _artifact(success=False),
+            )
         detail = tmdb.movie_detail(_best_hit(hits, title, year)["id"])
     except tmdb.TmdbError as exc:
-        return f"영화 정보를 가져오지 못했습니다: {exc}", []
+        return f"영화 정보를 가져오지 못했습니다: {exc}", _artifact(success=False)
 
     directors = [
         c["name"]
@@ -401,7 +460,13 @@ def get_movie_details(title: str, year: int | None = None):
         f"구독형 시청처(한국): {', '.join(providers) or '확인되지 않음'}",
         f"줄거리: {detail.get('overview', '')}",
     ]
-    return "\n".join(lines), [tmdb_to_source(detail, detail_shape=True)]
+    return (
+        "\n".join(lines),
+        _artifact(
+            success=True,
+            sources=[tmdb_to_source(detail, detail_shape=True)],
+        ),
+    )
 
 
 # --- search_by_vibe ---------------------------------------------------------
@@ -500,7 +565,7 @@ def search_by_vibe(
     try:
         store = _vectorstore()
     except (FileNotFoundError, RuntimeError) as exc:
-        return f"무드 검색을 사용할 수 없습니다: {exc}", []
+        return f"무드 검색을 사용할 수 없습니다: {exc}", _artifact(success=False)
 
     where = _build_where(locals())
     fetch_k = _TAG_FILTER_FETCH_K if genre else max(limit * 3, limit)
@@ -517,9 +582,12 @@ def search_by_vibe(
         return (
             "조건에 맞는 영화를 찾지 못했습니다. 수치 조건을 완화하거나 "
             "장르를 빼고 다시 시도해보세요.",
-            [],
+            _artifact(success=False),
         )
-    return _format_docs(kept), [doc_to_source(doc) for doc in kept]
+    return (
+        _format_docs(kept),
+        _artifact(success=True, sources=[doc_to_source(doc) for doc in kept]),
+    )
 
 
 # --- web_search -------------------------------------------------------------
@@ -550,8 +618,8 @@ def _web_search_client():
     )
 
 
-@tool
-def web_search(query: str) -> str:
+@tool(response_format="content_and_artifact")
+def web_search(query: str):
     """평단 반응, 시상식, 화제성, 제작 비하인드, 작품 해석을 웹에서 찾습니다.
     TMDB가 구조화해서 주지 않는 정보만 담당합니다.
 
@@ -581,32 +649,42 @@ def web_search(query: str) -> str:
         response = _web_search_client().invoke({"query": query})
     except RuntimeError as exc:
         logger.warning("웹 검색 사용 불가: %s", exc)
-        return f"웹 검색을 사용할 수 없습니다: {exc}"
+        return f"웹 검색을 사용할 수 없습니다: {exc}", _artifact(success=False)
     except Exception:  # noqa: BLE001 - 외부 서비스 장애를 답변 실패로 만들지 않는다
         # 예외를 문자열로만 흘리면 서버 로그에 아무것도 안 남아 원인을 못 찾는다.
         # Tavily 무료 티어는 순간적으로 rate limit이 걸린다.
         logger.exception("웹 검색 호출 실패 (query=%r)", query)
         return (
             "웹 검색이 일시적으로 실패했습니다. 다른 도구로 답할 수 있는 질문이면 "
-            "그 도구를 쓰고, 아니면 사용자에게 잠시 후 다시 시도해 달라고 하세요."
+            "그 도구를 쓰고, 아니면 사용자에게 잠시 후 다시 시도해 달라고 하세요.",
+            _artifact(success=False),
         )
 
     results = response.get("results", []) if isinstance(response, dict) else []
     if not results:
-        return f"'{query}'에 대한 웹 검색 결과가 없습니다."
+        return f"'{query}'에 대한 웹 검색 결과가 없습니다.", _artifact(success=False)
 
     blocks = []
+    web_sources = []
     for item in results:
         content = (item.get("content") or "").strip()
+        title = item.get("title") or "제목 없음"
+        url = (item.get("url") or "").strip()
         blocks.append(
-            f"[{item.get('title', '제목 없음')}]\n"
+            f"[{title}]\n"
             f"{content[:_WEB_SNIPPET_LIMIT]}\n"
-            f"출처: {item.get('url', '')}"
+            f"출처: {url}"
         )
-    return "\n\n".join(blocks)
+        if url:
+            web_sources.append({"title": title, "url": url})
+    if not web_sources:
+        return "\n\n".join(blocks), _artifact(success=False)
+    return (
+        "\n\n".join(blocks),
+        _artifact(success=True, web_sources=web_sources),
+    )
 
 
-# 웹 검색은 artifact를 만들지 않는다. Tavily가 돌려주는 건 기사·리뷰 페이지지
-# 영화가 아니라서, 출처 카드 스키마(제목/연도/감독/평점/포스터)에 넣으면 빈 카드가
-# 된다. 카드가 필요하면 LLM이 get_movie_details를 이어서 부른다.
+# 웹 결과는 영화 카드와 분리된 web_sources artifact로 보존한다. 기사·리뷰 페이지를
+# 영화 카드 스키마에 억지로 넣지 않으면서도 구체적인 URL을 API와 UI까지 전달한다.
 TOOLS = [search_movies, get_movie_details, search_by_vibe, web_search]

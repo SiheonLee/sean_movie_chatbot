@@ -78,6 +78,21 @@ class QueryEndpointTests(unittest.TestCase):
 
         self.assertEqual(response.attributions, [])
 
+    def test_web_urls_are_preserved_by_the_query_response(self):
+        app.state.graph = Mock()
+        app.state.graph.answer.return_value = {
+            "answer": "평단의 호평을 받았습니다.",
+            "sources": [],
+            "web_sources": [
+                {"title": "기생충 평가", "url": "https://example.com/review"}
+            ],
+            "attributions": ["web"],
+        }
+
+        response = query(QueryRequest(question="기생충 평단 반응은?"))
+
+        self.assertEqual(response.web_sources[0].url, "https://example.com/review")
+
     def test_internal_error_is_not_exposed(self):
         app.state.graph = Mock()
         app.state.graph.answer.side_effect = RuntimeError("secret internal error")
@@ -155,7 +170,30 @@ class StreamEventTests(unittest.TestCase):
         # 도구가 안 채운 선택 필드도 기본값으로 채워져 나간다.
         self.assertEqual(source["cast"], "")
         self.assertEqual(source["poster_path"], "")
+        self.assertEqual(source["movie_id"], 0)
         self.assertEqual(source["title"], "기생충")
+
+    def test_done_web_urls_pass_through_web_source_model(self):
+        events = frames(
+            [
+                {
+                    "type": "done",
+                    "answer": "호평입니다.",
+                    "sources": [],
+                    "web_sources": [
+                        {
+                            "title": "기생충 평가",
+                            "url": "https://example.com/review",
+                        }
+                    ],
+                    "attributions": ["web"],
+                }
+            ]
+        )
+
+        self.assertEqual(
+            events[0]["web_sources"][0]["url"], "https://example.com/review"
+        )
 
     def test_internal_error_becomes_an_error_event(self):
         """응답이 시작된 뒤에는 500을 보낼 수 없다. 오류도 이벤트로 알린다."""

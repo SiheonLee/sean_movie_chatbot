@@ -70,6 +70,9 @@ class QueryRequest(BaseModel):
 
 
 class SourceModel(BaseModel):
+    # D3 이전 응답에는 없던 필드라 기본값을 둔다. 새 도구 결과는 실제 TMDB ID를
+    # 채워 제목이 같거나 짧아도 문자열 비교 없이 식별할 수 있다.
+    movie_id: int = 0
     title: str
     year: int
     director: str
@@ -85,9 +88,16 @@ class SourceModel(BaseModel):
     snippet: str
 
 
+class WebSourceModel(BaseModel):
+    title: str
+    url: str
+
+
 class QueryResponse(BaseModel):
     answer: str
     sources: list[SourceModel]
+    # 기존 sources는 영화 카드 전용으로 유지하고 웹 페이지는 별도 필드로 추가한다.
+    web_sources: list[WebSourceModel] = Field(default_factory=list)
     # 무엇을 보고 답했는지("tmdb", "local", "web", "justwatch"). 표시 문구는 UI가
     # 정하고 여기서는 식별자만 넘긴다. JustWatch는 표기가 의무라 반드시 실린다.
     attributions: list[str] = []
@@ -115,6 +125,9 @@ def query(req: QueryRequest) -> QueryResponse:
     return QueryResponse(
         answer=result["answer"],
         sources=[SourceModel(**s) for s in result["sources"]],
+        web_sources=[
+            WebSourceModel(**s) for s in result.get("web_sources", [])
+        ],
         attributions=result.get("attributions", []),
     )
 
@@ -140,6 +153,10 @@ def _stream_events(graph, question: str, session_id: str | None) -> Iterator[str
                     **event,
                     "sources": [
                         SourceModel(**s).model_dump() for s in event.get("sources", [])
+                    ],
+                    "web_sources": [
+                        WebSourceModel(**s).model_dump()
+                        for s in event.get("web_sources", [])
                     ],
                 }
             yield _sse(event)

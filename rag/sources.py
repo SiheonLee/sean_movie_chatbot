@@ -89,6 +89,7 @@ def tmdb_to_source(movie: dict, *, detail_shape: bool = False) -> dict:
         cast = ""
 
     return {
+        "movie_id": int(movie.get("id") or 0),
         "title": movie.get("title", ""),
         "year": _year(movie.get("release_date")),
         "director": director,
@@ -104,6 +105,7 @@ def tmdb_to_source(movie: dict, *, detail_shape: bool = False) -> dict:
 def _from_catalog(movie: dict) -> dict:
     """로컬 카탈로그 항목 → 출처 카드. API 호출 없음."""
     return {
+        "movie_id": int(movie.get("movie_id") or 0),
         "title": movie.get("title", ""),
         "year": int(movie.get("year") or 0),
         "director": movie.get("director") or "",
@@ -128,6 +130,7 @@ def doc_to_source(doc: Document) -> dict:
 
     meta = doc.metadata
     return {
+        "movie_id": int(meta.get("tmdb_id") or 0),
         "title": meta.get("title", ""),
         "year": int(meta.get("year") or 0),
         "director": meta.get("director", ""),

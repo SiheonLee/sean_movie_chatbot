@@ -23,12 +23,14 @@ from rag.graph import (
     collect_turn_attributions,
     collect_turn_sources,
     collect_turn_tool_calls,
+    collect_turn_web_sources,
     tool_status,
 )
 
 
-def source(title: str, year: int = 2020) -> dict:
+def source(title: str, year: int = 2020, movie_id: int = 0) -> dict:
     return {
+        "movie_id": movie_id,
         "title": title,
         "year": year,
         "director": "",
@@ -42,6 +44,24 @@ def source(title: str, year: int = 2020) -> dict:
 
 def tool_message(*sources: dict) -> ToolMessage:
     return ToolMessage(content="결과", tool_call_id="call-1", artifact=list(sources))
+
+
+def result_message(
+    call_id: str,
+    *,
+    sources: list[dict] | None = None,
+    web_sources: list[dict] | None = None,
+    success: bool = True,
+) -> ToolMessage:
+    return ToolMessage(
+        content="결과" if success else "실패",
+        tool_call_id=call_id,
+        artifact={
+            "success": success,
+            "sources": list(sources or []),
+            "web_sources": list(web_sources or []),
+        },
+    )
 
 
 class CollectTurnSourcesTests(unittest.TestCase):
@@ -164,12 +184,13 @@ class CollectTurnToolCallsTests(unittest.TestCase):
 
 
 class TurnAttributionsTests(unittest.TestCase):
-    """답변 밑에 붙는 출처 표기. 부른 도구에서 얻는다."""
+    """답변 밑의 출처 표기는 성공한 도구 결과에서만 얻는다."""
 
     def test_each_tool_names_its_data(self):
         messages = [
             HumanMessage(content="분위기 좋은 영화"),
             ai_with_calls(("search_by_vibe", {"vibe": "잔잔한"})),
+            result_message("c0", sources=[source("기생충")]),
             AIMessage(content="답변"),
         ]
 
@@ -180,6 +201,7 @@ class TurnAttributionsTests(unittest.TestCase):
         messages = [
             HumanMessage(content="기생충 어디서 봐?"),
             ai_with_calls(("get_movie_details", {"title": "기생충"})),
+            result_message("c0", sources=[source("기생충")]),
             AIMessage(content="답변"),
         ]
 
@@ -190,6 +212,7 @@ class TurnAttributionsTests(unittest.TestCase):
         messages = [
             HumanMessage(content="넷플릭스 액션"),
             ai_with_calls(("search_movies", {"genre": "액션", "watch_provider": "넷플릭스"})),
+            result_message("c0", sources=[source("기생충")]),
             AIMessage(content="답변"),
         ]
 
@@ -199,6 +222,7 @@ class TurnAttributionsTests(unittest.TestCase):
         messages = [
             HumanMessage(content="봉준호 영화"),
             ai_with_calls(("search_movies", {"person": "봉준호"})),
+            result_message("c0", sources=[source("기생충")]),
             AIMessage(content="답변"),
         ]
 
@@ -209,11 +233,17 @@ class TurnAttributionsTests(unittest.TestCase):
         messages = [
             HumanMessage(content="아카데미 수상작 어디서 봐"),
             ai_with_calls(("web_search", {"query": "아카데미"})),
+            result_message(
+                "c0",
+                web_sources=[{"title": "수상 결과", "url": "https://example.com/a"}],
+            ),
             AIMessage(content=""),
             ai_with_calls(
                 ("get_movie_details", {"title": "기생충"}),
                 ("search_movies", {"person": "봉준호"}),
             ),
+            result_message("c0", sources=[source("기생충")]),
+            result_message("c1", sources=[source("옥자")]),
             AIMessage(content="답변"),
         ]
 
@@ -229,6 +259,27 @@ class TurnAttributionsTests(unittest.TestCase):
         ]
 
         self.assertEqual(collect_turn_attributions(messages), [])
+
+    def test_failed_and_empty_tools_are_not_credited(self):
+        messages = [
+            HumanMessage(content="평단 반응"),
+            ai_with_calls(("web_search", {"query": "평단 반응"})),
+            result_message("c0", success=False),
+            AIMessage(content="웹 검색이 실패했습니다."),
+        ]
+
+        self.assertEqual(collect_turn_attributions(messages), [])
+        self.assertEqual(collect_turn_web_sources(messages), [])
+
+    def test_successful_count_without_movie_cards_is_credited(self):
+        messages = [
+            HumanMessage(content="2020년 이후 몇 편?"),
+            ai_with_calls(("search_movies", {"year_from": 2020, "count_only": True})),
+            result_message("c0"),
+            AIMessage(content="266편입니다."),
+        ]
+
+        self.assertEqual(collect_turn_attributions(messages), ["tmdb"])
 
 
 class SystemPromptTests(unittest.TestCase):
@@ -258,121 +309,72 @@ class SystemPromptTests(unittest.TestCase):
         self.assertIn("2026", prompt)
 
 
-class UsedSourcesTests(unittest.TestCase):
-    """카드는 답변이 소개한 순서를 따라가야 한다."""
+class StructuredSourcesTests(unittest.TestCase):
+    """출처는 답변 문자열이 아니라 성공한 도구 artifact가 정본이다."""
 
-    def test_cards_follow_the_answer_not_the_tool(self):
-        """도구는 평점순, 답변은 질문에 맞는 순. 둘이 어긋나면 카드가 헷갈린다."""
-        sources = [source("기생충", 2019), source("올드보이", 2003), source("아가씨", 2016)]
-        answer = "아가씨(2016)를 먼저 추천합니다. 다음은 기생충(2019), 마지막으로 올드보이(2003)입니다."
-
-        used = MovieRagGraph._used_sources(answer, sources)
-
-        self.assertEqual([s["title"] for s in used], ["아가씨", "기생충", "올드보이"])
-
-    def test_unmentioned_movies_are_still_dropped(self):
-        sources = [source("기생충", 2019), source("옥자", 2017)]
-        answer = "기생충(2019)만 추천합니다."
-
-        used = MovieRagGraph._used_sources(answer, sources)
-
-        self.assertEqual([s["title"] for s in used], ["기생충"])
-
-    def test_ties_keep_tool_order(self):
-        """같은 제목 다른 연도는 언급 위치가 같다. 도구 순서를 뒤집지 않는다."""
-        sources = [source("괴물", 2006), source("괴물", 2023)]
-        answer = "괴물을 추천합니다."
-
-        used = MovieRagGraph._used_sources(answer, sources)
-
-        self.assertEqual([s["year"] for s in used], [2006, 2023])
-
-    def test_nothing_mentioned_means_no_cards(self):
-        """하나도 안 걸린다는 건 답변이 도구 결과를 안 썼다는 신호다."""
-        sources = [source("기생충", 2019), source("옥자", 2017)]
-
-        used = MovieRagGraph._used_sources("추천드릴 작품을 찾지 못했습니다.", sources)
-
-        self.assertEqual(used, [])
-
-    def test_an_answer_from_memory_gets_no_cards(self):
-        """실측 회귀: '2010년대 로맨틱 코미디'.
-
-        도구가 준 후보에 맞는 것이 없자 모델이 제 지식으로 다섯 편을 추천했다.
-        그런데 그 후보 15편이 통째로 '답변에 사용된 영화'라는 이름표를 달고
-        나갔다 — 기생충·토르·토이 스토리까지.
-        """
-        sources = [
-            source("너의 이름은.", 2016),
-            source("기생충", 2019),
-            source("토르: 라그나로크", 2017),
-            source("토이 스토리 3", 2010),
+    def test_short_title_substrings_do_not_change_sources(self):
+        """시·밤·형·콜·섬·활이 일반 문장에 있어도 문자열로 출처를 만들지 않는다."""
+        returned = [
+            source(title, 2020 + index, 100 + index)
+            for index, title in enumerate(("시", "밤", "형", "콜", "섬", "활"))
         ]
-        answer = (
-            "2010년대 로맨틱 코미디로는 **러브, 로지**(2014), "
-            "**어바웃 타임**(2013), **미 비포 유**(2016)를 추천합니다."
+        with_coincidences = [
+            HumanMessage(content="추천해줘"),
+            result_message("c0", sources=returned),
+            AIMessage(content="새로운 시도를 해볼 만한 밤입니다. 활기차게 골라봤어요."),
+        ]
+        without_coincidences = [
+            HumanMessage(content="추천해줘"),
+            result_message("c0", sources=returned),
+            AIMessage(content="검색 결과를 정리했습니다."),
+        ]
+
+        self.assertEqual(
+            MovieRagGraph._to_result(with_coincidences)["sources"],
+            MovieRagGraph._to_result(without_coincidences)["sources"],
         )
 
-        self.assertEqual(MovieRagGraph._used_sources(answer, sources), [])
+    def test_answer_text_does_not_filter_or_reorder_tool_results(self):
+        returned = [source("시", 2015, 1), source("기생충", 2019, 2)]
+        messages = [
+            HumanMessage(content="추천해줘"),
+            result_message("c0", sources=returned),
+            AIMessage(content="기생충만 소개합니다."),
+        ]
 
-    def test_punctuation_in_a_title_still_matches(self):
-        """'너의 이름은.'의 마침표처럼 표기가 조금 달라도 같은 영화다."""
-        sources = [source("너의 이름은.", 2016)]
-        answer = "**너의 이름은**(2016)을 추천합니다."
+        result = MovieRagGraph._to_result(messages)
 
-        used = MovieRagGraph._used_sources(answer, sources)
+        self.assertEqual([item["movie_id"] for item in result["sources"]], [1, 2])
 
-        self.assertEqual([s["title"] for s in used], ["너의 이름은."])
+    def test_failed_result_cannot_supply_a_short_title(self):
+        messages = [
+            HumanMessage(content="추천해줘"),
+            result_message("c0", sources=[source("밤", 2012, 3)], success=False),
+            AIMessage(content="오늘 밤 보기 좋은 작품을 찾지 못했습니다."),
+        ]
 
-    def test_a_colon_title_still_matches(self):
-        sources = [source("토르: 라그나로크", 2017)]
-        answer = "**토르 라그나로크**(2017)는 코미디 색이 짙습니다."
+        self.assertEqual(MovieRagGraph._to_result(messages)["sources"], [])
 
-        used = MovieRagGraph._used_sources(answer, sources)
+    def test_movie_id_is_the_primary_deduplication_key(self):
+        messages = [
+            HumanMessage(content="질문"),
+            result_message("c0", sources=[source("기생충", 2019, 10)]),
+            result_message("c1", sources=[source("Parasite", 2019, 10)]),
+            AIMessage(content="답변"),
+        ]
 
-        self.assertEqual(len(used), 1)
+        self.assertEqual(len(collect_turn_sources(messages)), 1)
 
-    def test_remake_card_does_not_attach_to_the_original(self):
-        """실측 회귀: 올드보이(2003) 문장에 스파이크 리의 2013년작 카드가 붙었다."""
-        sources = [source("올드보이", 2013), source("아가씨", 2016)]
-        answer = "**올드보이**(2003): 복수를 다룬 작품입니다.\n**아가씨**(2016): 반전 구조가 좋습니다."
+    def test_web_urls_are_deduplicated_structurally(self):
+        web = {"title": "기생충 평가", "url": "https://example.com/review"}
+        messages = [
+            HumanMessage(content="평단 반응"),
+            result_message("c0", web_sources=[web]),
+            result_message("c1", web_sources=[web]),
+            AIMessage(content="호평입니다."),
+        ]
 
-        used = MovieRagGraph._used_sources(answer, sources)
-
-        self.assertEqual([s["title"] for s in used], ["아가씨"])
-
-    def test_the_right_year_survives_among_same_titled_works(self):
-        sources = [source("올드보이", 2013), source("올드보이", 2003)]
-        answer = "올드보이(2003)는 박찬욱 감독의 작품입니다."
-
-        used = MovieRagGraph._used_sources(answer, sources)
-
-        self.assertEqual([s["year"] for s in used], [2003])
-
-    def test_a_year_the_answer_never_states_is_not_second_guessed(self):
-        """연도를 안 적은 답변까지 거르면 멀쩡한 카드가 사라진다."""
-        sources = [source("괴물", 2006), source("괴물", 2023)]
-
-        used = MovieRagGraph._used_sources("괴물을 추천합니다.", sources)
-
-        self.assertEqual([s["year"] for s in used], [2006, 2023])
-
-    def test_a_faraway_year_is_not_read_as_the_title_year(self):
-        """'올드보이 이후 2013년에는…'의 연도는 그 영화의 연도가 아니다."""
-        sources = [source("올드보이", 2003)]
-        answer = "올드보이 이후 2013년에는 리메이크도 나왔습니다."
-
-        used = MovieRagGraph._used_sources(answer, sources)
-
-        self.assertEqual([s["year"] for s in used], [2003])
-
-    def test_contradicting_cards_are_dropped_rather_than_shown(self):
-        """카드가 없으면 답변만 읽지만, 틀린 카드는 답변까지 틀리게 보이게 한다."""
-        sources = [source("올드보이", 2013)]
-
-        used = MovieRagGraph._used_sources("올드보이(2003)를 추천합니다.", sources)
-
-        self.assertEqual(used, [])
+        self.assertEqual(collect_turn_web_sources(messages), [web])
 
 
 class ToolStatusTests(unittest.TestCase):
@@ -544,8 +546,8 @@ class StreamAnswerTests(unittest.TestCase):
         )
         self.assertEqual([e["text"] for e in events if e["type"] == "token"], ["기생충입니다."])
 
-    def test_done_carries_only_sources_the_answer_used(self):
-        """도구는 넓게 훑고 답변은 일부만 쓴다. 카드는 답변을 따라가야 한다."""
+    def test_done_carries_structured_sources_without_parsing_the_answer(self):
+        """도구 artifact가 정본이고 답변 문자열은 출처 판정에 쓰지 않는다."""
         events = self.run_stream(
             [
                 update("agent", ai_with_calls(("search_movies", {}))),
@@ -555,7 +557,7 @@ class StreamAnswerTests(unittest.TestCase):
             ]
         )
         done = events[-1]
-        self.assertEqual([s["title"] for s in done["sources"]], ["기생충"])
+        self.assertEqual([s["title"] for s in done["sources"]], ["기생충", "옥자"])
 
     def test_no_tool_call_streams_straight_through(self):
         """대화 자체에 대한 질문은 도구를 안 부르므로 reset이 없어야 한다."""
