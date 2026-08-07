@@ -35,6 +35,43 @@ _MIN_VOTE_COUNT = 300
 # 되묻기 힌트를 만들 때 쓰는 표본 하한. 여기까지 올리면 고전 명작만 남는다.
 _HINT_VOTE_COUNT = 3000
 
+# 답변 밑에 "무엇을 보고 답했는지"를 적기 위한 표시. 도구가 어느 데이터에
+# 기대는지는 도구 자신이 가장 잘 알므로 여기에 둔다.
+TMDB_ATTRIBUTION = "tmdb"
+LOCAL_ATTRIBUTION = "local"
+WEB_ATTRIBUTION = "web"
+# TMDB의 시청처 데이터는 JustWatch가 제공하며 **표기가 의무다.** 다른 표시와 달리
+# 빠뜨리면 약관 위반이라, 애매하면 붙이는 쪽으로 판단한다.
+JUSTWATCH_ATTRIBUTION = "justwatch"
+
+# 화면에 늘어놓는 순서. 무엇을 검색했는지(TMDB·로컬·웹)를 먼저 보여주고,
+# 제공자 표기는 뒤에 붙인다.
+ATTRIBUTION_ORDER = (
+    TMDB_ATTRIBUTION,
+    LOCAL_ATTRIBUTION,
+    WEB_ATTRIBUTION,
+    JUSTWATCH_ATTRIBUTION,
+)
+
+_TOOL_ATTRIBUTIONS = {
+    "search_movies": (TMDB_ATTRIBUTION,),
+    # 상세 응답에는 시청처 줄이 언제나 들어간다. 답변이 그 줄을 옮겨 적었는지는
+    # 알 수 없으므로, 불렀다면 표기한다.
+    "get_movie_details": (TMDB_ATTRIBUTION, JUSTWATCH_ATTRIBUTION),
+    "search_by_vibe": (LOCAL_ATTRIBUTION,),
+    "web_search": (WEB_ATTRIBUTION,),
+}
+
+
+def attributions_for(name: str, args: dict | None = None) -> tuple[str, ...]:
+    """도구 호출 하나가 어떤 출처를 쓴 것인지."""
+    marks = _TOOL_ATTRIBUTIONS.get(name, ())
+    # 편성으로 거르는 검색은 JustWatch 데이터를 조건으로 쓴 것이다.
+    if name == "search_movies" and (args or {}).get("watch_provider"):
+        marks += (JUSTWATCH_ATTRIBUTION,)
+    return marks
+
+
 _SORT_MAP = {
     "popularity": "popularity.desc",
     "rating_desc": "vote_average.desc",
@@ -50,11 +87,26 @@ _STATUS_PATHS = {
 }
 
 
-def _format_movies(movies: list[dict], *, detail_shape: bool = False) -> str:
-    """LLM이 읽을 목록 텍스트. 출처 카드와 달리 사람이 읽는 형태다."""
+def _format_movies(
+    movies: list[dict],
+    *,
+    detail_shape: bool = False,
+    sources: list[dict] | None = None,
+) -> str:
+    """LLM이 읽을 목록 텍스트. 출처 카드와 달리 사람이 읽는 형태다.
+
+    `sources`를 주면 감독을 함께 적는다. **제목과 연도만으로는 원작과 리메이크를
+    가를 수 없다.** TMDB의 with_people은 배역·각본·제작까지 모두 걸려서, '박찬욱
+    영화'를 물으면 그가 원작자로만 이름을 올린 스파이크 리의 올드보이(2013)가
+    함께 온다. 감독이 적혀 있지 않으면 LLM은 그것을 자기가 아는 올드보이(2003)로
+    읽고 그 줄에 2003년 설명을 붙인다(실측).
+
+    카드를 만들며 이미 확보한 값이라 추가 조회는 없다.
+    """
     id_to_name = tmdb.genre_id_to_name()
+    directors = [(s.get("director") or "") for s in (sources or [])]
     lines = []
-    for m in movies:
+    for index, m in enumerate(movies):
         if detail_shape:
             genres = ", ".join(g["name"] for g in m.get("genres", []))
         else:
@@ -63,10 +115,12 @@ def _format_movies(movies: list[dict], *, detail_shape: bool = False) -> str:
             )
         year = (m.get("release_date") or "")[:4] or "연도 미상"
         rating = round(float(m.get("vote_average") or 0.0), 1)
-        lines.append(
+        director = directors[index] if index < len(directors) else ""
+        line = (
             f"- {m.get('title', '')} ({year}) | {genres or '장르 정보 없음'} | "
             f"평점 {rating} ({m.get('vote_count', 0)}명)"
         )
+        lines.append(f"{line} | 감독 {director}" if director else line)
     return "\n".join(lines)
 
 
@@ -79,8 +133,8 @@ def _hydrated_sources(results: list[dict]) -> list[dict]:
     대부분은 로컬 카탈로그에서 해결된다(실측 적중률 97%). 남은 소수만 상세를
     부르므로 5편 질의에서 추가 요청은 평균 0.15회다.
 
-    LLM에게 주는 본문(_format_movies)은 보강하지 않는다. 목록 요약만으로 충분하고,
-    상세를 다 넣으면 컨텍스트만 커진다.
+    LLM에게 주는 본문(_format_movies)에는 여기서 얻은 감독만 넘긴다. 나머지 상세를
+    다 넣으면 컨텍스트만 커지고, 감독은 같은 제목의 다른 작품을 가르는 데 필요하다.
     """
     misses = [m for m in results if not catalog.lookup(m.get("id"))]
     if misses:
@@ -109,6 +163,29 @@ def _source_for(movie: dict) -> dict:
         return tmdb_to_source(movie)
 
 
+def _resolve_genres(genre: str) -> tuple[list[int], list[str]]:
+    """'로맨스, 코미디' → ([10749, 35], []). 모르는 이름은 두 번째로 돌려준다.
+
+    TMDB에는 '로맨틱 코미디' 같은 복합 장르가 없다. 그래서 예전에는 그 요청이
+    통째로 거절당했고, 모델이 로맨스와 코미디를 따로 검색하다 결국 제 기억으로
+    답했다(실측: 답변의 다섯 편이 도구 결과에 하나도 없었다). 둘을 함께 넘길 수
+    있으면 한 번에 풀린다.
+    """
+    name_to_id = tmdb.genre_name_to_id()
+    ids: list[int] = []
+    unknown: list[str] = []
+    for raw in genre.split(","):
+        name = raw.strip()
+        if not name:
+            continue
+        genre_id = name_to_id.get(name)
+        if genre_id is None:
+            unknown.append(name)
+        else:
+            ids.append(genre_id)
+    return ids, unknown
+
+
 def _scope_hint() -> str:
     """범위 없는 최상급 질의에 되물을 때 쓸 구체적 예시를 만든다."""
     try:
@@ -128,6 +205,7 @@ def _scope_hint() -> str:
 @tool(response_format="content_and_artifact")
 def search_movies(
     person: str | None = None,
+    # 여러 장르는 쉼표로 나눠 준다. 둘 다 해당하는 영화만 나온다(AND).
     genre: str | None = None,
     country: str | None = None,
     year_from: int | None = None,
@@ -148,6 +226,8 @@ def search_movies(
     - "한국 스릴러 영화 추천"         → genre="스릴러", country="한국"
     - "일본 애니메이션"               → genre="애니메이션", country="일본"
     - "2020년 이후 평점 8점 이상 SF"  → genre="SF", year_from=2020, min_rating=8.0
+    - "로맨틱 코미디"                 → genre="로맨스, 코미디"
+    - "액션 코미디"                   → genre="액션, 코미디"
     - "가장 오래된 한국 영화"         → genre 없이 sort_by="year_asc", limit=1
     - "2020년 이후 SF 몇 편?"        → genre="SF", year_from=2020, count_only=True
     - "넷플릭스에 볼만한 액션"        → genre="액션", watch_provider="넷플릭스"
@@ -195,15 +275,19 @@ def search_movies(
                 params["with_people"] = person_id
 
             if genre:
-                genre_id = tmdb.genre_name_to_id().get(genre)
-                if genre_id is None:
+                genre_ids, unknown = _resolve_genres(genre)
+                if unknown:
                     supported = ", ".join(tmdb.genre_name_to_id())
                     return (
-                        f"'{genre}'는 지원하지 않는 장르입니다. "
+                        f"'{', '.join(unknown)}'는 지원하지 않는 장르입니다. "
+                        "'로맨틱 코미디'처럼 두 장르가 섞인 요청은 "
+                        "genre=\"로맨스, 코미디\"처럼 쉼표로 나눠 주세요. "
                         f"사용 가능한 장르: {supported}",
                         [],
                     )
-                params["with_genres"] = genre_id
+                # 쉼표로 이으면 TMDB는 AND로 읽는다. 파이프(|)면 OR이 되어
+                # 로맨스'거나' 코미디인 영화가 다 나온다 — 그건 좁히는 게 아니다.
+                params["with_genres"] = ",".join(str(i) for i in genre_ids)
 
             if country:
                 code = tmdb.resolve_country_code(country)
@@ -245,11 +329,35 @@ def search_movies(
     if not results:
         return "조건에 맞는 영화가 없습니다. 조건을 완화해 다시 시도해보세요.", []
 
-    return _format_movies(results), _hydrated_sources(results)
+    sources = _hydrated_sources(results)
+    return _format_movies(results, sources=sources), sources
+
+
+def _best_hit(hits: list[dict], title: str, year: int | None = None) -> dict:
+    """제목 검색 결과에서 한 편을 고른다.
+
+    TMDB가 주는 첫 번째를 그냥 쓰면 원작과 리메이크가 뒤집힌다. `/search/movie`는
+    인기순이라 'Oldboy'로 물으면 스파이크 리의 2013년작이 먼저 온다(실측: 2003년
+    원작은 표 10,033개, 리메이크는 2,162개인데도).
+
+    연도를 알면 그것으로 확정하고, 모르면 제목이 정확히 같은 것을, 그다음은 표가
+    많은 쪽을 택한다. 표 수는 "어느 쪽을 물었을 가능성이 큰가"의 대리 지표다.
+    """
+    query = title.strip().casefold()
+
+    def rank(hit: dict) -> tuple:
+        names = {
+            (hit.get("title") or "").strip().casefold(),
+            (hit.get("original_title") or "").strip().casefold(),
+        }
+        same_year = year is not None and (hit.get("release_date") or "")[:4] == str(year)
+        return (same_year, query in names, hit.get("vote_count") or 0)
+
+    return max(hits, key=rank)
 
 
 @tool(response_format="content_and_artifact")
-def get_movie_details(title: str):
+def get_movie_details(title: str, year: int | None = None):
     """특정 영화 한 편의 상세 정보를 가져옵니다.
     감독, 주요 출연진, 줄거리, 상영시간, 국내 OTT 시청처를 포함합니다.
 
@@ -259,13 +367,18 @@ def get_movie_details(title: str):
     - "올드보이 출연진 알려줘"    → title="올드보이"
     - "부산행 몇 분짜리야"       → title="부산행"
 
+    리메이크·재개봉처럼 같은 제목의 다른 작품이 있으면 연도를 함께 주세요.
+    연도를 제목에 붙여 쓰면 검색이 실패합니다.
+    - "박찬욱 올드보이 알려줘"    → title="올드보이", year=2003
+    - "스파이크 리 올드보이"      → title="올드보이", year=2013
+
     여러 편의 목록이 필요하면 search_movies를 쓰세요.
     """
     try:
         hits = tmdb.search_by_title(title).get("results", [])
         if not hits:
             return f"'{title}'을(를) TMDB에서 찾지 못했습니다.", []
-        detail = tmdb.movie_detail(hits[0]["id"])
+        detail = tmdb.movie_detail(_best_hit(hits, title, year)["id"])
     except tmdb.TmdbError as exc:
         return f"영화 정보를 가져오지 못했습니다: {exc}", []
 

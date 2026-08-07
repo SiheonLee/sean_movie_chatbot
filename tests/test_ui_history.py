@@ -114,6 +114,45 @@ class ConversationStoreTests(unittest.TestCase):
         self.assertEqual(len(remaining), 3)
         self.assertIn("c9", remaining)
 
+    def test_deleted_conversation_is_gone(self):
+        history.save_conversation("gone", messages("지울 질문"))
+
+        self.assertTrue(history.delete_conversation("gone"))
+        self.assertIsNone(history.load_conversation("gone"))
+        self.assertEqual(history.list_conversations(), [])
+
+    def test_deleting_what_is_not_there_is_not_an_error(self):
+        """다른 탭에서 먼저 지웠을 수 있다. 화면이 죽지 않고 False만 준다."""
+        self.assertFalse(history.delete_conversation("없는-대화"))
+
+    def test_delete_rejects_path_traversal(self):
+        """id는 파일 이름이 된다. 검사 없이 붙이면 저장소 밖을 지운다."""
+        self.assertFalse(history.delete_conversation("../secrets"))
+
+    def test_other_users_records_are_not_deletable(self):
+        history.save_conversation("theirs", messages("남의 질문"), user_id="someone")
+
+        self.assertFalse(history.delete_conversation("theirs"))
+        self.assertIsNotNone(history.load_conversation("theirs", user_id="someone"))
+
+    def test_delete_all_removes_only_this_users_records(self):
+        history.save_conversation("mine-1", messages("내 질문 1"))
+        history.save_conversation("mine-2", messages("내 질문 2"))
+        history.save_conversation("theirs", messages("남의 질문"), user_id="someone")
+
+        self.assertEqual(history.delete_all_conversations(), 2)
+        self.assertEqual(history.list_conversations(), [])
+        self.assertIsNotNone(history.load_conversation("theirs", user_id="someone"))
+
+    def test_delete_all_leaves_unreadable_files_alone(self):
+        """읽지 못하는 파일은 주인을 알 수 없다. 남의 것일 수 있으니 두고 간다."""
+        history.save_conversation("mine", messages("내 질문"))
+        broken = history.HISTORY_DIR / "broken.json"
+        broken.write_text("{망가진", encoding="utf-8")
+
+        self.assertEqual(history.delete_all_conversations(), 1)
+        self.assertTrue(broken.exists())
+
     def test_no_partial_file_is_left_behind(self):
         history.save_conversation("atomic", messages("질문"))
 

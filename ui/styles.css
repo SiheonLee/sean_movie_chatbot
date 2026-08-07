@@ -30,6 +30,20 @@
     --cine-font: "Pretendard Variable", Pretendard, -apple-system,
         BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
         system-ui, sans-serif;
+
+    /* 여백 스케일. 눈에 보이는 틈은 전부 여기서만 고른다.
+       값을 직접 박으면 8.8px·9.6px·13.6px·17.6px처럼 반올림된 값들이 섞여
+       리듬이 사라진다(실측: 사이드바와 말풍선에 아홉 종류의 틈이 있었다).
+
+       **간격이 곧 묶음이다.** 한 덩어리로 읽혀야 하는 것끼리는 좁게(2~3),
+       성격이 다른 묶음 사이는 넓게(5~6) 준다. 전부 같은 값으로 두면 무엇이
+       무엇에 속하는지 눈으로 가릴 수 없다. */
+    --cine-space-1: 0.25rem;  /* 4px  — 거의 붙은 것(칩과 칩) */
+    --cine-space-2: 0.5rem;   /* 8px  — 한 묶음 안(목록의 줄과 줄) */
+    --cine-space-3: 0.75rem;  /* 12px — 이름표와 그 내용 */
+    --cine-space-4: 1rem;     /* 16px — 기본 */
+    --cine-space-5: 1.5rem;   /* 24px — 묶음과 묶음 */
+    --cine-space-6: 2rem;     /* 32px — 큰 구획(말풍선과 말풍선) */
 }
 
 /* Streamlit 기본값은 "Source Sans"라 한글이 시스템 폴백으로 떨어진다. 폴백은
@@ -71,6 +85,13 @@ select {
 [data-testid="stSidebar"] {
     background: linear-gradient(180deg, #121217 0%, #0d0d11 100%);
     border-right: 1px solid var(--cine-line);
+}
+
+/* 사이드바의 세로 틈. Streamlit 기본값(16px)은 목록에 쓰기엔 넓어서, 줄과 줄이
+   따로 노는 버튼처럼 보였다. 한 묶음으로 읽히도록 좁힌다 — 묶음과 묶음 사이는
+   아래 .cine-past-label 등이 따로 벌린다. */
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    gap: var(--cine-space-2);
 }
 
 /* 사이드바 상단 여백의 정체는 두 가지였다. 헤더 영역과, 우리가 st.logo()를
@@ -231,7 +252,7 @@ button[data-testid="stExpandSidebarButton"]:hover {
     color: var(--cine-muted);
     font-size: 0.8rem;
     letter-spacing: 0.04em;
-    margin: 0.8rem 0 0.45rem;
+    margin: var(--cine-space-4) 0 var(--cine-space-3);
 }
 
 .stButton > button {
@@ -252,9 +273,18 @@ button[data-testid="stExpandSidebarButton"]:hover {
     background: rgba(23, 23, 29, 0.82);
     border: 1px solid var(--cine-line);
     border-radius: 1rem;
-    gap: 0.85rem;
-    margin-bottom: 1.1rem;
-    padding: 1.05rem 1.25rem;
+    /* 아바타와 본문은 한 덩어리다. */
+    gap: var(--cine-space-3);
+    /* 말풍선끼리는 확실히 떨어져야 발언이 구분된다. 바깥 블록이 이미 16px을
+       주므로 여기서 같은 값을 더해 32px로 맞춘다. */
+    margin-bottom: var(--cine-space-4);
+    padding: var(--cine-space-4) var(--cine-space-5);
+}
+
+/* 말풍선 안(답변·카드·칩·출처)은 한 답변의 부분들이다. 기본 16px로 두면
+   서로 남처럼 흩어진다. */
+[data-testid="stChatMessage"] [data-testid="stVerticalBlock"] {
+    gap: var(--cine-space-3);
 }
 
 [data-testid="stChatMessageAvatarUser"],
@@ -310,20 +340,21 @@ button[data-testid="stExpandSidebarButton"]:hover {
     color: var(--cine-muted);
     font-size: 0.78rem;
     letter-spacing: 0.04em;
-    margin: 1rem 0 0.5rem;
+    /* 이름표는 제 카드에 붙고, 위 답변 문단과는 한 칸 띄운다. */
+    margin: var(--cine-space-4) 0 var(--cine-space-2);
 }
 
 /* 줄바꿈 대신 가로 스크롤. 카드가 6장이면 두 줄이 되어 답변보다 자리를 더
    차지했다. 한 줄로 고정하고 넘치면 옆으로 민다. */
 .cine-cards {
     display: flex;
-    gap: 0.6rem;
+    gap: var(--cine-space-2);
     overflow-x: auto;
     overscroll-behavior-x: contain;
     /* 카드를 펼치면 그 카드만 길어진다. stretch면 나머지도 같이 늘어난다. */
     align-items: flex-start;
     /* 스크롤바가 카드 아래를 덮지 않도록 자리를 준다. */
-    padding-bottom: 0.55rem;
+    padding-bottom: var(--cine-space-2);
     scroll-snap-type: x proximity;
     /* Streamlit은 stMarkdownContainer에 margin-bottom: -16px를 건다. 마지막 자식이
        제 몫의 아래 여백을 가진 <p>라고 가정한 값이다. 우리 마지막 자식은 이
@@ -416,20 +447,36 @@ button[data-testid="stExpandSidebarButton"]:hover {
     padding: 0.6rem 0.65rem 0.7rem;
 }
 
+/* 포스터 자리. 🎬를 깔아두고 그 위에 이미지를 덮는다 — 이미지가 뜨면 가려지고,
+   경로가 낡아 404가 나면 그대로 보인다(poster_html 참고). */
 .cine-card-poster {
-    aspect-ratio: 2 / 3;
-    display: block;
-    object-fit: cover;
-    width: 100%;
-}
-
-.cine-card-poster-empty {
     align-items: center;
+    aspect-ratio: 2 / 3;
     background: rgba(255, 255, 255, 0.04);
     display: flex;
     font-size: 1.8rem;
     justify-content: center;
     opacity: 0.5;
+    position: relative;
+    width: 100%;
+}
+
+.cine-card-poster::before {
+    content: "🎬";
+}
+
+/* 상자를 빈틈없이 덮어야 깔아둔 🎬가 비치지 않는다. */
+.cine-card-poster-img {
+    height: 100%;
+    inset: 0;
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+}
+
+/* 이미지가 제대로 뜬 카드는 흐리게 둘 이유가 없다. */
+.cine-card-poster:has(.cine-card-poster-img) {
+    opacity: 1;
 }
 
 /* 제목·평점은 <span>이라 블록으로 세워야 줄이 나뉜다.
@@ -489,10 +536,20 @@ button[data-testid="stExpandSidebarButton"]:hover {
     overflow: hidden;
 }
 
+/* 입력창은 상자가 두 겹이다. 바깥(stChatInput)에 테두리와 곡선을 주는데, 안쪽
+   상자는 제 곡선(8px)과 불투명 배경을 그대로 갖고 있어서 16px 곡선의 모서리
+   밖으로 각이 삐져나왔다. 안쪽 배경을 걷어내 한 겹으로 만들고, 넘치는 것은
+   잘라낸다. */
 [data-testid="stChatInput"] {
     background: rgba(13, 13, 17, 0.94);
     border: 1px solid rgba(208, 74, 74, 0.35);
     border-radius: 1rem;
+    overflow: hidden;
+}
+
+[data-testid="stChatInput"] > div {
+    background: transparent;
+    border-radius: inherit;
 }
 
 .cine-status {
@@ -500,8 +557,11 @@ button[data-testid="stExpandSidebarButton"]:hover {
     color: #d7d3ce;
     display: flex;
     font-size: 0.88rem;
-    gap: 0.55rem;
-    margin: 0.8rem 0 0;
+    gap: var(--cine-space-2);
+    /* 위(새 대화)와는 붙이고, 아래(이동 항목)와는 성격이 다르니 띄운다.
+       아래쪽은 padding으로 준다 — margin은 감싼 요소가 흡수해 사라진다(실측). */
+    margin: var(--cine-space-3) 0 0;
+    padding-bottom: var(--cine-space-2);
 }
 
 .cine-status-dot {
@@ -524,37 +584,335 @@ button[data-testid="stExpandSidebarButton"]:hover {
     color: var(--cine-muted);
     font-size: 0.78rem;
     letter-spacing: 0.04em;
-    margin: 1.4rem 0 0.6rem;
-    padding-top: 1rem;
+    /* 이름표는 제 내용에 붙고, 앞 묶음과는 멀어진다. */
+    margin: var(--cine-space-5) 0 var(--cine-space-3);
+    padding-top: var(--cine-space-4);
 }
+
+/* 제목 왼쪽, 저장 개수와 ⓘ 오른쪽. */
+.cine-past-head {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cine-past-meta {
+    align-items: center;
+    display: flex;
+    gap: 0.3rem;
+}
+
+.cine-past-count {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+}
+
+/* 저장 정책 안내. 올려도(:hover) 눌러도(:focus) 열린다 — 서버 왕복이 없어야
+   답변을 흘리는 중에도 화면이 흔들리지 않는다. */
+.cine-policy {
+    cursor: help;
+    opacity: 0.75;
+    outline: none;
+    position: relative;
+}
+
+.cine-policy:hover,
+.cine-policy:focus {
+    opacity: 1;
+}
+
+.cine-policy-panel {
+    background: #241f1b;
+    border: 1px solid var(--cine-line);
+    border-radius: 0.6rem;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+    color: #d7d3ce;
+    display: none;
+    font-size: 0.76rem;
+    letter-spacing: 0;
+    line-height: 1.5;
+    padding: 0.6rem 0.7rem;
+    position: absolute;
+    right: 0;
+    /* 사이드바 폭 안에 가둔다. 넘치면 잘린다. */
+    top: 1.5rem;
+    width: 14rem;
+    z-index: 10;
+}
+
+.cine-policy:hover .cine-policy-panel,
+.cine-policy:focus .cine-policy-panel {
+    display: block;
+}
+
+/* 아래 규칙들은 자식 결합자(.stButton > button)를 쓰지 않는다. help를 붙인
+   버튼은 Streamlit이 툴팁용 <span> 두 겹으로 감싸서 button이 손자가 된다 —
+   목록 버튼은 전부 help가 있어서 그 규칙들이 하나도 걸리지 않았다(실측). */
 
 /* 목록 버튼은 제목이 길어도 한 줄로 자른다. 사이드바가 좁아 줄바꿈되면
    목록이 아니라 문단처럼 보인다. */
-[data-testid="stSidebar"] .stButton > button p {
+[data-testid="stSidebar"] [data-testid="stButton"] button p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-[data-testid="stSidebar"] .stButton > button {
+[data-testid="stSidebar"] [data-testid="stButton"] button {
     justify-content: flex-start;
     text-align: left;
 }
 
-/* 지금 열어 둔 대화는 비활성이라 흐려진다. 그래도 어느 것인지 보이게 한다. */
-[data-testid="stSidebar"] .stButton > button:disabled {
-    border-color: rgba(233, 185, 73, 0.4);
-    opacity: 0.75;
+/* 갈 수 없는 곳(담은 영화 0편, 답변 받는 중)은 흐리다. 자리는 지킨다 — 없어졌다
+   생기면 그때마다 아래 항목이 밀린다. */
+[data-testid="stSidebar"] [data-testid="stButton"] button:disabled {
+    opacity: 0.45;
 }
 
+/* 지금 있는 화면. **현재 위치는 라벨이 아니라 이 강조로 알린다.**
+   왼쪽 굵은 선은 목록을 훑을 때 눈이 먼저 걸리는 자리다.
+
+   **강조는 제목 버튼에만 준다.** 줄 안의 button을 전부 집으면 그 위에 겹쳐 둔
+   삭제 아이콘까지 금색으로 물든다 — 지울 것을 고르는 자리에 "여기 있다"는
+   표시가 붙으면 무엇을 누르는지 헷갈린다. 그래서 st-key-past-(제목)만 집는다;
+   삭제는 st-key-delete-past-라 여기 걸리지 않는다. */
+[data-testid="stSidebar"] [class*="st-key-nav-row-"][class*="-active"] button,
+[data-testid="stSidebar"] [class*="st-key-past-row-"][class*="-active"] [class*="st-key-past-"] button {
+    background: rgba(233, 185, 73, 0.1);
+    border-color: rgba(233, 185, 73, 0.45);
+    box-shadow: inset 3px 0 0 var(--cine-gold);
+    color: #f2e7cf;
+    cursor: default;
+}
+
+/* 이미 그 화면이라 눌러도 아무 일이 없다. 눌리는 듯한 반응은 주지 않는다. */
+[data-testid="stSidebar"] [class*="st-key-nav-row-"][class*="-active"] button:hover,
+[data-testid="stSidebar"] [class*="st-key-past-row-"][class*="-active"] [class*="st-key-past-"] button:hover {
+    background: rgba(233, 185, 73, 0.14);
+    border-color: rgba(233, 185, 73, 0.5);
+    color: #f2e7cf;
+}
+
+/* 지난 대화 한 줄. 삭제는 평소 숨어 있다가 줄에 마우스를 올리면 오른쪽에 뜬다.
+   줄마다 휴지통이 늘어서 있으면 목록이 버튼 밭으로 보인다.
+
+   두 버튼은 세로로 쌓여 있고(render_past_row 참고) 삭제만 떼어내 제목 위에
+   겹친다. 위젯 key로 집는다 — Streamlit이 st-key-<key> 클래스를 붙여준다. */
+[data-testid="stSidebar"] [class*="st-key-past-row-"] {
+    position: relative;
+}
+
+[data-testid="stSidebar"] [class*="st-key-delete-past-"] {
+    position: absolute;
+    right: 0.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    /* 숨은 동안에는 클릭도 막는다. opacity만 0으로 두면 제목을 누르려다
+       보이지도 않는 휴지통을 누르게 된다. */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s ease;
+}
+
+/* 키보드로 탭 이동할 때도 드러나야 한다. 마우스가 없으면 지울 방법이 없다. */
+[data-testid="stSidebar"] [class*="st-key-past-row-"]:hover [class*="st-key-delete-past-"],
+[data-testid="stSidebar"] [class*="st-key-past-row-"]:focus-within [class*="st-key-delete-past-"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 아이콘만 남긴다. 목록 버튼의 테두리·배경을 물려받으면 제목 위에 또 하나의
+   버튼이 얹힌 것처럼 보인다. */
+[data-testid="stSidebar"] [class*="st-key-delete-past-"] button {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: var(--cine-red);
+    justify-content: center;
+    min-height: 0;
+    padding: 0.25rem;
+}
+
+[data-testid="stSidebar"] [class*="st-key-delete-past-"] button:hover {
+    background: rgba(208, 74, 74, 0.16);
+    color: #ff7a7a;
+}
+
+/* 제목이 길면 아이콘 밑으로 파고든다. 아이콘 자리는 늘 비워 둔다 — 호버할 때만
+   여백을 주면 글자가 밀렸다 돌아오며 줄이 흔들린다. */
+[data-testid="stSidebar"] [class*="st-key-past-row-"] [class*="st-key-past-"] button {
+    padding-right: 2rem;
+}
+
+/* 마우스가 없는 기기에는 호버가 없다. 그때는 늘 보이게 둔다. */
+@media (hover: none) {
+    [data-testid="stSidebar"] [class*="st-key-delete-past-"] {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+/* 안내는 글자만큼만 차지한다. 블록으로 두면 짧은 한 줄 뒤로 상자가 끝까지
+   늘어나, 글 뒤 여백이 앞 여백보다 몇 배 넓어 보인다. */
 .cine-readonly {
     background: rgba(233, 185, 73, 0.08);
     border: 1px solid rgba(233, 185, 73, 0.28);
     border-radius: 0.7rem;
     color: var(--cine-gold);
+    display: inline-block;
     font-size: var(--cine-fs-sm);
     margin-bottom: 1rem;
+    max-width: 100%;
     padding: 0.6rem 0.9rem;
+}
+
+/* --- 담아둔 영화(보관함) --- */
+/* 내려받기는 카드 그리드의 오른쪽 끝에 맞춘다. 제 칸에서 왼쪽에 붙으면 안내와
+   버튼 사이가 어정쩡하게 벌어지고, 아래 포스터 열과도 어긋나 보인다. */
+[class*="st-key-shelf-download"] {
+    display: flex;
+    justify-content: flex-end;
+    /* 이 상자는 버튼 폭(175px)만큼만 차지한다. 칸 전체로 늘려야 오른쪽 정렬이
+       칸의 오른쪽 끝 — 곧 카드 그리드의 오른쪽 끝 — 을 뜻하게 된다. */
+    width: 100%;
+}
+
+/* 답변에 붙는 카드와 다르다. 저기서는 카드가 근거라 작고 촘촘하지만, 여기서는
+   카드가 화면의 주인공이라 포스터를 크게 두고 한 줄에 셋만 놓는다. */
+[class*="st-key-shelf-card-"] {
+    position: relative;
+}
+
+.cine-shelf-card {
+    background: rgba(23, 23, 29, 0.7);
+    border: 1px solid var(--cine-line);
+    border-radius: 0.9rem;
+    overflow: hidden;
+    padding-bottom: var(--cine-space-3);
+    height: 100%;
+    /* stMarkdownContainer의 -16px 상쇄(.cine-cards 참고). */
+    margin-bottom: 1rem;
+}
+
+/* 답변 카드와 같은 구조다(.cine-card-poster 참고). */
+.cine-shelf-poster {
+    align-items: center;
+    aspect-ratio: 2 / 3;
+    background: rgba(255, 255, 255, 0.04);
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.cine-shelf-poster::before {
+    content: "🎬";
+}
+
+.cine-shelf-poster-img {
+    height: 100%;
+    inset: 0;
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+}
+
+.cine-shelf-title {
+    color: #f0ece6;
+    font-size: var(--cine-fs-body);
+    font-weight: 600;
+    /* 아이콘 자리는 늘 비워 둔다. 호버할 때만 비우면 글자가 밀렸다 돌아온다. */
+    margin: 0 1.9rem 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cine-shelf-meta {
+    color: var(--cine-gold);
+    font-size: var(--cine-fs-sm);
+    margin: var(--cine-space-1) 0 0;
+}
+
+/* 제목과 메타를 묶은 상자. 높이를 고정해야 빼기 버튼이 제목 줄에 정확히 앉는다. */
+.cine-shelf-body {
+    padding: var(--cine-space-3) var(--cine-space-3) 0;
+    position: relative;
+}
+
+/* 빼기 버튼은 **제목 줄 오른쪽**에 앉는다. 포스터 위에 얹었더니 그림과 겹쳐
+   아이콘이 묻혔다. 평소에는 숨어 있다가 카드에 마우스를 올리면 나온다 —
+   지난 대화 줄과 같은 규칙이다.
+
+   제목 줄의 세로 중심에 맞춘다. 카드 아래에서부터 재는 이유는 포스터 높이가
+   가변(aspect-ratio)이라 위에서부터는 잴 수 없어서다. 아래에서 보면
+   [패딩 12 + 메타 줄 ~19 + 간격 4] 위가 제목 줄이다. */
+[class*="st-key-shelf-delete-"] {
+    position: absolute;
+    right: var(--cine-space-2);
+    bottom: calc(var(--cine-space-3) + 1.65rem);
+    width: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s ease;
+    z-index: 2;
+}
+
+[class*="st-key-shelf-card-"]:hover [class*="st-key-shelf-delete-"],
+[class*="st-key-shelf-card-"]:focus-within [class*="st-key-shelf-delete-"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 포스터 위에 놓이므로 배경이 있어야 아이콘이 묻히지 않는다. */
+[class*="st-key-shelf-delete-"] button {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: var(--cine-red);
+    justify-content: center;
+    min-height: 0;
+    padding: 0.25rem;
+}
+
+[class*="st-key-shelf-delete-"] button:hover {
+    background: rgba(208, 74, 74, 0.16);
+    color: #ff7a7a;
+    transform: none;
+}
+
+/* 마우스가 없는 기기에는 호버가 없다. 그때는 늘 보이게 둔다. */
+@media (hover: none) {
+    [class*="st-key-shelf-delete-"] {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+/* --- 출처 표기 --- */
+/* 답변 오른쪽 아래. 무엇을 보고 답했는지를 답변을 밀어내지 않고 알린다.
+   JustWatch는 표기가 의무라 흐리게 두되 읽을 수는 있어야 한다. */
+.cine-attribution {
+    color: var(--cine-muted);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.7rem;
+    gap: var(--cine-space-1);
+    justify-content: flex-end;
+    letter-spacing: 0.01em;
+    /* 앞 내용과 한 칸 띄운다. 아래 1rem은 여백이 아니라 **상쇄값**이다 —
+       Streamlit이 stMarkdownContainer에 거는 margin-bottom: -16px를 되돌린다
+       (.cine-cards 참고). 빼면 말풍선 아래 여백을 먹고 바닥에 붙는다
+       (실측: 말풍선 바닥까지 1px). */
+    margin: var(--cine-space-3) 0 1rem;
+    opacity: 0.75;
+}
+
+.cine-attribution span {
+    background: rgba(244, 241, 236, 0.06);
+    border-radius: 0.4rem;
+    padding: 0.1rem 0.4rem;
 }
 
 /* --- 도움말 --- */

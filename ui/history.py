@@ -117,6 +117,40 @@ def load_conversation(
     return messages if isinstance(messages, list) else None
 
 
+def delete_conversation(
+    conversation_id: str, *, user_id: str = DEFAULT_USER_ID
+) -> bool:
+    """대화 하나를 지운다. 실제로 지웠으면 True.
+
+    지우기 전에 주인을 확인한다. id만 보고 지우면 멀티 유저가 됐을 때 남의
+    기록을 지우게 된다 — 그때 고치려면 이미 지워진 뒤다.
+    """
+    if not _is_valid_id(conversation_id):
+        return False
+    record = _read(_path(conversation_id))
+    if record is None or record.get("user_id") != user_id:
+        return False
+    try:
+        _path(conversation_id).unlink(missing_ok=True)
+    except OSError:
+        logger.warning("대화 기록을 지우지 못했습니다: %s", conversation_id)
+        return False
+    return True
+
+
+def delete_all_conversations(*, user_id: str = DEFAULT_USER_ID) -> int:
+    """이 사용자의 대화를 전부 지우고, 지운 개수를 돌려준다.
+
+    디렉터리째 지우지 않는다. 다른 사용자의 파일이 같은 자리에 있을 수 있고,
+    읽지 못하는 파일(_read가 None을 주는)까지 쓸어버리면 남의 것도 함께 날린다.
+    """
+    return sum(
+        1
+        for summary in list_conversations(user_id=user_id)
+        if delete_conversation(summary.conversation_id, user_id=user_id)
+    )
+
+
 def list_conversations(
     *, user_id: str = DEFAULT_USER_ID
 ) -> list[ConversationSummary]:

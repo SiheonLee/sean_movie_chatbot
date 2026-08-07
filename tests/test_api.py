@@ -57,6 +57,27 @@ class QueryEndpointTests(unittest.TestCase):
         self.assertEqual(response.answer, "기생충의 감독은 봉준호입니다.")
         self.assertEqual(response.sources[0].title, "기생충")
 
+    def test_attributions_ride_along_with_the_answer(self):
+        """답변만 봐서는 웹에서 찾아온 것인지 로컬 색인에서 고른 것인지 알 수 없다."""
+        app.state.graph = Mock()
+        app.state.graph.answer.return_value = {
+            "answer": "넷플릭스에서 볼 수 있습니다.",
+            "sources": [],
+            "attributions": ["tmdb", "justwatch"],
+        }
+
+        response = query(QueryRequest(question="기생충 어디서 봐?"))
+
+        self.assertEqual(response.attributions, ["tmdb", "justwatch"])
+
+    def test_missing_attributions_default_to_empty(self):
+        app.state.graph = Mock()
+        app.state.graph.answer.return_value = {"answer": "안녕하세요.", "sources": []}
+
+        response = query(QueryRequest(question="안녕?"))
+
+        self.assertEqual(response.attributions, [])
+
     def test_internal_error_is_not_exposed(self):
         app.state.graph = Mock()
         app.state.graph.answer.side_effect = RuntimeError("secret internal error")
@@ -78,6 +99,21 @@ def frames(events: list) -> list[dict]:
 
 
 class StreamEventTests(unittest.TestCase):
+    def test_done_carries_attributions(self):
+        """스트리밍 답변에도 출처 표기가 실려야 한다 — JustWatch는 표기가 의무다."""
+        events = frames(
+            [
+                {
+                    "type": "done",
+                    "answer": "넷플릭스에서 볼 수 있습니다.",
+                    "sources": [],
+                    "attributions": ["tmdb", "justwatch"],
+                }
+            ]
+        )
+
+        self.assertEqual(events[0]["attributions"], ["tmdb", "justwatch"])
+
     def test_events_are_sse_frames(self):
         graph = Mock()
         graph.stream_answer.return_value = iter([{"type": "token", "text": "봉준호"}])

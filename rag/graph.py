@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 import sqlite3
 import uuid
 from collections.abc import Iterator
@@ -36,7 +37,7 @@ from langgraph.prebuilt import ToolNode, tools_condition
 
 from rag.config import settings
 from rag.providers import get_llm
-from rag.tools import TOOLS
+from rag.tools import ATTRIBUTION_ORDER, TOOLS, attributions_for
 
 logger = logging.getLogger(__name__)
 
@@ -88,6 +89,14 @@ def tool_status(names: list[str]) -> str:
 
 _SYSTEM_PROMPT_TEMPLATE = (
     "당신은 영화 정보를 안내하는 한국어 도우미입니다.\n\n"
+    # 실측: '오늘 뭐먹지?'에 식사 추천을 했다. 도구가 없는 주제라 답이 전부
+    # 학습 지식에서 나오고, 출처 카드도 붙지 않아 근거를 확인할 길이 없다.
+    "**영화와 이 서비스에 대한 질문에만 답합니다.**\n"
+    "영화·감독·배우·장르·평점·시청처·수상·평단 반응, 그리고 이 챗봇 사용법이 "
+    "답할 수 있는 범위입니다. 그 밖의 주제(식사·날씨·건강·코딩·일반 상식·인생 "
+    "상담 등)는 아무리 간단해도 답하지 마세요. 짧게 사양하고 어떤 영화 질문을 "
+    "할 수 있는지 한 줄로 안내하세요. 영화 이야기로 자연스럽게 이어지는 질문만 "
+    "받으세요.\n\n"
     # 날짜를 안 주면 학습 시점 지식에 의존한다. 실측: '올해 개봉한 한국 영화'가
     # year_from=2024로 나가고, 2026년 영화를 돌려줘도 "아직 개봉 안 함"이라고 답했다.
     "오늘은 {today}입니다. '올해'는 {year}년, '작년'은 {last_year}년입니다.\n"
@@ -101,6 +110,15 @@ _SYSTEM_PROMPT_TEMPLATE = (
     "제목이 모호하거나 처음 듣는 영화라도 먼저 도구로 검색하세요. 검색 결과를 "
     "확인한 뒤에도 어느 작품인지 가릴 수 없을 때만 되물으세요. 검색해보지 않고 "
     "'어떤 작품인지 알려달라'고 답하지 마세요.\n"
+    # 실측: '2010년대 로맨틱 코미디'에서 도구가 준 후보에 맞는 것이 없자 러브
+    # 로지·어바웃 타임 같은 다섯 편을 제 기억으로 추천했다. 답변은 그럴듯했지만
+    # 출처 카드는 도구가 준 15편(기생충·토르…)이라 서로 어긋났다.
+    "**답변에 등장하는 영화는 모두 도구 결과에 있던 것이어야 합니다.** 도구가 "
+    "돌려주지 않은 영화는 제목조차 꺼내지 마세요. 아무리 잘 아는 작품이라도, "
+    "질문에 더 잘 맞아 보여도 마찬가지입니다.\n"
+    "도구 결과에 마땅한 영화가 없으면 **없다고 말하세요.** 기억으로 채우지 말고, "
+    "찾은 것 중 가까운 작품을 이유와 함께 제안하거나 다른 조건을 권하세요. "
+    "예: '로맨틱 코미디로 좁히면 결과가 적습니다. 로맨스 쪽으로 넓혀볼까요?'\n"
     "도구 결과에 없는 사실은 지어내지 마세요. 확인되지 않으면 확인할 수 없다고 답하세요.\n"
     "OTT 시청처 정보가 없을 때는 '제공하지 않는다'가 아니라 '확인되지 않는다'라고 "
     "답하세요. 데이터가 불완전할 수 있습니다.\n"
@@ -231,6 +249,18 @@ def collect_turn_tool_calls(messages: list) -> list[dict]:
     return calls
 
 
+def collect_turn_attributions(messages: list) -> list[str]:
+    """이번 턴이 무엇을 보고 답했는지(TMDB·로컬 색인·웹·JustWatch).
+
+    답변 텍스트가 아니라 **부른 도구**에서 얻는다. 텍스트로는 어느 저장소에서
+    나온 문장인지 알아낼 방법이 없고, 도구 호출은 이미 남아 있다.
+    """
+    marks = set()
+    for call in collect_turn_tool_calls(messages):
+        marks.update(attributions_for(call.get("name", ""), call.get("args")))
+    return [mark for mark in ATTRIBUTION_ORDER if mark in marks]
+
+
 def collect_turn_sources(messages: list) -> list[dict]:
     """이번 턴에 호출된 도구의 출처만 모은다.
 
@@ -249,6 +279,47 @@ def collect_turn_sources(messages: list) -> list[dict]:
                     seen.add(key)
                     sources.append(source)
     return sources
+
+
+# 제목 바로 뒤에 붙은 연도. "올드보이(2003)", "**올드보이**(2003)", "올드보이 - 2003"을
+# 모두 잡는다.
+#
+# 사이에 낄 수 있는 것은 공백과 구두점뿐이다. 아무 글자나 허용하면 "올드보이 이후
+# 2013년에는…"의 연도까지 그 영화의 연도로 읽어서, 멀쩡한 카드를 연도 불일치로
+# 떨어뜨린다(실측).
+_YEAR_AFTER_TITLE = re.compile(r"[\s*_(\[,:·\-–—'\"“”]{0,4}(\d{4})")
+
+
+# 제목을 맞춰볼 때 지우는 것들. 표기가 조금씩 달라서 같은 영화를 놓치는 일을
+# 막는다 — '너의 이름은.'의 마침표, '토르: 라그나로크'의 콜론, 답변이 제목 사이에
+# 넣는 공백 같은 것들.
+_TRIVIA = re.compile(r"[\s.,:;!?'\"“”‘’·・~\-–—()\[\]]")
+
+
+def _normalized(text: str) -> str:
+    """비교용으로 다듬은 문자열."""
+    return _TRIVIA.sub("", text)
+
+
+def _years_stated_for(answer: str, title: str) -> set[int]:
+    """답변이 그 제목 옆에 적어 둔 연도들. 안 적었으면 빈 집합."""
+    years = set()
+    for match in re.finditer(re.escape(title), answer):
+        stated = _YEAR_AFTER_TITLE.match(answer, match.end())
+        if stated:
+            years.add(int(stated.group(1)))
+    return years
+
+
+def _year_agrees(answer: str, source: dict) -> bool:
+    """카드의 연도가 답변이 말한 연도와 맞는지.
+
+    답변이 연도를 안 적었거나 카드에 연도가 없으면 판단할 근거가 없으므로
+    통과시킨다. 근거가 있을 때만 거른다.
+    """
+    year = int(source.get("year") or 0)
+    stated = _years_stated_for(answer, source["title"])
+    return not (year and stated) or year in stated
 
 
 class MovieRagGraph:
@@ -444,15 +515,31 @@ class MovieRagGraph:
         소개하기 때문에 둘이 자주 어긋난다. 카드가 다른 순서로 놓이면 "세 번째로
         소개한 영화"를 카드에서 찾을 때 헷갈린다.
 
-        제목이 하나도 안 걸리면 필터를 적용하지 않는다. 도구는 분명히 결과를
-        줬는데 카드가 0개가 되는 편이 더 나쁘다. 이때는 정렬 기준도 없으므로
-        도구가 준 순서를 그대로 쓴다.
+        **제목만으로는 원작과 리메이크를 가르지 못한다.** 답변이 제목 옆에 연도를
+        적어 뒀다면 그 연도가 맞는 카드만 남긴다(실측: '박찬욱에 대해 알려줘'에
+        올드보이(2003) 문장 옆에 스파이크 리의 올드보이(2013) 카드가 붙었다).
+        어긋나는 카드는 아예 빼는 편이 낫다 — 카드가 없으면 답변만 읽지만,
+        틀린 카드가 붙으면 답변까지 틀린 것으로 읽힌다.
+
+        **하나도 안 걸리면 카드를 내보내지 않는다.** 예전에는 그때 도구 결과를
+        전부 보여줬는데("카드 0개보다는 낫다"), 그건 정반대였다. 하나도 안
+        걸린다는 것은 답변이 도구 결과를 쓰지 않았다는 신호다 — 실측: '2010년대
+        로맨틱 코미디'에 후보 15편(기생충·토르·토이 스토리…)이 왔지만 맞는 것이
+        없자 모델이 제 지식으로 다섯 편을 추천했고, 그 15편이 통째로 '답변에
+        사용된 영화'라는 이름표를 달고 나갔다. 근거가 없으면 없다고 하는 편이
+        거짓 근거를 붙이는 것보다 낫다.
         """
-        used = [s for s in sources if s.get("title") and s["title"] in answer]
+        normalized_answer = _normalized(answer)
+        mentioned = [
+            source
+            for source in sources
+            if source.get("title") and _normalized(source["title"]) in normalized_answer
+        ]
+        used = [s for s in mentioned if _year_agrees(answer, s)]
         # 언급 위치가 같으면(제목이 서로의 부분 문자열인 경우 등) 도구가 준
         # 순서를 지킨다 — 파이썬 정렬은 안정 정렬이다.
-        used.sort(key=lambda source: answer.index(source["title"]))
-        return used or sources
+        used.sort(key=lambda s: normalized_answer.index(_normalized(s["title"])))
+        return used
 
     @classmethod
     def _to_result(cls, messages: list) -> dict:
@@ -467,4 +554,5 @@ class MovieRagGraph:
         return {
             "answer": answer,
             "sources": cls._used_sources(answer, collect_turn_sources(messages)),
+            "attributions": collect_turn_attributions(messages),
         }

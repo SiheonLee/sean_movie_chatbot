@@ -124,6 +124,47 @@ class SearchMoviesTests(unittest.TestCase):
             call(tools.search_movies, year_from=2020)
         self.assertEqual(disc.call_args.kwargs["vote_count.gte"], tools._MIN_VOTE_COUNT)
 
+    def test_two_genres_are_combined(self):
+        """'로맨틱 코미디'는 TMDB에 없다. 로맨스와 코미디를 함께 걸어야 풀린다."""
+        with (
+            patch("rag.tmdb.genre_name_to_id", return_value={"로맨스": 10749, "코미디": 35}),
+            patch("rag.tmdb.genre_id_to_name", return_value=GENRE_IDS),
+            patch("rag.tmdb.discover", return_value={"results": [LIST_MOVIE]}) as disc,
+        ):
+            call(tools.search_movies, genre="로맨스, 코미디")
+
+        # 쉼표는 AND다. 파이프(|)면 둘 중 하나만 맞아도 걸려 좁히는 뜻이 사라진다.
+        self.assertEqual(disc.call_args.kwargs["with_genres"], "10749,35")
+
+    def test_a_single_genre_still_works(self):
+        with (
+            patch("rag.tmdb.genre_name_to_id", return_value={"액션": 28}),
+            patch("rag.tmdb.genre_id_to_name", return_value=GENRE_IDS),
+            patch("rag.tmdb.discover", return_value={"results": [LIST_MOVIE]}) as disc,
+        ):
+            call(tools.search_movies, genre="액션")
+
+        self.assertEqual(disc.call_args.kwargs["with_genres"], "28")
+
+    def test_spacing_around_commas_is_forgiven(self):
+        with (
+            patch("rag.tmdb.genre_name_to_id", return_value={"로맨스": 10749, "코미디": 35}),
+            patch("rag.tmdb.genre_id_to_name", return_value=GENRE_IDS),
+            patch("rag.tmdb.discover", return_value={"results": [LIST_MOVIE]}) as disc,
+        ):
+            call(tools.search_movies, genre="로맨스,코미디 ,")
+
+        self.assertEqual(disc.call_args.kwargs["with_genres"], "10749,35")
+
+    def test_one_bad_genre_names_only_that_one(self):
+        """어느 이름이 틀렸는지 알려줘야 모델이 고쳐 부른다."""
+        with patch("rag.tmdb.genre_name_to_id", return_value={"로맨스": 10749}):
+            content, artifact = call(tools.search_movies, genre="로맨스, 로맨틱 코미디")
+
+        self.assertIn("로맨틱 코미디", content)
+        self.assertIn("쉼표", content)
+        self.assertEqual(artifact, [])
+
     def test_unknown_genre_lists_supported_ones(self):
         with patch("rag.tmdb.genre_name_to_id", return_value={"액션": 28, "SF": 878}):
             content, artifact = call(tools.search_movies, genre="없는장르")
@@ -351,6 +392,94 @@ class GetMovieDetailsTests(unittest.TestCase):
             content, artifact = call(tools.get_movie_details, title="없는영화")
         self.assertIn("찾지 못했습니다", content)
         self.assertEqual(artifact, [])
+
+
+# 실측값이다. /search/movie는 인기순이라 'Oldboy'로 물으면 리메이크가 먼저 온다.
+OLDBOY_2003 = {
+    "id": 670,
+    "title": "올드보이",
+    "original_title": "올드보이",
+    "release_date": "2003-11-21",
+    "vote_count": 10033,
+}
+OLDBOY_2013 = {
+    "id": 87516,
+    "title": "올드보이",
+    "original_title": "Oldboy",
+    "release_date": "2013-11-14",
+    "vote_count": 2162,
+}
+
+
+class BestHitTests(unittest.TestCase):
+    """같은 제목의 다른 작품(원작·리메이크) 중 무엇을 고르는가."""
+
+    def test_year_decides_when_given(self):
+        hits = [OLDBOY_2013, OLDBOY_2003]
+
+        self.assertEqual(tools._best_hit(hits, "올드보이", 2003)["id"], 670)
+        self.assertEqual(tools._best_hit(hits, "올드보이", 2013)["id"], 87516)
+
+    def test_without_a_year_the_better_known_one_wins(self):
+        """리메이크가 검색 상위로 와도 첫 번째를 그냥 쓰지 않는다."""
+        self.assertEqual(tools._best_hit([OLDBOY_2013, OLDBOY_2003], "올드보이")["id"], 670)
+
+    def test_exact_title_beats_a_more_voted_partial_match(self):
+        sequel = {
+            "id": 2,
+            "title": "올드보이의 자서전",
+            "original_title": "올드보이의 자서전",
+            "release_date": "2004-12-17",
+            "vote_count": 99999,
+        }
+
+        self.assertEqual(tools._best_hit([sequel, OLDBOY_2003], "올드보이")["id"], 670)
+
+    def test_unknown_year_falls_back_instead_of_returning_nothing(self):
+        """LLM이 엉뚱한 연도를 줘도 결과는 나와야 한다."""
+        picked = tools._best_hit([OLDBOY_2013, OLDBOY_2003], "올드보이", 1999)
+
+        self.assertEqual(picked["id"], 670)
+
+    def test_details_follow_the_pick_not_the_first_hit(self):
+        with (
+            patch(
+                "rag.tmdb.search_by_title",
+                return_value={"results": [OLDBOY_2013, OLDBOY_2003]},
+            ),
+            patch("rag.tmdb.movie_detail", return_value=DETAIL_MOVIE) as detail,
+        ):
+            call(tools.get_movie_details, title="올드보이", year=2003)
+
+        self.assertEqual(detail.call_args.args[0], 670)
+
+
+class DirectorInListTests(unittest.TestCase):
+    """목록 텍스트에 감독이 있어야 LLM이 원작과 리메이크를 가른다."""
+
+    def test_director_is_written_next_to_each_title(self):
+        with (
+            patch("rag.tmdb.genre_id_to_name", return_value=GENRE_IDS),
+            patch("rag.tmdb.discover", return_value={"results": [LIST_MOVIE]}),
+            patch("rag.tmdb.find_person_id", return_value=10099),
+            patch("rag.catalog.lookup", return_value={"title": "기생충", "year": 2019, "director": "봉준호"}),
+        ):
+            content, _ = call(tools.search_movies, person="봉준호")
+
+        self.assertIn("감독 봉준호", content)
+
+    def test_unknown_director_leaves_the_line_alone(self):
+        """카탈로그에도 상세에도 없으면 '감독 정보 없음'을 지어내지 않는다."""
+        with (
+            patch("rag.tmdb.genre_id_to_name", return_value=GENRE_IDS),
+            patch("rag.tmdb.discover", return_value={"results": [LIST_MOVIE]}),
+            patch("rag.catalog.lookup", return_value=None),
+            patch("rag.tmdb.movie_detail", side_effect=tools.tmdb.TmdbError("실패")),
+        ):
+            content, _ = call(tools.search_movies, year_from=2020)
+
+        self.assertIn("기생충", content)
+        self.assertNotIn("감독", content)
 
 
 if __name__ == "__main__":

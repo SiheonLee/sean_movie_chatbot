@@ -24,6 +24,8 @@ class Source(TypedDict):
 class QueryResult(TypedDict):
     answer: str
     sources: list[Source]
+    # 무엇을 보고 답했는지. "tmdb" | "local" | "web" | "justwatch"
+    attributions: list[str]
 
 
 class StreamEvent(TypedDict, total=False):
@@ -35,7 +37,8 @@ class StreamEvent(TypedDict, total=False):
     ``status``  ``text`` — 진행 상태 한 줄. 계속 교체해 보여준다.
     ``token``   ``text`` — 답변 텍스트 조각.
     ``reset``   (없음) — 지금까지 받은 token을 버린다.
-    ``done``    ``answer``, ``sources`` — 확정된 답변. 마지막에 한 번 온다.
+    ``done``    ``answer``, ``sources``, ``attributions`` — 확정된 답변.
+                마지막에 한 번 온다.
     ==========  ==============================================================
     """
 
@@ -43,6 +46,7 @@ class StreamEvent(TypedDict, total=False):
     text: str
     answer: str
     sources: list[Source]
+    attributions: list[str]
 
 
 class ApiClientError(RuntimeError):
@@ -111,7 +115,12 @@ class RagApiClient:
         sources = payload.get("sources")
         if not isinstance(answer, str) or not isinstance(sources, list):
             raise ApiClientError(_MALFORMED_MESSAGE)
-        return {"answer": answer, "sources": sources}
+        return {
+            "answer": answer,
+            "sources": sources,
+            # 서버가 옛 버전이면 없을 수 있다. 없으면 표시를 생략한다.
+            "attributions": payload.get("attributions") or [],
+        }
 
     def stream_query(self, question: str, session_id: str) -> Iterator[StreamEvent]:
         """`/query/stream`의 SSE를 이벤트 단위로 흘려준다.

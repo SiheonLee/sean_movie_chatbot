@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import unittest
 import uuid
+from datetime import date
 from unittest.mock import patch
 
 from langchain_core.messages import (
@@ -18,6 +19,8 @@ import rag.graph
 from rag.graph import (
     _PREAMBLE_HOLD_CHARS,
     MovieRagGraph,
+    build_system_prompt,
+    collect_turn_attributions,
     collect_turn_sources,
     collect_turn_tool_calls,
     tool_status,
@@ -160,6 +163,101 @@ class CollectTurnToolCallsTests(unittest.TestCase):
         self.assertEqual(collect_turn_tool_calls(messages), [])
 
 
+class TurnAttributionsTests(unittest.TestCase):
+    """답변 밑에 붙는 출처 표기. 부른 도구에서 얻는다."""
+
+    def test_each_tool_names_its_data(self):
+        messages = [
+            HumanMessage(content="분위기 좋은 영화"),
+            ai_with_calls(("search_by_vibe", {"vibe": "잔잔한"})),
+            AIMessage(content="답변"),
+        ]
+
+        self.assertEqual(collect_turn_attributions(messages), ["local"])
+
+    def test_watch_provider_data_credits_justwatch(self):
+        """TMDB의 시청처는 JustWatch 제공이라 표기가 의무다."""
+        messages = [
+            HumanMessage(content="기생충 어디서 봐?"),
+            ai_with_calls(("get_movie_details", {"title": "기생충"})),
+            AIMessage(content="답변"),
+        ]
+
+        self.assertEqual(collect_turn_attributions(messages), ["tmdb", "justwatch"])
+
+    def test_filtering_by_ott_also_credits_justwatch(self):
+        """편성으로 걸렀다면 그 데이터를 조건으로 쓴 것이다."""
+        messages = [
+            HumanMessage(content="넷플릭스 액션"),
+            ai_with_calls(("search_movies", {"genre": "액션", "watch_provider": "넷플릭스"})),
+            AIMessage(content="답변"),
+        ]
+
+        self.assertEqual(collect_turn_attributions(messages), ["tmdb", "justwatch"])
+
+    def test_plain_search_does_not_credit_justwatch(self):
+        messages = [
+            HumanMessage(content="봉준호 영화"),
+            ai_with_calls(("search_movies", {"person": "봉준호"})),
+            AIMessage(content="답변"),
+        ]
+
+        self.assertEqual(collect_turn_attributions(messages), ["tmdb"])
+
+    def test_multiple_tools_are_deduped_and_ordered(self):
+        """무엇을 검색했는지가 먼저, 제공자 표기는 뒤."""
+        messages = [
+            HumanMessage(content="아카데미 수상작 어디서 봐"),
+            ai_with_calls(("web_search", {"query": "아카데미"})),
+            AIMessage(content=""),
+            ai_with_calls(
+                ("get_movie_details", {"title": "기생충"}),
+                ("search_movies", {"person": "봉준호"}),
+            ),
+            AIMessage(content="답변"),
+        ]
+
+        self.assertEqual(
+            collect_turn_attributions(messages), ["tmdb", "web", "justwatch"]
+        )
+
+    def test_no_tool_means_nothing_to_credit(self):
+        """도구 없이 답한 턴(이전 대화에 대한 질문 등)에는 표기가 없다."""
+        messages = [
+            HumanMessage(content="방금 첫 번째로 추천한 게 뭐였지?"),
+            AIMessage(content="기생충이었습니다."),
+        ]
+
+        self.assertEqual(collect_turn_attributions(messages), [])
+
+
+class SystemPromptTests(unittest.TestCase):
+    """프롬프트가 지켜야 할 두 가지 경계.
+
+    LLM 동작 자체는 여기서 확인할 수 없다. 규칙이 프롬프트에서 조용히 빠지는
+    것만 막는다 — 둘 다 실측으로 드러난 문제라 사라지면 곧바로 재발한다.
+    """
+
+    def test_the_answer_is_confined_to_tool_results(self):
+        """실측: 도구 후보에 맞는 것이 없자 제 기억으로 다섯 편을 추천했다."""
+        prompt = build_system_prompt(date(2026, 8, 7))
+
+        self.assertIn("도구 결과에 있던 것이어야", prompt)
+        self.assertIn("제목조차", prompt)
+
+    def test_off_topic_questions_are_refused(self):
+        """실측: '오늘 뭐먹지?'에 식사 추천을 했다."""
+        prompt = build_system_prompt(date(2026, 8, 7))
+
+        self.assertIn("영화와 이 서비스에 대한 질문에만", prompt)
+
+    def test_todays_date_is_written_in(self):
+        """날짜가 없으면 '올해'를 학습 시점으로 읽는다(기존 규칙)."""
+        prompt = build_system_prompt(date(2026, 8, 7))
+
+        self.assertIn("2026", prompt)
+
+
 class UsedSourcesTests(unittest.TestCase):
     """카드는 답변이 소개한 순서를 따라가야 한다."""
 
@@ -189,13 +287,92 @@ class UsedSourcesTests(unittest.TestCase):
 
         self.assertEqual([s["year"] for s in used], [2006, 2023])
 
-    def test_falls_back_to_tool_order_when_nothing_matches(self):
-        """제목이 하나도 안 걸리면 카드 0개보다 도구 순서 그대로가 낫다."""
+    def test_nothing_mentioned_means_no_cards(self):
+        """하나도 안 걸린다는 건 답변이 도구 결과를 안 썼다는 신호다."""
         sources = [source("기생충", 2019), source("옥자", 2017)]
 
         used = MovieRagGraph._used_sources("추천드릴 작품을 찾지 못했습니다.", sources)
 
-        self.assertEqual([s["title"] for s in used], ["기생충", "옥자"])
+        self.assertEqual(used, [])
+
+    def test_an_answer_from_memory_gets_no_cards(self):
+        """실측 회귀: '2010년대 로맨틱 코미디'.
+
+        도구가 준 후보에 맞는 것이 없자 모델이 제 지식으로 다섯 편을 추천했다.
+        그런데 그 후보 15편이 통째로 '답변에 사용된 영화'라는 이름표를 달고
+        나갔다 — 기생충·토르·토이 스토리까지.
+        """
+        sources = [
+            source("너의 이름은.", 2016),
+            source("기생충", 2019),
+            source("토르: 라그나로크", 2017),
+            source("토이 스토리 3", 2010),
+        ]
+        answer = (
+            "2010년대 로맨틱 코미디로는 **러브, 로지**(2014), "
+            "**어바웃 타임**(2013), **미 비포 유**(2016)를 추천합니다."
+        )
+
+        self.assertEqual(MovieRagGraph._used_sources(answer, sources), [])
+
+    def test_punctuation_in_a_title_still_matches(self):
+        """'너의 이름은.'의 마침표처럼 표기가 조금 달라도 같은 영화다."""
+        sources = [source("너의 이름은.", 2016)]
+        answer = "**너의 이름은**(2016)을 추천합니다."
+
+        used = MovieRagGraph._used_sources(answer, sources)
+
+        self.assertEqual([s["title"] for s in used], ["너의 이름은."])
+
+    def test_a_colon_title_still_matches(self):
+        sources = [source("토르: 라그나로크", 2017)]
+        answer = "**토르 라그나로크**(2017)는 코미디 색이 짙습니다."
+
+        used = MovieRagGraph._used_sources(answer, sources)
+
+        self.assertEqual(len(used), 1)
+
+    def test_remake_card_does_not_attach_to_the_original(self):
+        """실측 회귀: 올드보이(2003) 문장에 스파이크 리의 2013년작 카드가 붙었다."""
+        sources = [source("올드보이", 2013), source("아가씨", 2016)]
+        answer = "**올드보이**(2003): 복수를 다룬 작품입니다.\n**아가씨**(2016): 반전 구조가 좋습니다."
+
+        used = MovieRagGraph._used_sources(answer, sources)
+
+        self.assertEqual([s["title"] for s in used], ["아가씨"])
+
+    def test_the_right_year_survives_among_same_titled_works(self):
+        sources = [source("올드보이", 2013), source("올드보이", 2003)]
+        answer = "올드보이(2003)는 박찬욱 감독의 작품입니다."
+
+        used = MovieRagGraph._used_sources(answer, sources)
+
+        self.assertEqual([s["year"] for s in used], [2003])
+
+    def test_a_year_the_answer_never_states_is_not_second_guessed(self):
+        """연도를 안 적은 답변까지 거르면 멀쩡한 카드가 사라진다."""
+        sources = [source("괴물", 2006), source("괴물", 2023)]
+
+        used = MovieRagGraph._used_sources("괴물을 추천합니다.", sources)
+
+        self.assertEqual([s["year"] for s in used], [2006, 2023])
+
+    def test_a_faraway_year_is_not_read_as_the_title_year(self):
+        """'올드보이 이후 2013년에는…'의 연도는 그 영화의 연도가 아니다."""
+        sources = [source("올드보이", 2003)]
+        answer = "올드보이 이후 2013년에는 리메이크도 나왔습니다."
+
+        used = MovieRagGraph._used_sources(answer, sources)
+
+        self.assertEqual([s["year"] for s in used], [2003])
+
+    def test_contradicting_cards_are_dropped_rather_than_shown(self):
+        """카드가 없으면 답변만 읽지만, 틀린 카드는 답변까지 틀리게 보이게 한다."""
+        sources = [source("올드보이", 2013)]
+
+        used = MovieRagGraph._used_sources("올드보이(2003)를 추천합니다.", sources)
+
+        self.assertEqual(used, [])
 
 
 class ToolStatusTests(unittest.TestCase):

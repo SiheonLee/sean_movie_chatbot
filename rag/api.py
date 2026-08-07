@@ -88,6 +88,9 @@ class SourceModel(BaseModel):
 class QueryResponse(BaseModel):
     answer: str
     sources: list[SourceModel]
+    # 무엇을 보고 답했는지("tmdb", "local", "web", "justwatch"). 표시 문구는 UI가
+    # 정하고 여기서는 식별자만 넘긴다. JustWatch는 표기가 의무라 반드시 실린다.
+    attributions: list[str] = []
 
 
 @app.get("/health")
@@ -112,6 +115,7 @@ def query(req: QueryRequest) -> QueryResponse:
     return QueryResponse(
         answer=result["answer"],
         sources=[SourceModel(**s) for s in result["sources"]],
+        attributions=result.get("attributions", []),
     )
 
 
