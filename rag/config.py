@@ -143,5 +143,21 @@ class Settings:
     checkpointer: str = field(default_factory=lambda: _get("CHECKPOINTER", "memory").lower())
     checkpoint_db: Path = field(default_factory=lambda: ROOT_DIR / _get("CHECKPOINT_DB", "graph_checkpoints.sqlite"))
 
+    # --- 초대형 데모 보호 장치 ---
+    # 익명 브라우저 ID별 하루 질문 수와 대화별 질문 수는 SQLite에 보존한다.
+    # 동시 처리 수는 단일 API 프로세스 안에서 외부 LLM 호출이 겹치는 정도를 막는다.
+    rate_limit_db: Path = field(
+        default_factory=lambda: ROOT_DIR / _get("RATE_LIMIT_DB", "rate_limits.sqlite")
+    )
+    daily_question_limit: int = field(
+        default_factory=lambda: int(_get("DAILY_QUESTION_LIMIT", "30"))
+    )
+    session_question_limit: int = field(
+        default_factory=lambda: int(_get("SESSION_QUESTION_LIMIT", "12"))
+    )
+    max_concurrent_requests: int = field(
+        default_factory=lambda: int(_get("MAX_CONCURRENT_REQUESTS", "2"))
+    )
+
 
 settings = Settings()

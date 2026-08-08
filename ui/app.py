@@ -32,10 +32,15 @@ API_URL = os.getenv("RAG_API_URL", "http://127.0.0.1:8000")
 # 화면을 가리는 최소한의 자물쇠. 비워 두면 잠그지 않는다.
 #
 # 정식 인증이 아니다. 사용자 계정도, 만료도, 시도 횟수 제한도 없고 모두가 같은
-# 값을 쓴다. **그리고 FastAPI 서버는 이 값과 무관하게 열려 있다** — 링크를 아는
-# 사람이 API를 직접 부르는 것은 막지 못한다. "아무나 열어보지는 못하게" 정도의
-# 용도로만 쓸 것.
+# 값을 쓴다. Compose에서는 FastAPI 포트를 호스트에 게시하지 않지만, API를 별도로
+# 공개하면 이 값이 직접 호출을 막아주지는 않는다. "아무나 열어보지는 못하게"
+# 정도의 용도로만 쓸 것.
 PASSCODE = os.getenv("CINEBOT_PASSCODE", "").strip()
+
+# API와 같은 기본값. Compose에서는 같은 환경 변수를 양쪽에 전달한다. 화면 안내용
+# 숫자라 실제 집행은 FastAPI가 맡는다.
+DAILY_QUESTION_LIMIT = int(os.getenv("DAILY_QUESTION_LIMIT", "30"))
+SESSION_QUESTION_LIMIT = int(os.getenv("SESSION_QUESTION_LIMIT", "12"))
 
 # 첫 화면에 보여줄 후보. 이 중 SUGGESTION_COUNT개를 뽑아 보여준다. 늘 같은 넷을
 # 내걸면 "이런 것만 되는구나"로 읽혀서, 물어볼 수 있는 범위를 실제보다 좁게
@@ -556,6 +561,14 @@ HELP_EXAMPLES = (
     ("평가·화제", "기생충 평단 반응 어땠어?"),
 )
 
+DATA_NOTICE = (
+    "약 500편의 선별 영화 카탈로그와 TMDB·웹 검색 결과를 사용합니다. "
+    "개봉·평점·OTT 정보는 누락되거나 바뀔 수 있으니 출처 원문도 확인해주세요. "
+    f"익명 브라우저 ID당 하루 {DAILY_QUESTION_LIMIT}회(UTC 기준), "
+    f"대화당 {SESSION_QUESTION_LIMIT}회까지 질문할 수 있습니다. "
+    "쿠키를 지우면 지난 대화와 저장 목록의 연결이 끊길 수 있습니다."
+)
+
 
 def render_help() -> None:
     """오른쪽 아래에 붙는 도움말.
@@ -580,6 +593,7 @@ def render_help() -> None:
         '<div class="cine-help-note">'
         "앞의 대화를 기억합니다. “그중 첫 번째 영화는?”처럼 이어서 물어도 됩니다."
         "</div>"
+        f'<div class="cine-help-note">{html.escape(DATA_NOTICE)}</div>'
         "</div>"
         "</details>",
         unsafe_allow_html=True,
@@ -1059,7 +1073,9 @@ def stream_answer(question: str, index: int) -> dict[str, Any]:
     buffer: list[str] = []
 
     try:
-        for event in RagApiClient(API_URL).stream_query(
+        for event in RagApiClient(
+            API_URL, user_id=st.session_state.user_id
+        ).stream_query(
             question=question,
             session_id=st.session_state.session_id,
         ):

@@ -15,14 +15,16 @@ from __future__ import annotations
 
 import json
 import logging
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field, field_validator
 
+from rag.config import settings
 from rag.graph import MovieRagGraph
+from rag.limits import RequestGate, RequestLease, RequestLimitError, UsageLimiter
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +33,14 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     # 그래프를 1회 컴파일(임베딩 모델·LLM·벡터스토어 1회 로드).
     app.state.graph = MovieRagGraph()
+    app.state.request_gate = RequestGate(
+        UsageLimiter(
+            settings.rate_limit_db,
+            daily_limit=settings.daily_question_limit,
+            session_limit=settings.session_question_limit,
+        ),
+        max_concurrent=settings.max_concurrent_requests,
+    )
     yield
 
 
@@ -51,11 +61,24 @@ class QueryRequest(BaseModel):
         pattern=r"^[A-Za-z0-9._:-]+$",
         description="대화 세션 ID. 같은 값을 보내면 이전 대화 맥락이 이어짐(멀티턴).",
     )
+    # 기존 API 호출은 이 필드가 없어도 계속 받는다. UI는 브라우저 쿠키의 익명 UUID를
+    # 보내 사용자별 일일 한도의 키로 쓴다. 계정 인증 수단은 아니다.
+    user_id: str | None = Field(
+        None,
+        min_length=1,
+        max_length=128,
+        pattern=r"^[A-Za-z0-9._:-]+$",
+        description="익명 사용자 ID. 없으면 session_id 단위로 제한함.",
+    )
 
     model_config = {
         "json_schema_extra": {
             "examples": [
-                {"question": "기생충 감독이 누구야?", "session_id": "user-123"},
+                {
+                    "question": "기생충 감독이 누구야?",
+                    "session_id": "session-123",
+                    "user_id": "user-123",
+                },
             ]
         }
     }
@@ -108,8 +131,22 @@ def health() -> dict:
     return {"status": "ok"}
 
 
+def _admit_request(req: QueryRequest) -> RequestLease:
+    """Reserve quota before graph/LLM work; direct unit calls remain compatible."""
+    gate = getattr(app.state, "request_gate", None)
+    if gate is None:
+        return RequestLease()
+    user_id = req.user_id or f"session:{req.session_id or 'anonymous'}"
+    session_id = req.session_id or f"anonymous:{user_id}"
+    try:
+        return gate.admit(user_id, session_id)
+    except RequestLimitError as exc:
+        raise HTTPException(status_code=429, detail=str(exc)) from exc
+
+
 @app.post("/query", response_model=QueryResponse)
 def query(req: QueryRequest) -> QueryResponse:
+    lease = _admit_request(req)
     try:
         result = app.state.graph.answer(
             question=req.question,
@@ -121,6 +158,8 @@ def query(req: QueryRequest) -> QueryResponse:
             status_code=500,
             detail="답변을 생성하지 못했습니다. 잠시 후 다시 시도해주세요.",
         ) from exc
+    finally:
+        lease.release()
 
     return QueryResponse(
         answer=result["answer"],
@@ -140,7 +179,13 @@ def _sse(event: dict) -> str:
 STREAM_ERROR_MESSAGE = "답변을 생성하지 못했습니다. 잠시 후 다시 시도해주세요."
 
 
-def _stream_events(graph, question: str, session_id: str | None) -> Iterator[str]:
+def _stream_events(
+    graph,
+    question: str,
+    session_id: str | None,
+    *,
+    on_close: Callable[[], None] | None = None,
+) -> Iterator[str]:
     """그래프 이벤트를 SSE 프레임으로 옮긴다.
 
     출처는 /query와 같은 SourceModel을 통과시킨다. 두 엔드포인트가 같은 스키마를
@@ -164,16 +209,29 @@ def _stream_events(graph, question: str, session_id: str | None) -> Iterator[str
         # 응답이 이미 시작됐으면 500을 보낼 수 없다. 오류도 이벤트로 알린다.
         logger.exception("영화 질문 스트리밍 중 오류가 발생했습니다.")
         yield _sse({"type": "error", "message": STREAM_ERROR_MESSAGE})
+    finally:
+        if on_close is not None:
+            on_close()
 
 
 @app.post("/query/stream")
 def query_stream(req: QueryRequest) -> StreamingResponse:
-    return StreamingResponse(
-        _stream_events(app.state.graph, req.question, req.session_id),
-        media_type="text/event-stream",
-        headers={
-            "Cache-Control": "no-cache",
-            # 프록시가 응답을 모아뒀다 한 번에 보내면 스트리밍이 의미를 잃는다.
-            "X-Accel-Buffering": "no",
-        },
-    )
+    lease = _admit_request(req)
+    try:
+        return StreamingResponse(
+            _stream_events(
+                app.state.graph,
+                req.question,
+                req.session_id,
+                on_close=lease.release,
+            ),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                # 프록시가 응답을 모아뒀다 한 번에 보내면 스트리밍이 의미를 잃는다.
+                "X-Accel-Buffering": "no",
+            },
+        )
+    except Exception:
+        lease.release()
+        raise

@@ -8,6 +8,7 @@ from fastapi import HTTPException
 from pydantic import ValidationError
 
 from rag.api import STREAM_ERROR_MESSAGE, QueryRequest, _stream_events, app, query
+from rag.limits import RequestLease, RequestLimitError
 
 
 class QueryRequestTests(unittest.TestCase):
@@ -24,16 +25,59 @@ class QueryRequestTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             QueryRequest(question="기생충 감독은?", session_id="공백 포함")
 
+    def test_invalid_user_id_is_rejected(self):
+        with self.assertRaises(ValidationError):
+            QueryRequest(question="기생충 감독은?", user_id="공백 포함")
+
+    def test_question_over_500_characters_is_rejected(self):
+        with self.assertRaises(ValidationError):
+            QueryRequest(question="가" * 501)
+
 
 class QueryEndpointTests(unittest.TestCase):
     def setUp(self):
         self.original_graph = getattr(app.state, "graph", None)
+        self.original_gate = getattr(app.state, "request_gate", None)
 
     def tearDown(self):
         if self.original_graph is None:
             app.state._state.pop("graph", None)
         else:
             app.state.graph = self.original_graph
+        if self.original_gate is None:
+            app.state._state.pop("request_gate", None)
+        else:
+            app.state.request_gate = self.original_gate
+
+    def test_limit_rejection_happens_before_the_graph_call(self):
+        app.state.graph = Mock()
+        app.state.request_gate = Mock()
+        app.state.request_gate.admit.side_effect = RequestLimitError("오늘 한도")
+
+        with self.assertRaises(HTTPException) as raised:
+            query(
+                QueryRequest(
+                    question="기생충 감독은?",
+                    session_id="session-1",
+                    user_id="user-1",
+                )
+            )
+
+        self.assertEqual(raised.exception.status_code, 429)
+        self.assertEqual(raised.exception.detail, "오늘 한도")
+        app.state.graph.answer.assert_not_called()
+        app.state.request_gate.admit.assert_called_once_with("user-1", "session-1")
+
+    def test_concurrency_slot_is_released_after_the_query(self):
+        app.state.graph = Mock()
+        app.state.graph.answer.return_value = {"answer": "답변", "sources": []}
+        lease = Mock(spec=RequestLease)
+        app.state.request_gate = Mock()
+        app.state.request_gate.admit.return_value = lease
+
+        query(QueryRequest(question="질문", session_id="session-1"))
+
+        lease.release.assert_called_once_with()
 
     def test_query_returns_answer_and_sources(self):
         app.state.graph = Mock()
@@ -114,6 +158,17 @@ def frames(events: list) -> list[dict]:
 
 
 class StreamEventTests(unittest.TestCase):
+    def test_stream_releases_its_concurrency_slot_when_done(self):
+        graph = Mock()
+        graph.stream_answer.return_value = iter(
+            [{"type": "done", "answer": "답변", "sources": []}]
+        )
+        release = Mock()
+
+        list(_stream_events(graph, "질문", "session-1", on_close=release))
+
+        release.assert_called_once_with()
+
     def test_done_carries_attributions(self):
         """스트리밍 답변에도 출처 표기가 실려야 한다 — JustWatch는 표기가 의무다."""
         events = frames(

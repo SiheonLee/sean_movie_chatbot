@@ -63,6 +63,7 @@ class ApiClientError(RuntimeError):
 
 _TIMEOUT_MESSAGE = "답변 생성 시간이 너무 길어 요청을 종료했습니다. 다시 시도해주세요."
 _INVALID_QUESTION_MESSAGE = "질문 내용을 확인한 뒤 다시 입력해주세요."
+_LIMIT_MESSAGE = "질문 사용 한도에 도달했습니다. 잠시 후 다시 시도해주세요."
 _SERVER_MESSAGE = "CineBot이 답변을 만들지 못했습니다. 잠시 후 다시 시도해주세요."
 _OFFLINE_MESSAGE = "영화 정보 서버에 연결할 수 없습니다. API 연결 상태를 확인해주세요."
 _MALFORMED_MESSAGE = "서버 응답 형식을 확인할 수 없습니다."
@@ -78,6 +79,12 @@ def _to_client_error(exc: Exception) -> ApiClientError:
     if isinstance(exc, httpx.HTTPStatusError):
         if exc.response.status_code == 422:
             return ApiClientError(_INVALID_QUESTION_MESSAGE)
+        if exc.response.status_code == 429:
+            try:
+                detail = exc.response.json().get("detail")
+            except (AttributeError, TypeError, ValueError):
+                detail = None
+            return ApiClientError(detail if isinstance(detail, str) else _LIMIT_MESSAGE)
         return ApiClientError(_SERVER_MESSAGE)
     return ApiClientError(_OFFLINE_MESSAGE)
 
@@ -89,12 +96,22 @@ class RagApiClient:
         self,
         base_url: str,
         *,
+        user_id: str | None = None,
         query_timeout: float = 120.0,
         health_timeout: float = 3.0,
     ) -> None:
         self.base_url = base_url.rstrip("/")
+        self.user_id = user_id
         self.query_timeout = query_timeout
         self.health_timeout = health_timeout
+
+    def _query_payload(self, question: str, session_id: str) -> dict[str, str]:
+        payload = {"question": question, "session_id": session_id}
+        # user_id는 D4의 additive 필드다. 지정하지 않은 예전 호출자는 이전 payload를
+        # 그대로 보내며, 새 서버도 session_id를 제한 키로 삼아 계속 받는다.
+        if self.user_id:
+            payload["user_id"] = self.user_id
+        return payload
 
     def is_healthy(self) -> bool:
         try:
@@ -111,7 +128,7 @@ class RagApiClient:
         try:
             response = httpx.post(
                 f"{self.base_url}/query",
-                json={"question": question, "session_id": session_id},
+                json=self._query_payload(question, session_id),
                 timeout=self.query_timeout,
             )
             response.raise_for_status()
@@ -143,7 +160,7 @@ class RagApiClient:
             with httpx.stream(
                 "POST",
                 f"{self.base_url}/query/stream",
-                json={"question": question, "session_id": session_id},
+                json=self._query_payload(question, session_id),
                 timeout=self.query_timeout,
             ) as response:
                 if response.status_code >= 400:

@@ -23,14 +23,17 @@ services:
       CHECKPOINTER: sqlite
       CHECKPOINT_DB: /app/state/graph_checkpoints.sqlite
 
+      # 익명 사용자별 비용 상한과 대화 길이, 동시에 진행할 외부 호출 수
+      RATE_LIMIT_DB: /app/state/rate_limits.sqlite
+      DAILY_QUESTION_LIMIT: "${DAILY_QUESTION_LIMIT:-30}"
+      SESSION_QUESTION_LIMIT: "${SESSION_QUESTION_LIMIT:-12}"
+      MAX_CONCURRENT_REQUESTS: "${MAX_CONCURRENT_REQUESTS:-2}"
+
     command:
       - uvicorn
       - rag.api:app
       - --host=0.0.0.0
       - --port=8000
-
-    ports:
-      - "127.0.0.1:8000:8000"
 
     volumes:
       - type: bind
@@ -74,6 +77,12 @@ services:
     environment:
       # Compose 네트워크에서는 서비스 이름이 호스트 이름
       RAG_API_URL: http://api:8000
+
+      # 배포용 Compose는 잠금 없이 뜨지 않게 한다. 로컬 단독 실행은 기존처럼
+      # 빈 값도 허용하지만, Compose에는 반드시 .env 값을 넣어야 한다.
+      CINEBOT_PASSCODE: ${CINEBOT_PASSCODE:?set CINEBOT_PASSCODE in .env}
+      DAILY_QUESTION_LIMIT: "${DAILY_QUESTION_LIMIT:-30}"
+      SESSION_QUESTION_LIMIT: "${SESSION_QUESTION_LIMIT:-12}"
 
       # 영화 아티팩트와 섞지 않는 UI 전용 사용자 데이터 경로
       CINEBOT_HISTORY_DIR: /app/user_data/conversations

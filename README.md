@@ -257,11 +257,15 @@ uv run python -m scripts.evaluate                  # 답변 품질 (LangSmith)
 ### 7. Docker Compose
 
 ```bash
+# .env의 CINEBOT_PASSCODE를 먼저 채워야 합니다.
 docker compose up --build
 ```
 
 `.env`가 그대로 주입됩니다. 데이터와 벡터스토어는 볼륨으로 마운트되므로
-컨테이너 안에서 파이프라인을 다시 돌릴 필요는 없습니다.
+컨테이너 안에서 파이프라인을 다시 돌릴 필요는 없습니다. UI는
+`http://127.0.0.1:8501`에 열리고, API는 호스트 포트를 게시하지 않아 Compose
+내부 네트워크에서만 접근할 수 있습니다. 질문 사용량 DB와 대화 체크포인트는 기존
+`checkpoint_data` 볼륨에 보존됩니다.
 
 ## Configuration
 
@@ -279,6 +283,10 @@ docker compose up --build
 | `TMDB_QUIET_PAGES` | `3` | 잔잔한 계열 수집축 페이지 수 |
 | `GOOGLE_EMBEDDING_BATCH_SIZE` | `50` | 요청당 문서 수. 90이면 429가 남 |
 | `CHECKPOINTER` | `memory` | `memory`(휘발) \| `sqlite`(파일 영속) |
+| `CINEBOT_PASSCODE` | (없음) | Compose 실행 시 필수인 공유 UI 패스코드. 정식 인증은 아님 |
+| `DAILY_QUESTION_LIMIT` | `30` | 익명 브라우저 ID별 UTC 일일 질문 수 |
+| `SESSION_QUESTION_LIMIT` | `12` | 한 대화에서 허용할 질문 수 |
+| `MAX_CONCURRENT_REQUESTS` | `2` | API 프로세스가 동시에 처리할 질문 수 |
 
 ## Notes
 

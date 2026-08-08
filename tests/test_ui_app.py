@@ -474,6 +474,16 @@ class CineBotAppTests(IsolatedStorageTests):
             "영화 제목, 감독, 장르 또는 추천 조건을 입력하세요",
         )
 
+    def test_help_discloses_data_freshness_and_usage_limits(self):
+        app = AppTest.from_file("ui/app.py", default_timeout=10).run()
+        markdown = "\n".join(m.value or "" for m in app.markdown)
+
+        self.assertIn("약 500편", markdown)
+        self.assertIn("OTT 정보는 누락되거나 바뀔 수", markdown)
+        self.assertIn("하루 30회", markdown)
+        self.assertIn("대화당 12회", markdown)
+        self.assertIn("쿠키를 지우면", markdown)
+
     def test_non_ascii_input_does_not_crash(self):
         """compare_digest에 str을 넘기면 한글 입력에서 TypeError가 나 화면이 죽는다."""
         with patch.object(ui.app, "PASSCODE", "cinebot-test"):
@@ -749,10 +759,11 @@ class CineBotAppTests(IsolatedStorageTests):
     def test_question_is_claimed_before_the_api_call(self):
         """스트리밍이 중단돼도 다시 전송되지 않도록, 부르기 전에 pending을 비운다."""
         seen: list[Any] = []
+        seen_user_ids: list[str | None] = []
 
         class Recording:
             def __init__(self, *args, **kwargs):
-                pass
+                seen_user_ids.append(kwargs.get("user_id"))
 
             def stream_query(self, question, session_id):
                 # API를 부르는 시점의 pending 값을 기록한다.
@@ -769,6 +780,7 @@ class CineBotAppTests(IsolatedStorageTests):
 
         self.assertEqual(len(app.exception), 0)
         self.assertEqual(seen, [None])
+        self.assertEqual(seen_user_ids, [history.DEFAULT_USER_ID])
 
     def test_missing_past_conversation_falls_back_to_the_live_one(self):
         """파일이 지워졌는데 화면이 죽으면 안 된다."""

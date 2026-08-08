@@ -53,6 +53,20 @@ class RagApiClientTests(unittest.TestCase):
         )
 
     @patch("ui.api_client.httpx.post")
+    def test_query_adds_anonymous_user_id_when_configured(self, post: Mock):
+        client = RagApiClient("http://127.0.0.1:8000", user_id="user-1")
+        response = Mock()
+        response.json.return_value = {"answer": "답변", "sources": []}
+        post.return_value = response
+
+        client.query("질문", "session-1")
+
+        self.assertEqual(
+            post.call_args.kwargs["json"],
+            {"question": "질문", "session_id": "session-1", "user_id": "user-1"},
+        )
+
+    @patch("ui.api_client.httpx.post")
     def test_query_translates_timeout_to_safe_message(self, post: Mock):
         post.side_effect = httpx.ReadTimeout("slow")
 
@@ -143,6 +157,13 @@ class StreamQueryTests(unittest.TestCase):
             list(self.client.stream_query("기생충 감독은?", "session-1"))
         # 본문을 읽지 않은 스트림은 raise_for_status()가 상태를 조립하지 못한다.
         self.assertTrue(response.was_read)
+
+    @patch("ui.api_client.httpx.stream")
+    def test_rate_limit_has_a_specific_safe_message(self, stream: Mock):
+        stream.return_value = FakeStream([], status_code=429)
+
+        with self.assertRaisesRegex(ApiClientError, "사용 한도"):
+            list(self.client.stream_query("질문", "session-1"))
 
     @patch("ui.api_client.httpx.stream")
     def test_timeout_is_translated(self, stream: Mock):
