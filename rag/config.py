@@ -135,8 +135,19 @@ class Settings:
     tavily_api_key: str | None = field(default_factory=lambda: os.getenv("TAVILY_API_KEY"))
 
     # --- 평가(LangSmith) ---
-    dataset_name: str = field(default_factory=lambda: _get("LANGSMITH_DATASET", "movies-rag-eval"))
+    dataset_name: str = field(
+        default_factory=lambda: _get("LANGSMITH_DATASET", "movies-rag-eval-d8-v1")
+    )
     eval_file: Path = field(default_factory=lambda: ROOT_DIR / _get("EVAL_FILE", "eval/dataset.jsonl"))
+    # Target(Luna)와 같은 공급자를 쓰되 더 강한 Terra를 독립된 judge로 고정한다.
+    # get_llm()을 재사용하면 target 설정을 그대로 물려받아 Luna 자기평가가 된다.
+    judge_model: str = field(
+        default_factory=lambda: _get("JUDGE_MODEL", "gpt-5.6-terra")
+    )
+    # 추론 모델에서는 추론 토큰까지 포함하는 상한이다. 5축 JSON 한 건만 생성한다.
+    judge_max_tokens: int = field(
+        default_factory=lambda: int(_get("JUDGE_MAX_TOKENS", "1024"))
+    )
 
     # --- LangGraph ---
     # 멀티턴 대화 메모리 저장 방식: memory(휘발) | sqlite(파일 영속).

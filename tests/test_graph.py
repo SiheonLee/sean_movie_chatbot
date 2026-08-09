@@ -23,6 +23,7 @@ from rag.graph import (
     collect_turn_attributions,
     collect_turn_sources,
     collect_turn_tool_calls,
+    collect_turn_tool_results,
     collect_turn_web_sources,
     tool_status,
 )
@@ -181,6 +182,88 @@ class CollectTurnToolCallsTests(unittest.TestCase):
             AIMessage(content="영화에 대해 물어보세요."),
         ]
         self.assertEqual(collect_turn_tool_calls(messages), [])
+
+
+class CollectTurnToolResultsTests(unittest.TestCase):
+    def test_connects_calls_to_successful_structured_evidence(self):
+        movie = source("기생충", 2019, 10)
+        web = {"title": "기생충 평가", "url": "https://example.com/review"}
+        messages = [
+            HumanMessage(content="질문"),
+            ai_with_calls(
+                ("search_movies", {"person": "봉준호"}),
+                ("web_search", {"query": "기생충 평단"}),
+            ),
+            result_message("c0", sources=[movie]),
+            result_message("c1", web_sources=[web]),
+            AIMessage(content="답변"),
+        ]
+
+        results = collect_turn_tool_results(messages)
+
+        self.assertEqual([item["name"] for item in results], ["search_movies", "web_search"])
+        self.assertEqual(results[0]["args"], {"person": "봉준호"})
+        self.assertTrue(results[0]["success"])
+        self.assertEqual(results[0]["sources"], [movie])
+        self.assertEqual(results[1]["web_sources"], [web])
+
+    def test_failed_result_keeps_diagnostic_text_but_not_evidence(self):
+        messages = [
+            HumanMessage(content="질문"),
+            ai_with_calls(("web_search", {"query": "q"})),
+            ToolMessage(
+                content="웹 검색 실패",
+                tool_call_id="c0",
+                artifact={
+                    "success": False,
+                    "sources": [source("잘못된 카드")],
+                    "web_sources": [{"title": "x", "url": "https://x"}],
+                },
+            ),
+            AIMessage(content="실패했습니다."),
+        ]
+
+        result = collect_turn_tool_results(messages)[0]
+
+        self.assertFalse(result["success"])
+        self.assertEqual(result["content"], "웹 검색 실패")
+        self.assertEqual(result["sources"], [])
+        self.assertEqual(result["web_sources"], [])
+
+    def test_stops_at_previous_turn(self):
+        messages = [
+            HumanMessage(content="이전"),
+            ai_with_calls(("search_movies", {"genre": "액션"})),
+            result_message("c0", sources=[source("이전 영화")]),
+            AIMessage(content="이전 답변"),
+            HumanMessage(content="현재"),
+            ai_with_calls(("search_by_vibe", {"vibe": "잔잔한"})),
+            result_message("c0", sources=[source("현재 영화")]),
+            AIMessage(content="현재 답변"),
+        ]
+
+        results = collect_turn_tool_results(messages)
+
+        self.assertEqual([item["name"] for item in results], ["search_by_vibe"])
+        self.assertEqual(results[0]["sources"][0]["title"], "현재 영화")
+
+    def test_trace_returns_final_fields_calls_and_tool_evidence(self):
+        movie = source("기생충", 2019, 10)
+        messages = [
+            HumanMessage(content="봉준호 영화"),
+            ai_with_calls(("search_movies", {"person": "봉준호"})),
+            result_message("c0", sources=[movie]),
+            AIMessage(content="**기생충**(2019)을 추천합니다."),
+        ]
+        graph = object.__new__(MovieRagGraph)
+
+        with patch.object(MovieRagGraph, "_run", return_value=messages):
+            result = graph.trace("봉준호 영화")
+
+        self.assertEqual(result["answer"], "**기생충**(2019)을 추천합니다.")
+        self.assertEqual(result["sources"], [movie])
+        self.assertEqual(result["tool_calls"][0]["name"], "search_movies")
+        self.assertEqual(result["tool_results"][0]["sources"], [movie])
 
 
 class TurnAttributionsTests(unittest.TestCase):

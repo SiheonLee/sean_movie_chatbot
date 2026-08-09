@@ -249,6 +249,55 @@ def collect_turn_tool_calls(messages: list) -> list[dict]:
     return calls
 
 
+def _message_text(content) -> str:
+    """문자열 또는 제공자별 content block에서 텍스트만 꺼낸다."""
+    if isinstance(content, str):
+        return content
+    if not isinstance(content, list):
+        return ""
+    return "".join(
+        block.get("text", "")
+        for block in content
+        if isinstance(block, dict) and block.get("type") == "text"
+    )
+
+
+def collect_turn_tool_results(messages: list) -> list[dict]:
+    """이번 턴의 도구 호출과 실제 ToolMessage evidence를 연결한다.
+
+    ``tool_calls``만으로는 호출 시도와 성공한 결과를 구분할 수 없다. D8 평가는
+    최종 카드·웹 URL·답변 근거가 성공한 artifact에서 왔는지 독립적으로 확인해야
+    하므로, 호출 ID로 이름·인자와 결과를 결합한다. 제품 API에는 노출하지 않고
+    ``trace()``에서만 사용한다.
+    """
+    calls_by_id: dict[str, dict] = {}
+    results: list[dict] = []
+    for message in messages[_turn_start(messages) :]:
+        if isinstance(message, AIMessage):
+            for call in message.tool_calls or []:
+                if call.get("id"):
+                    calls_by_id[call["id"]] = call
+            continue
+        if not isinstance(message, ToolMessage):
+            continue
+
+        call = calls_by_id.get(message.tool_call_id, {})
+        results.append(
+            {
+                "tool_call_id": message.tool_call_id,
+                "name": call.get("name", ""),
+                "args": call.get("args") or {},
+                "success": _artifact_succeeded(message),
+                "content": _message_text(message.content),
+                # 실패 artifact의 구조화 데이터는 근거가 될 수 없다. 기존 수집
+                # 헬퍼가 success/status를 함께 확인하므로 같은 계약을 재사용한다.
+                "sources": _movie_sources(message),
+                "web_sources": _web_sources(message),
+            }
+        )
+    return results
+
+
 def collect_turn_attributions(messages: list) -> list[str]:
     """이번 턴이 무엇을 보고 답했는지(TMDB·로컬 색인·웹·JustWatch).
 
@@ -445,11 +494,12 @@ class MovieRagGraph:
         return self._to_result(self._run(question, session_id, "once"))
 
     def trace(self, question: str, session_id: str | None = None) -> dict:
-        """answer()와 같되 이번 턴의 도구 호출까지 함께 돌려준다(평가·디버깅용)."""
+        """answer()와 같되 이번 턴의 호출·결과 evidence도 돌려준다."""
         messages = self._run(question, session_id, "trace")
         return {
             **self._to_result(messages),
             "tool_calls": collect_turn_tool_calls(messages),
+            "tool_results": collect_turn_tool_results(messages),
         }
 
     def stream_answer(
@@ -588,14 +638,7 @@ class MovieRagGraph:
 
     @staticmethod
     def _to_result(messages: list) -> dict:
-        answer = messages[-1].content if messages else ""
-        if isinstance(answer, list):
-            # 일부 제공자는 content를 블록 리스트로 준다. 텍스트 블록만 잇는다.
-            answer = "".join(
-                block.get("text", "")
-                for block in answer
-                if isinstance(block, dict) and block.get("type") == "text"
-            )
+        answer = _message_text(messages[-1].content) if messages else ""
         return {
             "answer": answer,
             "sources": select_answer_sources(answer, collect_turn_sources(messages)),
