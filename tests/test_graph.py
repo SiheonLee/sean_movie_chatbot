@@ -310,7 +310,7 @@ class SystemPromptTests(unittest.TestCase):
 
 
 class StructuredSourcesTests(unittest.TestCase):
-    """출처는 답변 문자열이 아니라 성공한 도구 artifact가 정본이다."""
+    """artifact는 카드의 자격·내용, 답변은 카드의 선택·순서를 정한다."""
 
     def test_short_title_substrings_do_not_change_sources(self):
         """시·밤·형·콜·섬·활이 일반 문장에 있어도 문자열로 출처를 만들지 않는다."""
@@ -333,18 +333,90 @@ class StructuredSourcesTests(unittest.TestCase):
             MovieRagGraph._to_result(with_coincidences)["sources"],
             MovieRagGraph._to_result(without_coincidences)["sources"],
         )
+        self.assertEqual(MovieRagGraph._to_result(with_coincidences)["sources"], [])
 
-    def test_answer_text_does_not_filter_or_reorder_tool_results(self):
-        returned = [source("시", 2015, 1), source("기생충", 2019, 2)]
+    def test_cards_follow_answer_selection_and_order(self):
+        returned = [
+            source("시", 2015, 1),
+            source("기생충", 2019, 2),
+            source("옥자", 2017, 3),
+        ]
         messages = [
             HumanMessage(content="추천해줘"),
             result_message("c0", sources=returned),
-            AIMessage(content="기생충만 소개합니다."),
+            AIMessage(
+                content="**옥자**(2017)를 먼저, **기생충**(2019)을 다음으로 추천합니다."
+            ),
         ]
 
         result = MovieRagGraph._to_result(messages)
 
-        self.assertEqual([item["movie_id"] for item in result["sources"]], [1, 2])
+        self.assertEqual([item["movie_id"] for item in result["sources"]], [3, 2])
+
+    def test_plain_title_and_year_are_an_explicit_mention(self):
+        messages = [
+            HumanMessage(content="추천해줘"),
+            result_message("c0", sources=[source("기생충", 2019, 2)]),
+            AIMessage(content="기생충(2019)을 추천합니다."),
+        ]
+
+        result = MovieRagGraph._to_result(messages)
+
+        self.assertEqual(result["sources"][0]["movie_id"], 2)
+
+    def test_short_title_is_kept_when_title_and_year_are_explicit(self):
+        messages = [
+            HumanMessage(content="추천해줘"),
+            result_message("c0", sources=[source("시", 2010, 10)]),
+            AIMessage(content="**시**(2010)를 추천합니다."),
+        ]
+
+        result = MovieRagGraph._to_result(messages)
+
+        self.assertEqual([item["movie_id"] for item in result["sources"]], [10])
+
+    def test_same_title_different_year_uses_the_stated_year(self):
+        returned = [source("올드보이", 2013, 13), source("올드보이", 2003, 3)]
+        messages = [
+            HumanMessage(content="박찬욱 영화 추천해줘"),
+            result_message("c0", sources=returned),
+            AIMessage(content="**올드보이**(2003)를 추천합니다."),
+        ]
+
+        result = MovieRagGraph._to_result(messages)
+
+        self.assertEqual([item["movie_id"] for item in result["sources"]], [3])
+
+    def test_punctuation_difference_in_title_still_matches(self):
+        returned = [source("너의 이름은.", 2016, 16)]
+        messages = [
+            HumanMessage(content="추천해줘"),
+            result_message("c0", sources=returned),
+            AIMessage(content="**너의 이름은**(2016)을 추천합니다."),
+        ]
+
+        self.assertEqual(MovieRagGraph._to_result(messages)["sources"], returned)
+
+    def test_same_textual_mention_does_not_create_two_cards(self):
+        returned = [source("괴물", 2006, 1), source("괴물", 2006, 2)]
+        messages = [
+            HumanMessage(content="추천해줘"),
+            result_message("c0", sources=returned),
+            AIMessage(content="**괴물**(2006)을 추천합니다."),
+        ]
+
+        result = MovieRagGraph._to_result(messages)
+
+        self.assertEqual([item["movie_id"] for item in result["sources"]], [1])
+
+    def test_movie_not_returned_by_a_tool_cannot_get_a_card(self):
+        messages = [
+            HumanMessage(content="추천해줘"),
+            result_message("c0", sources=[source("기생충", 2019, 2)]),
+            AIMessage(content="**옥자**(2017)를 추천합니다."),
+        ]
+
+        self.assertEqual(MovieRagGraph._to_result(messages)["sources"], [])
 
     def test_failed_result_cannot_supply_a_short_title(self):
         messages = [
@@ -375,6 +447,7 @@ class StructuredSourcesTests(unittest.TestCase):
         ]
 
         self.assertEqual(collect_turn_web_sources(messages), [web])
+        self.assertEqual(MovieRagGraph._to_result(messages)["web_sources"], [web])
 
 
 class ToolStatusTests(unittest.TestCase):
@@ -546,18 +619,18 @@ class StreamAnswerTests(unittest.TestCase):
         )
         self.assertEqual([e["text"] for e in events if e["type"] == "token"], ["기생충입니다."])
 
-    def test_done_carries_structured_sources_without_parsing_the_answer(self):
-        """도구 artifact가 정본이고 답변 문자열은 출처 판정에 쓰지 않는다."""
+    def test_done_carries_only_sources_in_answer_order(self):
+        """도구 후보 중 답변이 실제 소개한 카드만 같은 순서로 확정한다."""
         events = self.run_stream(
             [
                 update("agent", ai_with_calls(("search_movies", {}))),
                 update("tools", tool_message(source("기생충", 2019), source("옥자", 2017))),
-                text_chunk("기생충을 추천합니다."),
-                update("agent", AIMessage(content="기생충을 추천합니다.")),
+                text_chunk("**기생충**(2019)을 추천합니다."),
+                update("agent", AIMessage(content="**기생충**(2019)을 추천합니다.")),
             ]
         )
         done = events[-1]
-        self.assertEqual([s["title"] for s in done["sources"]], ["기생충", "옥자"])
+        self.assertEqual([s["title"] for s in done["sources"]], ["기생충"])
 
     def test_no_tool_call_streams_straight_through(self):
         """대화 자체에 대한 질문은 도구를 안 부르므로 reset이 없어야 한다."""

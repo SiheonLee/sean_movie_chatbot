@@ -109,7 +109,7 @@ class Settings:
     #
     # 추론 모델에서는 이 값이 "추론 + 답변" 합계라서 더 크게 잡아야 한다. 모자라면
     # 추론에 다 쓰고 답변이 빈 문자열로 온다.
-    llm_max_tokens: int = field(default_factory=lambda: int(_get("LLM_MAX_TOKENS", "2048")))
+    llm_max_tokens: int = field(default_factory=lambda: int(_get("LLM_MAX_TOKENS", "8192")))
     # 추론 강도. 비워 두면 파라미터를 안 보내고 API 기본값을 쓴다.
     #
     # "none"에는 부수 효과가 있다. langchain-openai는 gpt-5 계열(chat 제외)에서

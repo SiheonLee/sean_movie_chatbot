@@ -275,6 +275,19 @@ class SearchByVibeTests(unittest.TestCase):
         store.similarity_search.return_value = docs
         return patch("rag.tools._vectorstore", return_value=store), store
 
+    def test_content_and_sources_keep_similarity_order(self):
+        """LLM 본문과 카드 후보가 같은 Chroma 순서에서 갈라져야 한다."""
+        docs = [vibe_doc("세 번째"), vibe_doc("첫 번째"), vibe_doc("두 번째")]
+        ctx, _ = self.patched_store(docs)
+
+        with ctx:
+            content, artifact = call(tools.search_by_vibe, vibe="잔잔한")
+
+        titles = [source["title"] for source in sources_of(artifact)]
+        self.assertEqual(titles, ["세 번째", "첫 번째", "두 번째"])
+        self.assertLess(content.index("세 번째"), content.index("첫 번째"))
+        self.assertLess(content.index("첫 번째"), content.index("두 번째"))
+
     def test_numeric_filters_go_to_chroma_where(self):
         ctx, store = self.patched_store([vibe_doc("기생충")])
         with ctx:

@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 import sqlite3
 import uuid
 from collections.abc import Iterator
@@ -328,6 +329,61 @@ def collect_turn_sources(messages: list) -> list[dict]:
     return sources
 
 
+_TITLE_GAP = r"[^\w\n]*"
+
+
+def _answer_mention_span(answer: str, source: dict) -> tuple[int, int] | None:
+    """답변의 명시적인 ``제목(개봉연도)`` 위치.
+
+    제목만 부분 문자열로 찾으면 ``시``, ``밤``, ``활`` 같은 실제 영화 제목이 일반
+    문장에도 걸린다. 시스템 프롬프트가 요구하는 제목 바로 뒤의 개봉연도까지 카드와
+    일치할 때만 영화 언급으로 인정한다.
+
+    공백·문장부호·Markdown 강조는 무시한다. 그래서 카탈로그의 ``너의 이름은.``과
+    답변의 ``**너의 이름은**(2016)``은 같은 언급이지만, ``올드보이(2003)``에
+    2013년작 카드는 붙지 않는다.
+    """
+    title = str(source.get("title") or "").casefold()
+    year = int(source.get("year") or 0)
+    title_chars = [re.escape(char) for char in title if char.isalnum()]
+    if not title_chars or not year:
+        return None
+
+    title_pattern = _TITLE_GAP.join(title_chars)
+    pattern = re.compile(
+        rf"(?<!\w){title_pattern}(?!\w){_TITLE_GAP}"
+        rf"[（(]\s*{year}\s*년?\s*[)）]",
+        re.IGNORECASE,
+    )
+    match = pattern.search(answer.casefold())
+    return match.span() if match else None
+
+
+def select_answer_sources(answer: str, sources: list[dict]) -> list[dict]:
+    """도구가 준 카드 후보 중 답변이 소개한 영화만 답변 순서로 남긴다.
+
+    artifact는 카드의 자격과 내용을 보장하고, 답변은 후보의 포함 여부와 표시 순서만
+    정한다. 답변에만 있는 영화는 카드가 될 수 없으며, 일치 항목이 없을 때 도구 결과
+    전체를 보여주는 fallback도 두지 않는다. 같은 텍스트 언급에 제목·연도가 같은
+    후보가 둘이면 도구 순서상 첫 카드 하나만 사용한다.
+    """
+    mentioned: list[tuple[int, int, int, dict]] = []
+    for tool_order, source in enumerate(sources):
+        span = _answer_mention_span(answer, source)
+        if span is not None:
+            mentioned.append((*span, tool_order, source))
+
+    selected: list[dict] = []
+    used_spans: set[tuple[int, int]] = set()
+    for start, end, _, source in sorted(mentioned, key=lambda item: (item[0], item[2])):
+        span = (start, end)
+        if span in used_spans:
+            continue
+        used_spans.add(span)
+        selected.append(source)
+    return selected
+
+
 def collect_turn_web_sources(messages: list) -> list[dict]:
     """이번 턴에 성공한 웹 검색이 실제 반환한 제목·URL을 모은다."""
     sources: list[dict] = []
@@ -422,8 +478,9 @@ class MovieRagGraph:
 
         ``reset``은 2가 뚫렸을 때(서두가 한도보다 길었을 때)만 나가는 안전망이다.
 
-        출처는 성공한 ToolMessage artifact에서 모아 ``done``에 한 번에 싣는다.
-        답변 문자열에서 제목이나 URL을 다시 추측하지 않는다.
+        영화 출처 후보는 성공한 ToolMessage artifact에서 모은다. 완성된 답변의
+        명시적인 제목·연도와 맞는 후보만 답변 순서로 골라 ``done``에 한 번에 싣는다.
+        웹 URL은 답변 문자열에서 추측하지 않고 artifact를 그대로 사용한다.
 
         비동기로 만들지 않았다. ``SqliteSaver``가 async 메서드에서
         ``NotImplementedError``를 던지므로 ``CHECKPOINTER=sqlite``가 깨진다.
@@ -541,7 +598,7 @@ class MovieRagGraph:
             )
         return {
             "answer": answer,
-            "sources": collect_turn_sources(messages),
+            "sources": select_answer_sources(answer, collect_turn_sources(messages)),
             "web_sources": collect_turn_web_sources(messages),
             "attributions": collect_turn_attributions(messages),
         }

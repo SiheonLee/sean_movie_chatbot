@@ -101,6 +101,27 @@ class QueryEndpointTests(unittest.TestCase):
         self.assertEqual(response.answer, "기생충의 감독은 봉준호입니다.")
         self.assertEqual(response.sources[0].title, "기생충")
 
+    def test_query_preserves_source_order(self):
+        app.state.graph = Mock()
+        first = {
+            "title": "옥자",
+            "year": 2017,
+            "director": "봉준호",
+            "genres": "드라마",
+            "country": "한국",
+            "vote_average": 7.3,
+            "snippet": "첫 번째",
+        }
+        second = {**first, "title": "기생충", "year": 2019, "snippet": "두 번째"}
+        app.state.graph.answer.return_value = {
+            "answer": "옥자 다음 기생충입니다.",
+            "sources": [first, second],
+        }
+
+        response = query(QueryRequest(question="추천해줘", session_id="session-1"))
+
+        self.assertEqual([source.title for source in response.sources], ["옥자", "기생충"])
+
     def test_attributions_ride_along_with_the_answer(self):
         """답변만 봐서는 웹에서 찾아온 것인지 로컬 색인에서 고른 것인지 알 수 없다."""
         app.state.graph = Mock()
@@ -227,6 +248,32 @@ class StreamEventTests(unittest.TestCase):
         self.assertEqual(source["poster_path"], "")
         self.assertEqual(source["movie_id"], 0)
         self.assertEqual(source["title"], "기생충")
+
+    def test_done_preserves_source_order(self):
+        base = {
+            "year": 2019,
+            "director": "봉준호",
+            "genres": "드라마",
+            "country": "한국",
+            "vote_average": 8.0,
+            "snippet": "요약",
+        }
+        events = frames(
+            [
+                {
+                    "type": "done",
+                    "answer": "답변",
+                    "sources": [
+                        {**base, "title": "옥자"},
+                        {**base, "title": "기생충"},
+                    ],
+                }
+            ]
+        )
+
+        self.assertEqual(
+            [source["title"] for source in events[0]["sources"]], ["옥자", "기생충"]
+        )
 
     def test_done_web_urls_pass_through_web_source_model(self):
         events = frames(

@@ -38,6 +38,7 @@ from ui.app import (
     SHELF_POSTER_BASE_URL,
     shelf_card_html,
     source_card_html,
+    sources_html,
     status_html,
     unique_sources,
     watchlist_filename,
@@ -174,6 +175,13 @@ class SourceCardTests(unittest.TestCase):
 
         self.assertNotIn("<script>", html)
         self.assertIn("&lt;script&gt;", html)
+
+    def test_card_group_preserves_source_order(self):
+        markup = sources_html(
+            [card(title="옥자", year=2017), card(title="기생충", year=2019)]
+        )
+
+        self.assertLess(markup.index("옥자"), markup.index("기생충"))
 
     def test_status_text_is_escaped(self):
         self.assertNotIn("<b>", status_html("<b>찾는 중</b>"))
