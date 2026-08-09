@@ -1,8 +1,6 @@
 services:
   api:
-    build:
-      context: .
-    image: cinebot:local
+    image: ${CINEBOT_IMAGE:-seandev27/cinebot:d6-cbd7a10}
 
     env_file:
       - .env
@@ -11,21 +9,17 @@ services:
       LLM_PROVIDER: openai
       GRAPH_NATIVE_STRUCTURED_OUTPUT: "true"
 
-      # 준비된 런타임 아티팩트. 컨테이너에서는 읽기만 한다.
+      # 준비된 검색 아티팩트는 EC2 호스트에서 읽기 전용으로 마운트한다.
       MOVIES_FILE: /app/catalog/movies.json
       ENRICHED_FILE: /app/catalog/enriched.json
       # Chroma 1.5.x는 조회만 해도 SQLite 런타임 파일을 쓸 수 있어 원본을 직접
       # 열 수 없다. 읽기 전용 seed를 tmpfs에 복사하고 그 복사본만 연다.
       CHROMA_DIR: /app/chroma_runtime
-
-      # API 키 없이 먼저 실행
       LANGSMITH_TRACING: "false"
 
-      # 컨테이너 재시작 후에도 대화 체크포인트 유지
+      # checkpoint와 요청 사용량은 같은 영구 볼륨에서 보존한다.
       CHECKPOINTER: sqlite
       CHECKPOINT_DB: /app/state/graph_checkpoints.sqlite
-
-      # 익명 사용자별 비용 상한과 대화 길이, 동시에 진행할 외부 호출 수
       RATE_LIMIT_DB: /app/state/rate_limits.sqlite
       DAILY_QUESTION_LIMIT: "${DAILY_QUESTION_LIMIT:-30}"
       SESSION_QUESTION_LIMIT: "${SESSION_QUESTION_LIMIT:-12}"
@@ -74,24 +68,20 @@ services:
       retries: 12
       start_period: 30s
 
+    networks:
+      - backend
+
     restart: unless-stopped
 
   ui:
-    build:
-      context: .
-    image: cinebot:local
+    image: ${CINEBOT_IMAGE:-seandev27/cinebot:d6-cbd7a10}
 
     environment:
-      # Compose 네트워크에서는 서비스 이름이 호스트 이름
+      # UI만 backend에 연결해 외부에 공개되지 않은 API를 호출한다.
       RAG_API_URL: http://api:8000
-
-      # 배포용 Compose는 잠금 없이 뜨지 않게 한다. 로컬 단독 실행은 기존처럼
-      # 빈 값도 허용하지만, Compose에는 반드시 .env 값을 넣어야 한다.
       CINEBOT_PASSCODE: ${CINEBOT_PASSCODE:?set CINEBOT_PASSCODE in .env}
       DAILY_QUESTION_LIMIT: "${DAILY_QUESTION_LIMIT:-30}"
       SESSION_QUESTION_LIMIT: "${SESSION_QUESTION_LIMIT:-12}"
-
-      # 영화 아티팩트와 섞지 않는 UI 전용 사용자 데이터 경로
       CINEBOT_HISTORY_DIR: /app/user_data/conversations
       CINEBOT_WATCHLIST_DIR: /app/user_data/watchlist
 
@@ -101,9 +91,6 @@ services:
       - ui/app.py
       - --server.address=0.0.0.0
       - --server.port=8501
-
-    ports:
-      - "127.0.0.1:8501:8501"
 
     depends_on:
       api:
@@ -123,8 +110,59 @@ services:
       retries: 6
       start_period: 30s
 
+    networks:
+      - frontend
+      - backend
+
     restart: unless-stopped
+
+  caddy:
+    image: caddy:2.11.4-alpine
+
+    depends_on:
+      ui:
+        condition: service_healthy
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - type: bind
+        source: ./Caddyfile
+        target: /etc/caddy/Caddyfile
+        read_only: true
+        bind:
+          create_host_path: false
+      # 인증서와 개인 키가 들어가는 /data는 반드시 재시작 뒤에도 보존한다.
+      - caddy_data:/data
+      - caddy_config:/config
+
+    healthcheck:
+      test:
+        - CMD
+        - caddy
+        - validate
+        - --config
+        - /etc/caddy/Caddyfile
+        - --adapter
+        - caddyfile
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+    networks:
+      - frontend
+
+    restart: unless-stopped
+
+networks:
+  frontend:
+  backend:
 
 volumes:
   checkpoint_data:
   user_data:
+  caddy_data:
+  caddy_config:

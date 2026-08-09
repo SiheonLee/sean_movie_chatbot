@@ -1,0 +1,3 @@
+seandev27-cinebot.duckdns.org {
+	reverse_proxy ui:8501
+}
