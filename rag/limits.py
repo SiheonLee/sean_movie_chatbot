@@ -1,4 +1,4 @@
-"""Small, process-safe request limits for the invited-user demo."""
+"""초대 사용자용 데모의 요청 한도를 프로세스 안전하게 관리한다."""
 
 from __future__ import annotations
 
@@ -11,11 +11,11 @@ from pathlib import Path
 
 
 class RequestLimitError(RuntimeError):
-    """A request was rejected before any external API work started."""
+    """외부 API 작업을 시작하기 전에 요청이 거부되었음을 나타낸다."""
 
 
 class RequestLease:
-    """One concurrency slot. ``release`` is safe to call more than once."""
+    """동시 요청 슬롯 하나. ``release``는 여러 번 호출해도 안전하다."""
 
     def __init__(self, release: Callable[[], None] | None = None) -> None:
         self._release = release
@@ -32,7 +32,7 @@ class RequestLease:
 
 
 class UsageLimiter:
-    """Persist daily user counts and per-conversation counts in SQLite."""
+    """사용자별 일일 질문 수와 대화별 질문 수를 SQLite에 영속화한다."""
 
     def __init__(
         self,
@@ -43,7 +43,7 @@ class UsageLimiter:
         day: Callable[[], str] | None = None,
     ) -> None:
         if daily_limit < 1 or session_limit < 1:
-            raise ValueError("question limits must be positive")
+            raise ValueError("질문 한도는 1 이상이어야 합니다.")
         self.db_path = Path(db_path)
         self.daily_limit = daily_limit
         self.session_limit = session_limit
@@ -82,7 +82,7 @@ class UsageLimiter:
                 )
 
     def consume(self, user_id: str, session_id: str) -> None:
-        """Atomically reserve one question or raise without changing either count."""
+        """두 한도를 원자적으로 검사해 한 건을 예약하며, 거부 시 횟수를 유지한다."""
         today = self._day()
         with closing(self._connect()) as connection:
             with connection:
@@ -132,11 +132,11 @@ class UsageLimiter:
 
 
 class RequestGate:
-    """Apply the process-local concurrency cap before consuming persistent quota."""
+    """영속 한도를 차감하기 전에 프로세스 내부 동시 요청 수를 제한한다."""
 
     def __init__(self, usage: UsageLimiter, *, max_concurrent: int) -> None:
         if max_concurrent < 1:
-            raise ValueError("max_concurrent must be positive")
+            raise ValueError("최대 동시 요청 수는 1 이상이어야 합니다.")
         self.usage = usage
         self._slots = threading.BoundedSemaphore(max_concurrent)
 

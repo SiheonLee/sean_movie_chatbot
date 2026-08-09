@@ -132,7 +132,7 @@ def health() -> dict:
 
 
 def _admit_request(req: QueryRequest) -> RequestLease:
-    """Reserve quota before graph/LLM work; direct unit calls remain compatible."""
+    """그래프·LLM 작업 전에 한도를 예약하며, 요청 게이트 없는 직접 호출도 허용한다."""
     gate = getattr(app.state, "request_gate", None)
     if gate is None:
         return RequestLease()
