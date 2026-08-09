@@ -38,25 +38,6 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 396535,
-    "title": "부산행",
-    "one_line_vibe": "밀폐된 열차 안에서 점점 좁혀오는 공포와 절망 속에서 낯선 사람들이 함께 생존을 위해 몸부림치는 경험",
-    "emotional_arc": "처음엔 일상적인 여행으로 시작하지만 순식간에 악몽으로 변하고, 희미한 희망과 절망을 오가다가 비극적인 결말로 향한다",
-    "mood_tags": [
-      "긴장감있는",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
     "movie_id": 670,
     "title": "올드보이",
     "one_line_vibe": "15년의 감금에서 풀려난 남자가 자신의 인생을 파괴한 진실을 향해 나아가며 겪는 광기와 절망의 소용돌이",
@@ -74,6 +55,25 @@
     "sadness": 4,
     "tension": 5,
     "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 396535,
+    "title": "부산행",
+    "one_line_vibe": "밀폐된 열차 안에서 점점 좁혀오는 공포와 절망 속에서 낯선 사람들이 함께 생존을 위해 몸부림치는 경험",
+    "emotional_arc": "처음엔 일상적인 여행으로 시작하지만 순식간에 악몽으로 변하고, 희미한 희망과 절망을 오가다가 비극적인 결말로 향한다",
+    "mood_tags": [
+      "긴장감있는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 3,
     "pacing": "빠름"
   },
   {
@@ -109,6 +109,25 @@
       "혼자 밤에"
     ],
     "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 11423,
+    "title": "살인의 추억",
+    "one_line_vibe": "연쇄살인 사건의 미로 속에서 경찰들의 좌절과 집착이 만드는 어두운 심리 드라마",
+    "emotional_arc": "무거운 범죄 현장으로 시작해 수사의 진전 없음에 따른 답답함과 절망감이 깊어지다가, 결국 진실에 도달하지 못한 채 허무함으로 끝난다",
+    "mood_tags": [
+      "묵직한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
     "sadness": 4,
     "tension": 4,
     "complexity": 4,
@@ -153,13 +172,32 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 11423,
-    "title": "살인의 추억",
-    "one_line_vibe": "연쇄살인 사건의 미로 속에서 경찰들의 좌절과 집착이 만드는 어두운 심리 드라마",
-    "emotional_arc": "무거운 범죄 현장으로 시작해 수사의 진전 없음에 따른 답답함과 절망감이 깊어지다가, 결국 진실에 도달하지 못한 채 허무함으로 끝난다",
+    "movie_id": 293670,
+    "title": "곡성",
+    "one_line_vibe": "마을 전체를 뒤덮는 의심과 공포 속에서 진실과 광기의 경계가 무너지는 경험",
+    "emotional_arc": "불안감 속에서 시작해 점점 더 깊은 절망과 혼란에 빠져들다가, 마지막에는 무엇이 진실인지 알 수 없는 허탈함으로 끝난다",
+    "mood_tags": [
+      "불안한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 5,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 581528,
+    "title": "악인전",
+    "one_line_vibe": "자존심이 상한 조직 보스와 집착하는 형사가 연쇄살인마를 추격하며 벌어지는 복수와 집착의 심연으로 빠져드는 경험",
+    "emotional_arc": "모욕감으로 시작해 집착과 광기로 치달아 결국 복수의 대가를 마주하는 비극적 여정",
     "mood_tags": [
       "묵직한",
-      "불안한"
+      "비장한"
     ],
     "watch_situations": [
       "집중해서 볼 때",
@@ -167,9 +205,9 @@
     ],
     "violence": 4,
     "sadness": 4,
-    "tension": 4,
+    "tension": 5,
     "complexity": 4,
-    "pacing": "보통"
+    "pacing": "빠름"
   },
   {
     "movie_id": 110415,
@@ -188,25 +226,6 @@
     "sadness": 4,
     "tension": 5,
     "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 508642,
-    "title": "곤지암",
-    "one_line_vibe": "어두운 병원 복도를 헤매며 점점 심해지는 초자연적 공포에 휘말리는 긴장감 넘치는 경험",
-    "emotional_arc": "호기심으로 시작해 점진적으로 공포가 고조되다가 통제 불능의 상황으로 치닫는 절망감",
-    "mood_tags": [
-      "긴장감있는",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 2,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 2,
     "pacing": "빠름"
   },
   {
@@ -230,22 +249,22 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 581528,
-    "title": "악인전",
-    "one_line_vibe": "자존심이 상한 조직 보스와 집착하는 형사가 연쇄살인마를 추격하며 벌어지는 복수와 집착의 심연으로 빠져드는 경험",
-    "emotional_arc": "모욕감으로 시작해 집착과 광기로 치달아 결국 복수의 대가를 마주하는 비극적 여정",
+    "movie_id": 508642,
+    "title": "곤지암",
+    "one_line_vibe": "어두운 병원 복도를 헤매며 점점 심해지는 초자연적 공포에 휘말리는 긴장감 넘치는 경험",
+    "emotional_arc": "호기심으로 시작해 점진적으로 공포가 고조되다가 통제 불능의 상황으로 치닫는 절망감",
     "mood_tags": [
-      "묵직한",
-      "비장한"
+      "긴장감있는",
+      "불안한"
     ],
     "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
+      "혼자 밤에",
+      "집중해서 볼 때"
     ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
+    "violence": 2,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 2,
     "pacing": "빠름"
   },
   {
@@ -287,61 +306,24 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 293670,
-    "title": "곡성",
-    "one_line_vibe": "마을 전체를 뒤덮는 의심과 공포 속에서 진실과 광기의 경계가 무너지는 경험",
-    "emotional_arc": "불안감 속에서 시작해 점점 더 깊은 절망과 혼란에 빠져들다가, 마지막에는 무엇이 진실인지 알 수 없는 허탈함으로 끝난다",
+    "movie_id": 1466115,
+    "title": "오늘 밤, 세계에서 이 사랑이 사라진다 해도",
+    "one_line_vibe": "매일 아침 처음 만나는 사람을 사랑하게 되는 설렘과 그것이 영원할 수 없다는 슬픔이 교차하는 경험",
+    "emotional_arc": "설레는 기대감으로 시작해 점점 깊어지는 감정의 무게를 느끼다가, 결국 그 사랑이 얼마나 소중한지 깨닫는 따뜻한 위로로 마무리된다",
     "mood_tags": [
-      "불안한",
-      "묵직한"
+      "설레는",
+      "쓸쓸한",
+      "따뜻한"
     ],
     "watch_situations": [
       "혼자 밤에",
-      "집중해서 볼 때"
+      "비 오는 날"
     ],
-    "violence": 3,
+    "violence": 1,
     "sadness": 4,
-    "tension": 5,
-    "complexity": 5,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 581392,
-    "title": "반도",
-    "one_line_vibe": "황폐한 땅에서 생존자들과 함께 절박한 탈출을 시도하며 느끼는 긴박한 긴장감과 예측 불가능한 공포",
-    "emotional_arc": "절망적인 상황 속에서 시작해 생존자들과의 만남으로 희미한 희망을 품었다가, 계속되는 위협 속에서 비장한 결말을 맞이한다",
-    "mood_tags": [
-      "긴장감있는",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1451344,
-    "title": "남편들",
-    "one_line_vibe": "성격 다른 두 남편의 어색한 팀플이 만드는 예측 불가능한 웃음과 액션의 롤러코스터",
-    "emotional_arc": "어색함과 불신으로 시작해 공동의 목표 속에서 점차 신뢰와 우정으로 변해가는 과정, 긴장과 웃음이 교차하며 결국 통쾌한 해결로 마무리된다",
-    "mood_tags": [
-      "유쾌한",
-      "코믹한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 1,
     "tension": 2,
-    "complexity": 2,
-    "pacing": "빠름"
+    "complexity": 3,
+    "pacing": "느림"
   },
   {
     "movie_id": 982843,
@@ -364,6 +346,25 @@
     "pacing": "보통"
   },
   {
+    "movie_id": 581392,
+    "title": "반도",
+    "one_line_vibe": "황폐한 땅에서 생존자들과 함께 절박한 탈출을 시도하며 느끼는 긴박한 긴장감과 예측 불가능한 공포",
+    "emotional_arc": "절망적인 상황 속에서 시작해 생존자들과의 만남으로 희미한 희망을 품었다가, 계속되는 위협 속에서 비장한 결말을 맞이한다",
+    "mood_tags": [
+      "긴장감있는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 22832,
     "title": "닌자 어쌔신",
     "one_line_vibe": "어두운 과거에서 벗어나 복수를 향해 질주하는 고독한 전사의 피와 땀이 흐르는 여정",
@@ -381,44 +382,6 @@
     "tension": 4,
     "complexity": 2,
     "pacing": "빠름"
-  },
-  {
-    "movie_id": 122126,
-    "title": "후궁: 제왕의 첩",
-    "one_line_vibe": "궁궐의 어두운 권력 싸움 속에서 사랑과 원망이 얽혀 질식할 듯한 긴장감을 느끼는 경험",
-    "emotional_arc": "절망적인 사랑으로 시작해 궁정의 음모 속에서 점점 더 깊어지는 한(恨)으로 끝난다",
-    "mood_tags": [
-      "씁쓸한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 2,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 705996,
-    "title": "헤어질 결심",
-    "one_line_vibe": "의심과 매력이 얽혀 있는 위험한 심리 게임 속에서 두 사람이 서로를 재발견하는 경험",
-    "emotional_arc": "냉정한 수사로 시작해 점점 감정의 소용돌이에 빠져들다가, 결국 사랑과 죄책감 사이에서 비극적으로 끝난다",
-    "mood_tags": [
-      "씁쓸한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 2,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "보통"
   },
   {
     "movie_id": 49797,
@@ -441,45 +404,6 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 479718,
-    "title": "범죄도시",
-    "one_line_vibe": "거리의 악을 주먹으로 짓누르는 경쾌한 통쾌감과 거친 액션의 쾌감",
-    "emotional_arc": "무거운 범죄 상황으로 시작해 경찰의 거친 소탕 작전으로 점점 고조되다가 최후의 대결에서 폭발적인 카타르시스로 끝난다",
-    "mood_tags": [
-      "통쾌한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 4,
-    "sadness": 1,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1466115,
-    "title": "오늘 밤, 세계에서 이 사랑이 사라진다 해도",
-    "one_line_vibe": "매일 아침 처음 만나는 사람을 사랑하게 되는 설렘과 그것이 영원할 수 없다는 슬픔이 교차하는 경험",
-    "emotional_arc": "설레는 기대감으로 시작해 점점 깊어지는 감정의 무게를 느끼다가, 결국 그 사랑이 얼마나 소중한지 깨닫는 따뜻한 위로로 마무리된다",
-    "mood_tags": [
-      "설레는",
-      "쓸쓸한",
-      "따뜻한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "비 오는 날"
-    ],
-    "violence": 1,
-    "sadness": 4,
-    "tension": 2,
-    "complexity": 3,
-    "pacing": "느림"
-  },
-  {
     "movie_id": 488623,
     "title": "기억의 밤",
     "one_line_vibe": "형의 실종과 귀환 사이에 숨겨진 진실을 추적하며 점점 더 깊어지는 의심과 공포에 휩싸이는 경험",
@@ -499,23 +423,23 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 619803,
-    "title": "범죄도시 2",
-    "one_line_vibe": "국경을 넘나드는 추격 속에서 경험하는 거침없는 쾌감과 그 뒤의 무거운 대가",
-    "emotional_arc": "처음엔 신나는 액션으로 시작하지만, 점점 깊어지는 범죄의 수렁 속에서 형사들의 집념이 얼마나 위험한지 깨닫게 되며, 결국 정의와 복수 사이의 경계에서 씁쓸함으로 마무리된다",
+    "movie_id": 122126,
+    "title": "후궁: 제왕의 첩",
+    "one_line_vibe": "궁궐의 어두운 권력 싸움 속에서 사랑과 원망이 얽혀 질식할 듯한 긴장감을 느끼는 경험",
+    "emotional_arc": "절망적인 사랑으로 시작해 궁정의 음모 속에서 점점 더 깊어지는 한(恨)으로 끝난다",
     "mood_tags": [
-      "통쾌한",
-      "씁쓸한"
+      "씁쓸한",
+      "긴장감있는"
     ],
     "watch_situations": [
-      "친구들과",
-      "집중해서 볼 때"
+      "집중해서 볼 때",
+      "혼자 밤에"
     ],
-    "violence": 4,
-    "sadness": 2,
+    "violence": 2,
+    "sadness": 4,
     "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
+    "complexity": 3,
+    "pacing": "보통"
   },
   {
     "movie_id": 838209,
@@ -534,6 +458,82 @@
     "sadness": 4,
     "tension": 5,
     "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1451344,
+    "title": "남편들",
+    "one_line_vibe": "성격 다른 두 남편의 어색한 팀플이 만드는 예측 불가능한 웃음과 액션의 롤러코스터",
+    "emotional_arc": "어색함과 불신으로 시작해 공동의 목표 속에서 점차 신뢰와 우정으로 변해가는 과정, 긴장과 웃음이 교차하며 결국 통쾌한 해결로 마무리된다",
+    "mood_tags": [
+      "유쾌한",
+      "코믹한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 2,
+    "sadness": 1,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 705996,
+    "title": "헤어질 결심",
+    "one_line_vibe": "의심과 매력이 얽혀 있는 위험한 심리 게임 속에서 두 사람이 서로를 재발견하는 경험",
+    "emotional_arc": "냉정한 수사로 시작해 점점 감정의 소용돌이에 빠져들다가, 결국 사랑과 죄책감 사이에서 비극적으로 끝난다",
+    "mood_tags": [
+      "씁쓸한",
+      "긴장감있는"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 2,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 479718,
+    "title": "범죄도시",
+    "one_line_vibe": "거리의 악을 주먹으로 짓누르는 경쾌한 통쾌감과 거친 액션의 쾌감",
+    "emotional_arc": "무거운 범죄 상황으로 시작해 경찰의 거친 소탕 작전으로 점점 고조되다가 최후의 대결에서 폭발적인 카타르시스로 끝난다",
+    "mood_tags": [
+      "통쾌한",
+      "긴장감있는"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 4,
+    "sadness": 1,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 799379,
+    "title": "늑대사냥",
+    "one_line_vibe": "밀폐된 감옥선 위에서 벌어지는 극한의 생존 싸움, 숨 막히는 긴장감과 폭력이 끝없이 이어진다",
+    "emotional_arc": "극악무도한 범죄자들과 형사들이 갇힌 배 위에서 벌어지는 무자비한 생존 투쟁. 처음엔 긴장과 경계로 시작해 점점 더 극단적인 폭력과 혼란으로 치달으며, 마지막까지 절망적인 상황이 지속된다",
+    "mood_tags": [
+      "긴장감있는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 5,
+    "sadness": 3,
+    "tension": 5,
+    "complexity": 3,
     "pacing": "빠름"
   },
   {
@@ -575,6 +575,25 @@
     "pacing": "빠름"
   },
   {
+    "movie_id": 619803,
+    "title": "범죄도시 2",
+    "one_line_vibe": "국경을 넘나드는 추격 속에서 경험하는 거침없는 쾌감과 그 뒤의 무거운 대가",
+    "emotional_arc": "처음엔 신나는 액션으로 시작하지만, 점점 깊어지는 범죄의 수렁 속에서 형사들의 집념이 얼마나 위험한지 깨닫게 되며, 결국 정의와 복수 사이의 경계에서 씁쓸함으로 마무리된다",
+    "mood_tags": [
+      "통쾌한",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 397567,
     "title": "신과함께-죄와 벌",
     "one_line_vibe": "저승의 법정을 누비며 자신의 죄와 마주하는 영혼의 여정, 화려한 판타지 속에서 인간의 본질을 묻는다",
@@ -592,6 +611,25 @@
     "tension": 4,
     "complexity": 3,
     "pacing": "보통"
+  },
+  {
+    "movie_id": 614696,
+    "title": "#살아있다",
+    "one_line_vibe": "고립된 아파트에서 좀비 아포칼립스를 혼자 견디며, 건너편 창문의 누군가와 교감하는 절박한 생존기",
+    "emotional_arc": "절망적인 고립감으로 시작해 또 다른 생존자와의 연결로 희미한 희망을 찾지만, 계속되는 위협 속에서 불안감과 결연함이 교차한다",
+    "mood_tags": [
+      "불안한",
+      "설레는"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
   },
   {
     "movie_id": 4552,
@@ -613,6 +651,25 @@
     "pacing": "느림"
   },
   {
+    "movie_id": 530254,
+    "title": "마녀",
+    "one_line_vibe": "숨겨진 정체성이 하나씩 벗겨지면서 느껴지는 불안감과 초능력의 각성이 만드는 스릴러한 긴장감",
+    "emotional_arc": "밝고 순수한 일상에서 시작해 자신의 과거가 드러나면서 점점 더 어두워지고, 초능력의 각성과 함께 비장한 결말로 치닫는다",
+    "mood_tags": [
+      "불안한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 16318,
     "title": "색즉시공",
     "one_line_vibe": "대학 캠퍼스에서 펼쳐지는 엉뚱한 우정과 예상 밖의 로맨스 사이에서 흔들리는 청년의 성장기",
@@ -632,41 +689,22 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 799379,
-    "title": "늑대사냥",
-    "one_line_vibe": "밀폐된 감옥선 위에서 벌어지는 극한의 생존 싸움, 숨 막히는 긴장감과 폭력이 끝없이 이어진다",
-    "emotional_arc": "극악무도한 범죄자들과 형사들이 갇힌 배 위에서 벌어지는 무자비한 생존 투쟁. 처음엔 긴장과 경계로 시작해 점점 더 극단적인 폭력과 혼란으로 치달으며, 마지막까지 절망적인 상황이 지속된다",
+    "movie_id": 1355666,
+    "title": "고백의 역사",
+    "one_line_vibe": "1990년대 학창시절의 설렘과 순수함 속에서 자신을 바꾸려 애쓰는 소녀의 성장 이야기",
+    "emotional_arc": "어색하고 어두운 마음으로 시작해 자신을 받아들이고 성장하는 따뜻한 위로로 마무리된다",
     "mood_tags": [
-      "긴장감있는",
-      "비장한"
+      "설레는",
+      "따뜻한"
     ],
     "watch_situations": [
-      "집중해서 볼 때",
+      "주말 낮에",
       "친구들과"
     ],
-    "violence": 5,
-    "sadness": 3,
-    "tension": 5,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 51608,
-    "title": "아저씨",
-    "one_line_vibe": "고독한 남자가 한 아이와의 우정으로 다시 인간이 되어가는 과정에서 맞닥뜨리는 폭력적 현실",
-    "emotional_arc": "냉담하고 폐쇄된 마음이 따뜻한 우정으로 녹아들었다가, 그 소중한 것을 지키려는 절박함과 비극적 결말로 무너진다",
-    "mood_tags": [
-      "씁쓸한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
+    "violence": 1,
+    "sadness": 2,
+    "tension": 2,
+    "complexity": 2,
     "pacing": "보통"
   },
   {
@@ -708,25 +746,6 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 530254,
-    "title": "마녀",
-    "one_line_vibe": "숨겨진 정체성이 하나씩 벗겨지면서 느껴지는 불안감과 초능력의 각성이 만드는 스릴러한 긴장감",
-    "emotional_arc": "밝고 순수한 일상에서 시작해 자신의 과거가 드러나면서 점점 더 어두워지고, 초능력의 각성과 함께 비장한 결말로 치닫는다",
-    "mood_tags": [
-      "불안한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
     "movie_id": 1412113,
     "title": "오징어 게임: 시즌2 제작 이야기",
     "one_line_vibe": "세계적 히트작의 제작 과정을 들여다보며 창작의 열정과 장인정신에 감탄하는 경험",
@@ -746,48 +765,10 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 1355666,
-    "title": "고백의 역사",
-    "one_line_vibe": "1990년대 학창시절의 설렘과 순수함 속에서 자신을 바꾸려 애쓰는 소녀의 성장 이야기",
-    "emotional_arc": "어색하고 어두운 마음으로 시작해 자신을 받아들이고 성장하는 따뜻한 위로로 마무리된다",
-    "mood_tags": [
-      "설레는",
-      "따뜻한"
-    ],
-    "watch_situations": [
-      "주말 낮에",
-      "친구들과"
-    ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 614696,
-    "title": "#살아있다",
-    "one_line_vibe": "고립된 아파트에서 좀비 아포칼립스를 혼자 견디며, 건너편 창문의 누군가와 교감하는 절박한 생존기",
-    "emotional_arc": "절망적인 고립감으로 시작해 또 다른 생존자와의 연결로 희미한 희망을 찾지만, 계속되는 위협 속에서 불안감과 결연함이 교차한다",
-    "mood_tags": [
-      "불안한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 961268,
-    "title": "발레리나",
-    "one_line_vibe": "친구를 잃은 슬픔이 분노로 타오르며, 그 분노를 우아한 칼날로 풀어내는 경험",
-    "emotional_arc": "깊은 슬픔과 상실감으로 시작해 분노와 복수심으로 타올랐다가, 친구를 위한 마지막 소원을 이루며 비장한 위로로 마무리된다",
+    "movie_id": 51608,
+    "title": "아저씨",
+    "one_line_vibe": "고독한 남자가 한 아이와의 우정으로 다시 인간이 되어가는 과정에서 맞닥뜨리는 폭력적 현실",
+    "emotional_arc": "냉담하고 폐쇄된 마음이 따뜻한 우정으로 녹아들었다가, 그 소중한 것을 지키려는 절박함과 비극적 결말로 무너진다",
     "mood_tags": [
       "씁쓸한",
       "비장한"
@@ -796,11 +777,11 @@
       "혼자 밤에",
       "집중해서 볼 때"
     ],
-    "violence": 3,
+    "violence": 4,
     "sadness": 4,
     "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
+    "complexity": 3,
+    "pacing": "보통"
   },
   {
     "movie_id": 81481,
@@ -822,6 +803,101 @@
     "pacing": "느림"
   },
   {
+    "movie_id": 4550,
+    "title": "친절한 금자씨",
+    "one_line_vibe": "13년의 기다림 끝에 차갑게 실행되는 복수, 친절함이라는 가면 뒤의 냉정한 의지를 마주하는 경험",
+    "emotional_arc": "절제된 분노로 시작해 복수의 과정을 거치며 인간의 어두운 면을 직시하게 되고, 마지막에는 복수 이후의 공허함과 도덕적 질문으로 남겨진다",
+    "mood_tags": [
+      "씁쓸한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 961268,
+    "title": "발레리나",
+    "one_line_vibe": "친구를 잃은 슬픔이 분노로 타오르며, 그 분노를 우아한 칼날로 풀어내는 경험",
+    "emotional_arc": "깊은 슬픔과 상실감으로 시작해 분노와 복수심으로 타올랐다가, 친구를 위한 마지막 소원을 이루며 비장한 위로로 마무리된다",
+    "mood_tags": [
+      "씁쓸한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 933131,
+    "title": "황야",
+    "one_line_vibe": "폐허가 된 세상에서 생존자들이 벌이는 원시적이고 거친 싸움 속에서 느껴지는 절박함과 무법의 자유로움",
+    "emotional_arc": "황량한 절망감으로 시작해 생존을 위한 본능적 투쟁으로 고조되다가, 최후의 순간 인간의 존엄성이나 희망의 조각을 발견하며 마무리된다",
+    "mood_tags": [
+      "비장한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 4689,
+    "title": "복수는 나의 것",
+    "one_line_vibe": "절망적 상황에서 선택한 행동이 되돌릴 수 없는 비극으로 변해가는 과정을 목격하는 경험",
+    "emotional_arc": "절박함과 희망으로 시작해 죄책감과 분노로 변하다가 결국 허무함과 절망으로 끝난다",
+    "mood_tags": [
+      "씁쓸한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 5,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 1267319,
+    "title": "사마귀",
+    "one_line_vibe": "어둠의 세계가 재편되는 혼돈 속에서 조용하지만 치명적인 신인 킬러의 부상을 지켜보는 긴장감",
+    "emotional_arc": "냉정한 계산으로 시작해 기회를 포착하고, 질서 재편의 소용돌이 속에서 점점 더 깊이 빨려들어가는 불안감으로 끝난다",
+    "mood_tags": [
+      "긴장감있는",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 491584,
     "title": "버닝",
     "one_line_vibe": "일상 속에서 서서히 스며드는 의심과 불안감이 마음을 짓누르는 경험",
@@ -841,22 +917,61 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 933131,
-    "title": "황야",
-    "one_line_vibe": "폐허가 된 세상에서 생존자들이 벌이는 원시적이고 거친 싸움 속에서 느껴지는 절박함과 무법의 자유로움",
-    "emotional_arc": "황량한 절망감으로 시작해 생존을 위한 본능적 투쟁으로 고조되다가, 최후의 순간 인간의 존엄성이나 희망의 조각을 발견하며 마무리된다",
+    "movie_id": 13855,
+    "title": "추격자",
+    "one_line_vibe": "연쇄살인범을 추격하며 점점 더 깊은 어둠으로 빨려 들어가는 절망감",
+    "emotional_arc": "냉정한 추적으로 시작해 희생자를 향한 분노와 절박함으로 고조되다가, 진실 앞에서 무력함과 허탈함으로 끝난다",
     "mood_tags": [
-      "비장한",
-      "묵직한"
+      "묵직한",
+      "불안한"
     ],
     "watch_situations": [
       "집중해서 볼 때",
-      "친구들과"
+      "혼자 밤에"
     ],
     "violence": 4,
-    "sadness": 3,
-    "tension": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 486589,
+    "title": "레드슈즈",
+    "one_line_vibe": "마법 구두를 신고 새로운 자신으로 거듭나는 모험 속에서 느껴지는 신나는 변신과 따뜻한 우정의 이야기",
+    "emotional_arc": "밝고 경쾌하게 시작해 모험 속에서 설렘과 감동을 거쳐, 자기 자신을 찾는 희망으로 마무리된다",
+    "mood_tags": [
+      "유쾌한",
+      "따뜻한",
+      "설레는"
+    ],
+    "watch_situations": [
+      "주말 낮에",
+      "가족과"
+    ],
+    "violence": 1,
+    "sadness": 2,
+    "tension": 2,
     "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 601796,
+    "title": "외계+인 1부",
+    "one_line_vibe": "시간과 차원을 넘나드는 혼란스러운 모험 속에서 예측 불가능한 쾌감을 느낀다",
+    "emotional_arc": "황당함으로 시작해 점점 복잡해지다가 결국 무엇이 벌어지는지 모르겠지만 그 자체가 재미있는 상태로 끝난다",
+    "mood_tags": [
+      "유쾌한",
+      "몽환적인"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 1,
+    "tension": 3,
+    "complexity": 4,
     "pacing": "빠름"
   },
   {
@@ -879,19 +994,19 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 1267319,
-    "title": "사마귀",
-    "one_line_vibe": "어둠의 세계가 재편되는 혼돈 속에서 조용하지만 치명적인 신인 킬러의 부상을 지켜보는 긴장감",
-    "emotional_arc": "냉정한 계산으로 시작해 기회를 포착하고, 질서 재편의 소용돌이 속에서 점점 더 깊이 빨려들어가는 불안감으로 끝난다",
+    "movie_id": 1131759,
+    "title": "전지적 독자 시점",
+    "one_line_vibe": "소설 속 세계가 현실이 되는 순간, 독자의 지식만이 생존의 무기가 되는 아드레날린 넘치는 모험",
+    "emotional_arc": "혼란스러운 시작에서 점차 긴장감 높아지다가, 생존을 위한 전략적 선택들 속에서 동료애와 희망을 발견한다",
     "mood_tags": [
       "긴장감있는",
-      "묵직한"
+      "설레는"
     ],
     "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
+      "친구들과",
+      "집중해서 볼 때"
     ],
-    "violence": 4,
+    "violence": 3,
     "sadness": 2,
     "tension": 4,
     "complexity": 3,
@@ -917,40 +1032,21 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 1131759,
-    "title": "전지적 독자 시점",
-    "one_line_vibe": "소설 속 세계가 현실이 되는 순간, 독자의 지식만이 생존의 무기가 되는 아드레날린 넘치는 모험",
-    "emotional_arc": "혼란스러운 시작에서 점차 긴장감 높아지다가, 생존을 위한 전략적 선택들 속에서 동료애와 희망을 발견한다",
-    "mood_tags": [
-      "긴장감있는",
-      "설레는"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 4550,
-    "title": "친절한 금자씨",
-    "one_line_vibe": "13년의 기다림 끝에 차갑게 실행되는 복수, 친절함이라는 가면 뒤의 냉정한 의지를 마주하는 경험",
-    "emotional_arc": "절제된 분노로 시작해 복수의 과정을 거치며 인간의 어두운 면을 직시하게 되고, 마지막에는 복수 이후의 공허함과 도덕적 질문으로 남겨진다",
+    "movie_id": 118451,
+    "title": "은교",
+    "one_line_vibe": "나이 차이 나는 세 사람의 욕망과 질투가 만드는 불편한 긴장감 속에서 도덕적 불안감을 느끼게 되는 경험",
+    "emotional_arc": "처음엔 신비로운 매력으로 시작해 점점 불편함과 불안감이 쌓이다가, 결국 씁쓸한 후회와 함께 끝난다",
     "mood_tags": [
       "씁쓸한",
-      "비장한"
+      "불안한"
     ],
     "watch_situations": [
       "혼자 밤에",
       "집중해서 볼 때"
     ],
-    "violence": 4,
+    "violence": 1,
     "sadness": 4,
-    "tension": 5,
+    "tension": 4,
     "complexity": 4,
     "pacing": "느림"
   },
@@ -974,42 +1070,23 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 601796,
-    "title": "외계+인 1부",
-    "one_line_vibe": "시간과 차원을 넘나드는 혼란스러운 모험 속에서 예측 불가능한 쾌감을 느낀다",
-    "emotional_arc": "황당함으로 시작해 점점 복잡해지다가 결국 무엇이 벌어지는지 모르겠지만 그 자체가 재미있는 상태로 끝난다",
+    "movie_id": 611291,
+    "title": "브링 더 소울: 더 무비",
+    "one_line_vibe": "거대한 무대를 내려온 일곱 명이 파리의 루프탑에서 나누는 소박하고 따뜻한 순간들",
+    "emotional_arc": "화려한 공연의 열기에서 벗어나 진정한 자신들의 모습을 드러내며, 함께한 시간의 소중함을 깨닫는 위로와 감사의 여정",
     "mood_tags": [
-      "유쾌한",
-      "몽환적인"
+      "따뜻한",
+      "서정적인"
     ],
     "watch_situations": [
       "친구들과",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 1,
-    "tension": 3,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1181107,
-    "title": "킹 오브 킹스",
-    "one_line_vibe": "아버지의 이야기에 빠져 예수의 삶을 직접 목격하며 성장하는 소년의 영적 깨달음의 여정",
-    "emotional_arc": "경이로움과 설렘으로 시작해 예수의 시련을 목격하며 무거워지다가, 아버지의 진심을 깨닫고 희망으로 마무리된다",
-    "mood_tags": [
-      "설레는",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "가족과",
-      "집중해서 볼 때"
+      "혼자 밤에"
     ],
     "violence": 1,
     "sadness": 2,
     "tension": 1,
     "complexity": 2,
-    "pacing": "보통"
+    "pacing": "느림"
   },
   {
     "movie_id": 1147710,
@@ -1027,121 +1104,6 @@
     "violence": 3,
     "sadness": 2,
     "tension": 5,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 437068,
-    "title": "택시운전사",
-    "one_line_vibe": "역사의 소용돌이 속에서 우연히 마주친 두 사람이 함께 겪는 긴박하고 감동적인 여정",
-    "emotional_arc": "두려움과 불안감 속에서 시작해 점점 깊어지는 책임감과 연대의식으로 변해가다가, 마지막에는 역사의 증인이 되는 경험으로 인한 깊은 감동으로 마무리된다",
-    "mood_tags": [
-      "긴장감있는",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 13855,
-    "title": "추격자",
-    "one_line_vibe": "연쇄살인범을 추격하며 점점 더 깊은 어둠으로 빨려 들어가는 절망감",
-    "emotional_arc": "냉정한 추적으로 시작해 희생자를 향한 분노와 절박함으로 고조되다가, 진실 앞에서 무력함과 허탈함으로 끝난다",
-    "mood_tags": [
-      "묵직한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 518068,
-    "title": "신과함께-인과 연",
-    "one_line_vibe": "저승의 신비로운 법정에서 펼쳐지는 영혼들의 운명, 화려한 액션과 함께 인간의 업과 구원을 묻는 경험",
-    "emotional_arc": "무거운 죄책감으로 시작해 영혼들의 사연을 마주하며 연민으로 변하고, 마지막엔 구원과 용서의 희망으로 마무리된다",
-    "mood_tags": [
-      "감동적인",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "가족과"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 486589,
-    "title": "레드슈즈",
-    "one_line_vibe": "마법 구두를 신고 새로운 자신으로 거듭나는 모험 속에서 느껴지는 신나는 변신과 따뜻한 우정의 이야기",
-    "emotional_arc": "밝고 경쾌하게 시작해 모험 속에서 설렘과 감동을 거쳐, 자기 자신을 찾는 희망으로 마무리된다",
-    "mood_tags": [
-      "유쾌한",
-      "따뜻한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "주말 낮에",
-      "가족과"
-    ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 919207,
-    "title": "서울의 봄",
-    "one_line_vibe": "권력의 소용돌이 속에서 신념과 야욕이 충돌하는 긴박한 정치 드라마, 역사의 무게가 짓누르는 경험",
-    "emotional_arc": "희망으로 시작해 점점 절망으로 빠져드는, 무거운 현실 앞에서 개인의 신념이 무너지는 과정",
-    "mood_tags": [
-      "비장한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 938008,
-    "title": "더 킬러: 죽어도 되는 아이",
-    "one_line_vibe": "냉정한 킬러의 마음을 녹이는 소녀와의 예상 밖의 동반자 관계 속에서 느껴지는 따뜻함과 긴장의 교차",
-    "emotional_arc": "차갑고 무감정했던 킬러가 소녀를 보호하려는 본능이 깨어나면서 점점 인간다워지는 감정의 변화",
-    "mood_tags": [
-      "따뜻한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
     "complexity": 2,
     "pacing": "빠름"
   },
@@ -1165,13 +1127,13 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 200085,
-    "title": "감기",
-    "one_line_vibe": "도시 전체가 폐쇄되는 순간, 바이러스와 공포 속에서 사랑하는 사람을 지키려는 절박함이 밀려온다",
-    "emotional_arc": "초반의 일상적 불안감에서 시작해 급속도로 고조되는 공포와 절망감, 그 속에서 피어나는 인간적 연대와 희생으로 마무리된다",
+    "movie_id": 919207,
+    "title": "서울의 봄",
+    "one_line_vibe": "권력의 소용돌이 속에서 신념과 야욕이 충돌하는 긴박한 정치 드라마, 역사의 무게가 짓누르는 경험",
+    "emotional_arc": "희망으로 시작해 점점 절망으로 빠져드는, 무거운 현실 앞에서 개인의 신념이 무너지는 과정",
     "mood_tags": [
-      "긴장감있는",
-      "불안한"
+      "비장한",
+      "묵직한"
     ],
     "watch_situations": [
       "집중해서 볼 때",
@@ -1180,7 +1142,7 @@
     "violence": 3,
     "sadness": 4,
     "tension": 5,
-    "complexity": 3,
+    "complexity": 4,
     "pacing": "빠름"
   },
   {
@@ -1203,10 +1165,105 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 118451,
-    "title": "은교",
-    "one_line_vibe": "나이 차이 나는 세 사람의 욕망과 질투가 만드는 불편한 긴장감 속에서 도덕적 불안감을 느끼게 되는 경험",
-    "emotional_arc": "처음엔 신비로운 매력으로 시작해 점점 불편함과 불안감이 쌓이다가, 결국 씁쓸한 후회와 함께 끝난다",
+    "movie_id": 437068,
+    "title": "택시운전사",
+    "one_line_vibe": "역사의 소용돌이 속에서 우연히 마주친 두 사람이 함께 겪는 긴박하고 감동적인 여정",
+    "emotional_arc": "두려움과 불안감 속에서 시작해 점점 깊어지는 책임감과 연대의식으로 변해가다가, 마지막에는 역사의 증인이 되는 경험으로 인한 깊은 감동으로 마무리된다",
+    "mood_tags": [
+      "긴장감있는",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 3,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 938008,
+    "title": "더 킬러: 죽어도 되는 아이",
+    "one_line_vibe": "냉정한 킬러의 마음을 녹이는 소녀와의 예상 밖의 동반자 관계 속에서 느껴지는 따뜻함과 긴장의 교차",
+    "emotional_arc": "차갑고 무감정했던 킬러가 소녀를 보호하려는 본능이 깨어나면서 점점 인간다워지는 감정의 변화",
+    "mood_tags": [
+      "따뜻한",
+      "긴장감있는"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 553512,
+    "title": "번 더 스테이지: 더 무비",
+    "one_line_vibe": "전 세계 무대에서 빛나는 아이돌들의 열정과 에너지가 스크린을 통해 전해지는 감동적인 라이브 경험",
+    "emotional_arc": "화려한 무대 퍼포먼스로 시작해 팬들과의 연결, 멤버들의 진심 어린 순간들을 거쳐 성취감과 감동으로 마무리된다",
+    "mood_tags": [
+      "설레는",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 1,
+    "sadness": 1,
+    "tension": 1,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 518068,
+    "title": "신과함께-인과 연",
+    "one_line_vibe": "저승의 신비로운 법정에서 펼쳐지는 영혼들의 운명, 화려한 액션과 함께 인간의 업과 구원을 묻는 경험",
+    "emotional_arc": "무거운 죄책감으로 시작해 영혼들의 사연을 마주하며 연민으로 변하고, 마지막엔 구원과 용서의 희망으로 마무리된다",
+    "mood_tags": [
+      "감동적인",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "가족과"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 200085,
+    "title": "감기",
+    "one_line_vibe": "도시 전체가 폐쇄되는 순간, 바이러스와 공포 속에서 사랑하는 사람을 지키려는 절박함이 밀려온다",
+    "emotional_arc": "초반의 일상적 불안감에서 시작해 급속도로 고조되는 공포와 절망감, 그 속에서 피어나는 인간적 연대와 희생으로 마무리된다",
+    "mood_tags": [
+      "긴장감있는",
+      "불안한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 59421,
+    "title": "김복남 살인사건의 전말",
+    "one_line_vibe": "친구의 숨겨진 고통을 마주하며 분노와 연민이 뒤섞이는 불편한 깨달음",
+    "emotional_arc": "평온한 휴가의 시작에서 점차 드러나는 끔찍한 현실에 충격받고, 결국 복수의 소용돌이에 휘말려 비극적으로 끝난다",
     "mood_tags": [
       "씁쓸한",
       "불안한"
@@ -1215,58 +1272,20 @@
       "혼자 밤에",
       "집중해서 볼 때"
     ],
-    "violence": 1,
-    "sadness": 4,
+    "violence": 4,
+    "sadness": 5,
     "tension": 4,
     "complexity": 4,
     "pacing": "느림"
   },
   {
-    "movie_id": 11178,
-    "title": "엽기적인 그녀",
-    "one_line_vibe": "예측 불가능한 그녀의 매력에 빠져 웃음과 설렘을 동시에 느끼는 경험",
-    "emotional_arc": "황당함으로 시작해 점점 따뜻한 감정으로 녹아들다가, 마지막에는 애틋한 감정으로 마무리된다",
+    "movie_id": 575604,
+    "title": "콜",
+    "one_line_vibe": "시간을 초월한 두 여자의 우정이 광기로 변해가는 심리적 소용돌이",
+    "emotional_arc": "희망찬 연결에서 시작해 점점 불안감이 고조되다가, 신뢰의 붕괴와 함께 절망적인 광기로 치닫는다",
     "mood_tags": [
-      "유쾌한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "주말 낮에",
-      "연인과"
-    ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 1,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 611291,
-    "title": "브링 더 소울: 더 무비",
-    "one_line_vibe": "거대한 무대를 내려온 일곱 명이 파리의 루프탑에서 나누는 소박하고 따뜻한 순간들",
-    "emotional_arc": "화려한 공연의 열기에서 벗어나 진정한 자신들의 모습을 드러내며, 함께한 시간의 소중함을 깨닫는 위로와 감사의 여정",
-    "mood_tags": [
-      "따뜻한",
-      "서정적인"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "혼자 밤에"
-    ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 1,
-    "complexity": 2,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 2440,
-    "title": "공동경비구역 JSA",
-    "one_line_vibe": "분단의 현실 속에서 인간적 연대와 비극적 운명이 충돌하는 순간을 목격하는 경험",
-    "emotional_arc": "적대적 긴장감 속에서 우정의 순수함을 발견했다가, 결국 그것이 얼마나 취약한지 깨닫게 되는 씁쓸함",
-    "mood_tags": [
-      "씁쓸한",
-      "긴장감있는"
+      "불안한",
+      "씁쓸한"
     ],
     "watch_situations": [
       "집중해서 볼 때",
@@ -1276,6 +1295,44 @@
     "sadness": 4,
     "tension": 4,
     "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 560527,
+    "title": "내안의 그놈",
+    "one_line_vibe": "엘리트 아재와 고등학생이 몸이 바뀌면서 벌어지는 황당하고 통쾌한 소동",
+    "emotional_arc": "황당한 상황에서 웃음이 터지다가, 각자의 삶을 이해하면서 따뜻한 감정으로 마무리된다",
+    "mood_tags": [
+      "유쾌한",
+      "코믹한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 2,
+    "sadness": 1,
+    "tension": 1,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1181107,
+    "title": "킹 오브 킹스",
+    "one_line_vibe": "아버지의 이야기에 빠져 예수의 삶을 직접 목격하며 성장하는 소년의 영적 깨달음의 여정",
+    "emotional_arc": "경이로움과 설렘으로 시작해 예수의 시련을 목격하며 무거워지다가, 아버지의 진심을 깨닫고 희망으로 마무리된다",
+    "mood_tags": [
+      "설레는",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "가족과",
+      "집중해서 볼 때"
+    ],
+    "violence": 1,
+    "sadness": 2,
+    "tension": 1,
+    "complexity": 2,
     "pacing": "보통"
   },
   {
@@ -1298,48 +1355,10 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 553512,
-    "title": "번 더 스테이지: 더 무비",
-    "one_line_vibe": "전 세계 무대에서 빛나는 아이돌들의 열정과 에너지가 스크린을 통해 전해지는 감동적인 라이브 경험",
-    "emotional_arc": "화려한 무대 퍼포먼스로 시작해 팬들과의 연결, 멤버들의 진심 어린 순간들을 거쳐 성취감과 감동으로 마무리된다",
-    "mood_tags": [
-      "설레는",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 1,
-    "sadness": 1,
-    "tension": 1,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 845222,
-    "title": "킹덤: 아신전",
-    "one_line_vibe": "배신과 복수의 어둠 속에서 절망적으로 타오르는 한 여인의 분노",
-    "emotional_arc": "처음엔 고통스러운 상실감으로 시작해 복수의 불길로 타오르다가, 초자연적 공포와 마주하며 더 깊은 절망으로 빠져든다",
-    "mood_tags": [
-      "비장한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 165213,
-    "title": "신세계",
-    "one_line_vibe": "8년간 범죄 조직 속에 파묻혀 정체성을 잃어가는 잠입수사관의 심리적 붕괴를 목격하는 경험",
-    "emotional_arc": "냉철한 작전으로 시작해 인간관계의 진정성 앞에서 흔들리다가, 결국 누구도 믿을 수 없는 절망 속으로 빠져든다",
+    "movie_id": 11344,
+    "title": "달콤한 인생",
+    "one_line_vibe": "냉정한 조직 세계에서 사랑과 배신 사이에서 흔들리는 남자의 운명을 따라가는 긴장감 넘치는 경험",
+    "emotional_arc": "냉철함으로 시작해 사랑으로 인한 동요, 그리고 비극적 결말로 치닫는 감정의 추락",
     "mood_tags": [
       "긴장감있는",
       "씁쓸한"
@@ -1352,6 +1371,44 @@
     "sadness": 4,
     "tension": 5,
     "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 2440,
+    "title": "공동경비구역 JSA",
+    "one_line_vibe": "분단의 현실 속에서 인간적 연대와 비극적 운명이 충돌하는 순간을 목격하는 경험",
+    "emotional_arc": "적대적 긴장감 속에서 우정의 순수함을 발견했다가, 결국 그것이 얼마나 취약한지 깨닫게 되는 씁쓸함",
+    "mood_tags": [
+      "씁쓸한",
+      "긴장감있는"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 581387,
+    "title": "백두산",
+    "one_line_vibe": "백두산이 폭발하는 순간, 남북이 함께 죽음과 맞서는 긴박한 재난 액션",
+    "emotional_arc": "처음엔 갑작스러운 재난의 공포로 시작해 남북 협력의 희망을 거쳐, 최후의 순간 생존을 위한 절박함으로 끝난다",
+    "mood_tags": [
+      "긴장감있는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 2,
     "pacing": "빠름"
   },
   {
@@ -1374,86 +1431,48 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 1139817,
-    "title": "무도실무관",
-    "one_line_vibe": "무술 실력과 정의감으로 범죄자들을 감시하는 독특한 직업의 일상 속에서 터지는 웃음과 통쾌함",
-    "emotional_arc": "가볍고 유쾌하게 시작해 범죄 사건들을 통해 인물들의 따뜻한 면모가 드러나며, 액션과 감정이 어우러진 통쾌한 결말로 나아간다",
+    "movie_id": 113,
+    "title": "봄 여름 가을 겨울 그리고 봄",
+    "one_line_vibe": "산사의 고요함 속에서 인생의 순환과 업의 무게를 깨닫는 영혼의 여정",
+    "emotional_arc": "순수한 장난에서 시작해 죄책감과 깨달음으로 무거워지고, 사랑의 집착을 거쳐 결국 자신의 업을 마주하는 성숙의 과정",
     "mood_tags": [
-      "유쾌한",
-      "통쾌한"
+      "쓸쓸한",
+      "서정적인"
     ],
     "watch_situations": [
-      "친구들과",
-      "주말 낮에"
+      "혼자 밤에",
+      "집중해서 볼 때"
     ],
-    "violence": 3,
-    "sadness": 1,
+    "violence": 1,
+    "sadness": 4,
     "tension": 2,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 4689,
-    "title": "복수는 나의 것",
-    "one_line_vibe": "절망적 상황에서 선택한 행동이 되돌릴 수 없는 비극으로 변해가는 과정을 목격하는 경험",
-    "emotional_arc": "절박함과 희망으로 시작해 죄책감과 분노로 변하다가 결국 허무함과 절망으로 끝난다",
-    "mood_tags": [
-      "씁쓸한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 4,
-    "sadness": 5,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 59421,
-    "title": "김복남 살인사건의 전말",
-    "one_line_vibe": "친구의 숨겨진 고통을 마주하며 분노와 연민이 뒤섞이는 불편한 깨달음",
-    "emotional_arc": "평온한 휴가의 시작에서 점차 드러나는 끔찍한 현실에 충격받고, 결국 복수의 소용돌이에 휘말려 비극적으로 끝난다",
-    "mood_tags": [
-      "씁쓸한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 4,
-    "sadness": 5,
-    "tension": 4,
     "complexity": 4,
     "pacing": "느림"
   },
   {
-    "movie_id": 436391,
-    "title": "군함도",
-    "one_line_vibe": "절망적인 상황 속에서 인간의 존엄성과 저항을 목격하는 무거운 감정의 여정",
-    "emotional_arc": "고통스러운 현실에 짓눌려 있다가, 작은 희망과 저항의 순간들을 거쳐 비극적이면서도 숭고한 결말에 이른다",
+    "movie_id": 760517,
+    "title": "모럴센스",
+    "one_line_vibe": "상대방의 비밀을 알게 되면서 시작되는 어색하고 설레는 로맨스",
+    "emotional_arc": "처음엔 어색함과 당혹스러움으로 시작해 점차 상대를 이해하고 끌리게 되면서 따뜻한 감정으로 변해간다",
     "mood_tags": [
-      "묵직한",
-      "비장한"
+      "설레는",
+      "따뜻한"
     ],
     "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
+      "연인과",
+      "친구들과"
     ],
-    "violence": 4,
-    "sadness": 5,
-    "tension": 4,
-    "complexity": 3,
+    "violence": 1,
+    "sadness": 1,
+    "tension": 2,
+    "complexity": 2,
     "pacing": "보통"
   },
   {
-    "movie_id": 575604,
-    "title": "콜",
-    "one_line_vibe": "시간을 초월한 두 여자의 우정이 광기로 변해가는 심리적 소용돌이",
-    "emotional_arc": "희망찬 연결에서 시작해 점점 불안감이 고조되다가, 신뢰의 붕괴와 함께 절망적인 광기로 치닫는다",
+    "movie_id": 509467,
+    "title": "사라진 밤",
+    "one_line_vibe": "범죄자인 줄 알았던 남편이 피해자가 되는 역전의 쾌감과 함께, 누가 진짜 사냥꾼인지 알 수 없는 심리 게임에 빠져든다.",
+    "emotional_arc": "의심과 불안으로 시작해 점점 더 깊은 함정에 빠져들다가, 예상을 뒤엎는 반전으로 모든 것이 뒤바뀐다.",
     "mood_tags": [
       "불안한",
       "씁쓸한"
@@ -1462,11 +1481,163 @@
       "집중해서 볼 때",
       "혼자 밤에"
     ],
-    "violence": 3,
-    "sadness": 4,
+    "violence": 2,
+    "sadness": 3,
     "tension": 4,
     "complexity": 4,
     "pacing": "빠름"
+  },
+  {
+    "movie_id": 165213,
+    "title": "신세계",
+    "one_line_vibe": "8년간 범죄 조직 속에 파묻혀 정체성을 잃어가는 잠입수사관의 심리적 붕괴를 목격하는 경험",
+    "emotional_arc": "냉철한 작전으로 시작해 인간관계의 진정성 앞에서 흔들리다가, 결국 누구도 믿을 수 없는 절망 속으로 빠져든다",
+    "mood_tags": [
+      "긴장감있는",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 199584,
+    "title": "은밀하게 위대하게",
+    "one_line_vibe": "엘리트 북한 간첩들이 남한 달동네에서 평범한 사람들과 얽히며 겪는 예상 밖의 인간적 성장과 우정의 이야기",
+    "emotional_arc": "냉소적이고 거리감 있게 시작해 남한 사람들과의 관계 속에서 따뜻한 감정으로 변해가다가, 임무 수행 앞에서 비장한 결단으로 마무리된다",
+    "mood_tags": [
+      "따뜻한",
+      "코믹한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 2,
+    "sadness": 2,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 801604,
+    "title": "샤크: 더 비기닝",
+    "one_line_vibe": "약한 자가 자신의 두려움을 육체로 부수며 거듭나는 과정을 목격하는 경험",
+    "emotional_arc": "절망과 수치심으로 시작해 고통스러운 단련을 거쳐 분노와 결연함으로 변모하고, 마침내 자기 자신을 되찾는 카타르시스에 도달한다",
+    "mood_tags": [
+      "묵직한",
+      "설레는"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "지쳤을 때"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 800345,
+    "title": "카터",
+    "one_line_vibe": "정체 모를 목소리의 지시에 따라 끌려가는 혼란과 불신 속에서 벗어나려 몸부림치는 경험",
+    "emotional_arc": "혼란스럽고 불안한 상태에서 시작해 점점 더 깊은 배신과 심리 조종의 늪으로 빠져들다가, 진실을 마주하며 비장한 결말에 이른다",
+    "mood_tags": [
+      "불안한",
+      "긴장감있는"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 581389,
+    "title": "승리호",
+    "one_line_vibe": "우주 쓰레기 줍는 낙오자들이 마주한 예상 밖의 따뜻함과 모험",
+    "emotional_arc": "절박함과 욕심으로 시작해 점차 연대와 희망으로 변해가는 여정",
+    "mood_tags": [
+      "따뜻한",
+      "유쾌한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 2,
+    "sadness": 2,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 19595,
+    "title": "파이스토리",
+    "one_line_vibe": "세상 물정 모르는 순진한 물고기가 낯선 바다에서 우당탕탕 부딪히며 성장해가는 모험 속에서 느껴지는 밝고 경쾌한 에너지",
+    "emotional_arc": "처음엔 낯설고 불안해하지만, 새로운 친구들을 만나고 도전하면서 점점 용감해지고 희망찬 마음으로 변해간다",
+    "mood_tags": [
+      "유쾌한",
+      "따뜻한"
+    ],
+    "watch_situations": [
+      "주말 낮에",
+      "가족과"
+    ],
+    "violence": 1,
+    "sadness": 2,
+    "tension": 2,
+    "complexity": 1,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 45202,
+    "title": "하녀",
+    "one_line_vibe": "계급의 벽을 넘은 욕망이 만드는 위험한 쾌락과 그에 따른 파멸의 소용돌이",
+    "emotional_arc": "처음엔 낯선 환경에 대한 설렘과 신선한 자유감으로 시작하지만, 금지된 관계로 인한 도취감이 점차 불안감과 죄책감으로 변해가며 결국 돌이킬 수 없는 파국으로 치닫는다",
+    "mood_tags": [
+      "씁쓸한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 2,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 11178,
+    "title": "엽기적인 그녀",
+    "one_line_vibe": "예측 불가능한 그녀의 매력에 빠져 웃음과 설렘을 동시에 느끼는 경험",
+    "emotional_arc": "황당함으로 시작해 점점 따뜻한 감정으로 녹아들다가, 마지막에는 애틋한 감정으로 마무리된다",
+    "mood_tags": [
+      "유쾌한",
+      "설레는"
+    ],
+    "watch_situations": [
+      "주말 낮에",
+      "연인과"
+    ],
+    "violence": 1,
+    "sadness": 2,
+    "tension": 1,
+    "complexity": 2,
+    "pacing": "보통"
   },
   {
     "movie_id": 1203329,
@@ -1488,13 +1659,147 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 160704,
-    "title": "베를린",
-    "one_line_vibe": "베를린의 어두운 골목에서 정체를 숨긴 채 벌어지는 첩보전, 신뢰와 배신이 뒤엉킨 심리 게임",
-    "emotional_arc": "냉정한 첩보원의 일상에서 시작해 가까운 사람의 배신으로 흔들리고, 결국 모든 것이 무너지는 비극적 깨달음으로 끝난다",
+    "movie_id": 436391,
+    "title": "군함도",
+    "one_line_vibe": "절망적인 상황 속에서 인간의 존엄성과 저항을 목격하는 무거운 감정의 여정",
+    "emotional_arc": "고통스러운 현실에 짓눌려 있다가, 작은 희망과 저항의 순간들을 거쳐 비극적이면서도 숭고한 결말에 이른다",
+    "mood_tags": [
+      "묵직한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
+    "sadness": 5,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 845222,
+    "title": "킹덤: 아신전",
+    "one_line_vibe": "배신과 복수의 어둠 속에서 절망적으로 타오르는 한 여인의 분노",
+    "emotional_arc": "처음엔 고통스러운 상실감으로 시작해 복수의 불길로 타오르다가, 초자연적 공포와 마주하며 더 깊은 절망으로 빠져든다",
+    "mood_tags": [
+      "비장한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 22536,
+    "title": "박쥐",
+    "one_line_vibe": "신앙과 욕망 사이에서 자기 파괴적으로 무너져 내리는 죄책감의 악순환",
+    "emotional_arc": "종교적 순결함으로 시작해 금지된 욕망에 눈뜨고, 죄책감과 쾌락이 뒤섞이다가 결국 자기기만과 파멸로 치닫는다",
+    "mood_tags": [
+      "씁쓸한",
+      "불안한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 636173,
+    "title": "드림",
+    "one_line_vibe": "홈리스 선수들이 함께 꿈을 향해 나아가며 느끼는 희망과 연대의 따뜻함",
+    "emotional_arc": "절망적인 상황에서 시작해 함께하는 기쁨으로 점차 고양되다가, 세계 대회라는 목표 앞에서 설렘과 불안이 뒤섞인 채 마무리된다",
+    "mood_tags": [
+      "따뜻한",
+      "설레는"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 1,
+    "sadness": 2,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 437109,
+    "title": "악녀",
+    "one_line_vibe": "복수와 모성 사이에서 흔들리는 여성 킬러의 치열한 생존기, 손에 피를 묻히며 자유를 찾아가는 과정",
+    "emotional_arc": "냉혹한 복수로 시작해 모성애로 따뜻해졌다가, 배신과 추격 속에서 다시 광기로 돌변한다",
+    "mood_tags": [
+      "비장한",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 435366,
+    "title": "조작된 도시",
+    "one_line_vibe": "게임 실력만큼 현실에서도 똑똑하게 움직이는 주인공들이 거대한 음모를 파헤치는 쾌감",
+    "emotional_arc": "억울함과 분노로 시작해 팀의 연대감과 추적의 짜릿함으로 고조되다가, 진실 규명의 통쾌함으로 마무리된다",
+    "mood_tags": [
+      "통쾌한",
+      "긴장감있는"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 726139,
+    "title": "탈출: 프로젝트 사일런스",
+    "one_line_vibe": "짙은 안개 속에서 시시각각 다가오는 죽음의 위협에 숨이 막히는 경험",
+    "emotional_arc": "절망적인 상황 속에서 생존을 위해 몸부림치다가, 예상 밖의 위협 앞에서 더욱 깊어지는 공포와 절박함",
     "mood_tags": [
       "긴장감있는",
-      "씁쓸한"
+      "불안한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 586047,
+    "title": "서복",
+    "one_line_vibe": "냉정한 요원과 순수한 클론이 함께 도망치며 마주하는 인간성과 죄책감의 무게",
+    "emotional_arc": "무거운 과거의 짐을 안고 시작해 서복과의 관계 속에서 희미한 구원을 찾지만, 결국 피할 수 없는 비극적 선택으로 수렴한다",
+    "mood_tags": [
+      "씁쓸한",
+      "감동적인"
     ],
     "watch_situations": [
       "집중해서 볼 때",
@@ -1504,6 +1809,44 @@
     "sadness": 4,
     "tension": 4,
     "complexity": 4,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 79224,
+    "title": "최종병기 활",
+    "one_line_vibe": "포로가 된 누이를 구하기 위해 청군의 심장부로 나아가는 신궁의 절박한 여정, 활 한 자루로 펼쳐지는 복수와 구원의 서사",
+    "emotional_arc": "절망적인 상실로 시작해 분노와 결연함으로 타올랐다가, 최후의 대결에서 개인의 복수를 넘어 역사적 의미를 되찾는 비장한 승화",
+    "mood_tags": [
+      "비장한",
+      "통쾌한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1139817,
+    "title": "무도실무관",
+    "one_line_vibe": "무술 실력과 정의감으로 범죄자들을 감시하는 독특한 직업의 일상 속에서 터지는 웃음과 통쾌함",
+    "emotional_arc": "가볍고 유쾌하게 시작해 범죄 사건들을 통해 인물들의 따뜻한 면모가 드러나며, 액션과 감정이 어우러진 통쾌한 결말로 나아간다",
+    "mood_tags": [
+      "유쾌한",
+      "통쾌한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 3,
+    "sadness": 1,
+    "tension": 2,
+    "complexity": 2,
     "pacing": "빠름"
   },
   {
@@ -1526,17 +1869,56 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 133601,
-    "title": "이웃사람",
-    "one_line_vibe": "아파트 이웃들이 연쇄살인범을 추적하며 겪는 불안감과 의심의 소용돌이",
-    "emotional_arc": "초반의 불안감에서 시작해 의심과 긴장이 고조되다가, 진범을 향한 추적 과정에서 이웃들 간의 갈등과 도덕적 딜레마를 마주하며 무거운 여운으로 끝난다",
+    "movie_id": 727340,
+    "title": "헌트",
+    "one_line_vibe": "1980년대 한국 정보기관의 어두운 내부를 헤쳐나가며 신뢰와 배신 사이에서 진실을 추적하는 긴장감 넘치는 정치 스릴러",
+    "emotional_arc": "의심과 불안감으로 시작해 점점 더 깊은 음모에 빠져들다가, 마침내 국가 권력의 거대한 비밀과 마주하며 비장한 깨달음으로 끝난다",
+    "mood_tags": [
+      "긴장감있는",
+      "묵직한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 3,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 549590,
+    "title": "동네사람들",
+    "one_line_vibe": "평온한 시골 마을의 겉모습 뒤에 숨겨진 불편한 진실을 파헤쳐가는 긴장감 속에서 느껴지는 답답함과 불안감",
+    "emotional_arc": "의심과 경계로 시작해 점점 더 깊어지는 불안감 속에서 마을의 어두운 비밀이 드러나고, 결국 그 무게감을 안고 끝난다",
+    "mood_tags": [
+      "불안한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 606402,
+    "title": "야차",
+    "one_line_vibe": "정직한 검사가 스파이들의 음지 세계에 발을 들이며 느끼는 혼란과 위기감",
+    "emotional_arc": "신뢰와 의심 사이를 오가다가 결국 깊은 배신감과 함께 끝난다",
     "mood_tags": [
       "긴장감있는",
       "불안한"
     ],
     "watch_situations": [
       "집중해서 볼 때",
-      "혼자 밤에"
+      "친구들과"
     ],
     "violence": 3,
     "sadness": 3,
@@ -1564,109 +1946,13 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 581387,
-    "title": "백두산",
-    "one_line_vibe": "백두산이 폭발하는 순간, 남북이 함께 죽음과 맞서는 긴박한 재난 액션",
-    "emotional_arc": "처음엔 갑작스러운 재난의 공포로 시작해 남북 협력의 희망을 거쳐, 최후의 순간 생존을 위한 절박함으로 끝난다",
-    "mood_tags": [
-      "긴장감있는",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 45202,
-    "title": "하녀",
-    "one_line_vibe": "계급의 벽을 넘은 욕망이 만드는 위험한 쾌락과 그에 따른 파멸의 소용돌이",
-    "emotional_arc": "처음엔 낯선 환경에 대한 설렘과 신선한 자유감으로 시작하지만, 금지된 관계로 인한 도취감이 점차 불안감과 죄책감으로 변해가며 결국 돌이킬 수 없는 파국으로 치닫는다",
-    "mood_tags": [
-      "씁쓸한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 2,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 22536,
-    "title": "박쥐",
-    "one_line_vibe": "신앙과 욕망 사이에서 자기 파괴적으로 무너져 내리는 죄책감의 악순환",
-    "emotional_arc": "종교적 순결함으로 시작해 금지된 욕망에 눈뜨고, 죄책감과 쾌락이 뒤섞이다가 결국 자기기만과 파멸로 치닫는다",
-    "mood_tags": [
-      "씁쓸한",
-      "불안한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 11344,
-    "title": "달콤한 인생",
-    "one_line_vibe": "냉정한 조직 세계에서 사랑과 배신 사이에서 흔들리는 남자의 운명을 따라가는 긴장감 넘치는 경험",
-    "emotional_arc": "냉철함으로 시작해 사랑으로 인한 동요, 그리고 비극적 결말로 치닫는 감정의 추락",
-    "mood_tags": [
-      "긴장감있는",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 113,
-    "title": "봄 여름 가을 겨울 그리고 봄",
-    "one_line_vibe": "산사의 고요함 속에서 인생의 순환과 업의 무게를 깨닫는 영혼의 여정",
-    "emotional_arc": "순수한 장난에서 시작해 죄책감과 깨달음으로 무거워지고, 사랑의 집착을 거쳐 결국 자신의 업을 마주하는 성숙의 과정",
-    "mood_tags": [
-      "쓸쓸한",
-      "서정적인"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 1,
-    "sadness": 4,
-    "tension": 2,
-    "complexity": 4,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 560527,
-    "title": "내안의 그놈",
-    "one_line_vibe": "엘리트 아재와 고등학생이 몸이 바뀌면서 벌어지는 황당하고 통쾌한 소동",
-    "emotional_arc": "황당한 상황에서 웃음이 터지다가, 각자의 삶을 이해하면서 따뜻한 감정으로 마무리된다",
+    "movie_id": 572164,
+    "title": "엑시트",
+    "one_line_vibe": "도시가 독가스로 뒤덮인 혼란 속에서 두 청년이 산악 스킬로 생존을 위해 분투하는 아찔하고 통쾌한 모험",
+    "emotional_arc": "처음엔 어색한 재회의 미안함으로 시작해 점점 긴박한 위기감으로 고조되다가, 함께 극복해내는 과정에서 통쾌함과 희열로 마무리된다",
     "mood_tags": [
       "유쾌한",
-      "코믹한"
+      "긴장감있는"
     ],
     "watch_situations": [
       "친구들과",
@@ -1674,301 +1960,72 @@
     ],
     "violence": 2,
     "sadness": 1,
-    "tension": 1,
+    "tension": 4,
     "complexity": 2,
     "pacing": "빠름"
   },
   {
-    "movie_id": 801604,
-    "title": "샤크: 더 비기닝",
-    "one_line_vibe": "약한 자가 자신의 두려움을 육체로 부수며 거듭나는 과정을 목격하는 경험",
-    "emotional_arc": "절망과 수치심으로 시작해 고통스러운 단련을 거쳐 분노와 결연함으로 변모하고, 마침내 자기 자신을 되찾는 카타르시스에 도달한다",
-    "mood_tags": [
-      "묵직한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "지쳤을 때"
-    ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 760517,
-    "title": "모럴센스",
-    "one_line_vibe": "상대방의 비밀을 알게 되면서 시작되는 어색하고 설레는 로맨스",
-    "emotional_arc": "처음엔 어색함과 당혹스러움으로 시작해 점차 상대를 이해하고 끌리게 되면서 따뜻한 감정으로 변해간다",
-    "mood_tags": [
-      "설레는",
-      "따뜻한"
-    ],
-    "watch_situations": [
-      "연인과",
-      "친구들과"
-    ],
-    "violence": 1,
-    "sadness": 1,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 124157,
-    "title": "도둑들",
-    "one_line_vibe": "화려한 홍콩 야경 속에서 펼쳐지는 정교한 계획과 예측 불가능한 배신들이 만드는 짜릿한 쾌감",
-    "emotional_arc": "처음엔 신나는 도둑질의 설렘으로 시작하지만, 점점 복잡해지는 이해관계와 숨겨진 의도들이 드러나면서 긴장이 고조되고, 마지막 반전에서 통쾌한 카타르시스로 마무리된다",
-    "mood_tags": [
-      "설레는",
-      "통쾌한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 1,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 581389,
-    "title": "승리호",
-    "one_line_vibe": "우주 쓰레기 줍는 낙오자들이 마주한 예상 밖의 따뜻함과 모험",
-    "emotional_arc": "절박함과 욕심으로 시작해 점차 연대와 희망으로 변해가는 여정",
-    "mood_tags": [
-      "따뜻한",
-      "유쾌한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 2,
-    "tension": 3,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 437109,
-    "title": "악녀",
-    "one_line_vibe": "복수와 모성 사이에서 흔들리는 여성 킬러의 치열한 생존기, 손에 피를 묻히며 자유를 찾아가는 과정",
-    "emotional_arc": "냉혹한 복수로 시작해 모성애로 따뜻해졌다가, 배신과 추격 속에서 다시 광기로 돌변한다",
+    "movie_id": 33196,
+    "title": "해운대",
+    "one_line_vibe": "일상의 소중함을 깨닫는 순간, 거대한 자연의 힘 앞에서 인간의 무력함을 마주하는 경험",
+    "emotional_arc": "설레는 기대감으로 시작해 갑작스러운 공포와 절망을 거쳐, 생존과 사랑을 위한 필사적 투쟁 속에서 인간의 존엄성을 발견한다",
     "mood_tags": [
       "비장한",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 800345,
-    "title": "카터",
-    "one_line_vibe": "정체 모를 목소리의 지시에 따라 끌려가는 혼란과 불신 속에서 벗어나려 몸부림치는 경험",
-    "emotional_arc": "혼란스럽고 불안한 상태에서 시작해 점점 더 깊은 배신과 심리 조종의 늪으로 빠져들다가, 진실을 마주하며 비장한 결말에 이른다",
-    "mood_tags": [
-      "불안한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 435366,
-    "title": "조작된 도시",
-    "one_line_vibe": "게임 실력만큼 현실에서도 똑똑하게 움직이는 주인공들이 거대한 음모를 파헤치는 쾌감",
-    "emotional_arc": "억울함과 분노로 시작해 팀의 연대감과 추적의 짜릿함으로 고조되다가, 진실 규명의 통쾌함으로 마무리된다",
-    "mood_tags": [
-      "통쾌한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 727340,
-    "title": "헌트",
-    "one_line_vibe": "1980년대 한국 정보기관의 어두운 내부를 헤쳐나가며 신뢰와 배신 사이에서 진실을 추적하는 긴장감 넘치는 정치 스릴러",
-    "emotional_arc": "의심과 불안감으로 시작해 점점 더 깊은 음모에 빠져들다가, 마침내 국가 권력의 거대한 비밀과 마주하며 비장한 깨달음으로 끝난다",
-    "mood_tags": [
-      "긴장감있는",
-      "묵직한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 199584,
-    "title": "은밀하게 위대하게",
-    "one_line_vibe": "엘리트 북한 간첩들이 남한 달동네에서 평범한 사람들과 얽히며 겪는 예상 밖의 인간적 성장과 우정의 이야기",
-    "emotional_arc": "냉소적이고 거리감 있게 시작해 남한 사람들과의 관계 속에서 따뜻한 감정으로 변해가다가, 임무 수행 앞에서 비장한 결단으로 마무리된다",
-    "mood_tags": [
-      "따뜻한",
-      "코믹한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 2,
-    "tension": 3,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 549590,
-    "title": "동네사람들",
-    "one_line_vibe": "평온한 시골 마을의 겉모습 뒤에 숨겨진 불편한 진실을 파헤쳐가는 긴장감 속에서 느껴지는 답답함과 불안감",
-    "emotional_arc": "의심과 경계로 시작해 점점 더 깊어지는 불안감 속에서 마을의 어두운 비밀이 드러나고, 결국 그 무게감을 안고 끝난다",
-    "mood_tags": [
-      "불안한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 19595,
-    "title": "파이스토리",
-    "one_line_vibe": "세상 물정 모르는 순진한 물고기가 낯선 바다에서 우당탕탕 부딪히며 성장해가는 모험 속에서 느껴지는 밝고 경쾌한 에너지",
-    "emotional_arc": "처음엔 낯설고 불안해하지만, 새로운 친구들을 만나고 도전하면서 점점 용감해지고 희망찬 마음으로 변해간다",
-    "mood_tags": [
-      "유쾌한",
-      "따뜻한"
-    ],
-    "watch_situations": [
-      "주말 낮에",
-      "가족과"
-    ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 2,
-    "complexity": 1,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1165642,
-    "title": "이 별에 필요한",
-    "one_line_vibe": "우주의 거리를 건너는 두 사람의 사랑이 주는 설렘과 그리움이 교차하는 경험",
-    "emotional_arc": "설렘으로 시작해 거리감의 아련함을 거쳐, 우주 너머에서도 닿을 수 있는 사랑으로 위로받는다",
-    "mood_tags": [
-      "설레는",
-      "서정적인"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "연인과"
-    ],
-    "violence": 1,
-    "sadness": 3,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 628704,
-    "title": "미드나이트",
-    "one_line_vibe": "청각장애라는 절대적 약점 속에서 연쇄살인마에게 쫓기는 절망적 긴장감",
-    "emotional_arc": "공포와 절망으로 시작해 생존 본능의 투쟁으로 이어지다가, 결국 심리적 트라우마와 상실감으로 끝난다",
-    "mood_tags": [
-      "긴장감있는",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 586047,
-    "title": "서복",
-    "one_line_vibe": "냉정한 요원과 순수한 클론이 함께 도망치며 마주하는 인간성과 죄책감의 무게",
-    "emotional_arc": "무거운 과거의 짐을 안고 시작해 서복과의 관계 속에서 희미한 구원을 찾지만, 결국 피할 수 없는 비극적 선택으로 수렴한다",
-    "mood_tags": [
-      "씁쓸한",
       "감동적인"
     ],
     "watch_situations": [
       "집중해서 볼 때",
-      "혼자 밤에"
+      "가족과"
     ],
     "violence": 3,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 8653,
+    "title": "섬",
+    "one_line_vibe": "고립된 섬에서 두 상처받은 영혼이 육체와 감정으로 얽혀가며 서로를 파괴하고 구원하려는 절망적인 사랑",
+    "emotional_arc": "절망과 고독 속에서 시작해 육체적 교감으로 순간의 위로를 얻지만, 결국 집착과 소유욕으로 변질되며 더 깊은 파멸로 빠져든다",
+    "mood_tags": [
+      "쓸쓸한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 2,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 729854,
+    "title": "콘크리트 유토피아",
+    "one_line_vibe": "폐허 속 안전한 피난처가 점차 억압적인 감옥으로 변해가는 과정을 목격하는 불편함",
+    "emotional_arc": "절망적인 외부 세계에 대한 두려움으로 시작해 공동체 내부의 위선과 폭력성이 드러나면서 도덕적 회의감으로 끝난다",
+    "mood_tags": [
+      "불안한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
     "sadness": 4,
     "tension": 4,
     "complexity": 4,
     "pacing": "보통"
   },
   {
-    "movie_id": 453127,
-    "title": "청년경찰",
-    "one_line_vibe": "의욕 넘치는 친구들이 정의를 위해 뛰어드는 과정에서 느껴지는 흥미진진함과 따뜻한 우정",
-    "emotional_arc": "밝고 경쾌하게 시작해 긴장감 있는 수사로 빠져들었다가, 우정과 성장의 감동으로 마무리된다",
-    "mood_tags": [
-      "유쾌한",
-      "따뜻한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 1,
-    "tension": 3,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 606402,
-    "title": "야차",
-    "one_line_vibe": "정직한 검사가 스파이들의 음지 세계에 발을 들이며 느끼는 혼란과 위기감",
-    "emotional_arc": "신뢰와 의심 사이를 오가다가 결국 깊은 배신감과 함께 끝난다",
+    "movie_id": 626412,
+    "title": "외계+인 2부",
+    "one_line_vibe": "시간을 넘나드는 혼란 속에서 점점 커지는 불안감과 예측 불가능한 반전들이 계속 터져 나온다",
+    "emotional_arc": "혼란스럽고 긴장된 상태에서 시작해 점점 더 높아지는 긴장감 속에 예상 밖의 진실들이 폭발하며 비장한 결말로 향한다",
     "mood_tags": [
       "긴장감있는",
       "불안한"
@@ -1978,9 +2035,9 @@
       "친구들과"
     ],
     "violence": 3,
-    "sadness": 3,
+    "sadness": 2,
     "tension": 4,
-    "complexity": 3,
+    "complexity": 4,
     "pacing": "빠름"
   },
   {
@@ -2003,79 +2060,22 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 235704,
-    "title": "동창생",
-    "one_line_vibe": "고등학교 교실 속 숨겨진 비극과 도덕적 갈등이 만드는 어두운 긴장감",
-    "emotional_arc": "절망적인 상황에서 시작해 동생을 지키려는 집념으로 버티다가, 인간적 감정이 소용돌이치며 결국 비극적 선택으로 끝난다",
+    "movie_id": 15067,
+    "title": "좋은 놈, 나쁜 놈, 이상한 놈",
+    "one_line_vibe": "만주의 황야에서 세 남자가 벌이는 거친 추격전, 웃음과 긴장이 뒤섞인 쾌활한 모험",
+    "emotional_arc": "경쾌한 도입에서 시작해 점점 더 복잡해지는 추격전 속에서 긴장감이 고조되다가, 캐릭터들의 개성 있는 매력으로 인해 결국 통쾌한 해방감으로 마무리된다",
     "mood_tags": [
-      "묵직한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 636173,
-    "title": "드림",
-    "one_line_vibe": "홈리스 선수들이 함께 꿈을 향해 나아가며 느끼는 희망과 연대의 따뜻함",
-    "emotional_arc": "절망적인 상황에서 시작해 함께하는 기쁨으로 점차 고양되다가, 세계 대회라는 목표 앞에서 설렘과 불안이 뒤섞인 채 마무리된다",
-    "mood_tags": [
-      "따뜻한",
-      "설레는"
+      "유쾌한",
+      "통쾌한"
     ],
     "watch_situations": [
       "친구들과",
       "주말 낮에"
     ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 635996,
-    "title": "원더랜드",
-    "one_line_vibe": "죽음과 그리움 사이에서 현실과 가상의 경계가 흐릿해지는 경험",
-    "emotional_arc": "처음엔 위로와 희망으로 시작하지만, 점차 현실의 무게와 상실감이 밀려오며 깊은 성찰로 마무리된다",
-    "mood_tags": [
-      "쓸쓸한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 1,
-    "sadness": 4,
-    "tension": 3,
-    "complexity": 4,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 726139,
-    "title": "탈출: 프로젝트 사일런스",
-    "one_line_vibe": "짙은 안개 속에서 시시각각 다가오는 죽음의 위협에 숨이 막히는 경험",
-    "emotional_arc": "절망적인 상황 속에서 생존을 위해 몸부림치다가, 예상 밖의 위협 앞에서 더욱 깊어지는 공포와 절박함",
-    "mood_tags": [
-      "긴장감있는",
-      "불안한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
     "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 2,
+    "sadness": 1,
+    "tension": 3,
+    "complexity": 3,
     "pacing": "빠름"
   },
   {
@@ -2098,10 +2098,124 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 729854,
-    "title": "콘크리트 유토피아",
-    "one_line_vibe": "폐허 속 안전한 피난처가 점차 억압적인 감옥으로 변해가는 과정을 목격하는 불편함",
-    "emotional_arc": "절망적인 외부 세계에 대한 두려움으로 시작해 공동체 내부의 위선과 폭력성이 드러나면서 도덕적 회의감으로 끝난다",
+    "movie_id": 1057001,
+    "title": "귀공자",
+    "one_line_vibe": "정체 모를 위협이 계속 몰려오는 가운데 자신의 정체성과 진실을 찾아가는 긴박한 도주극",
+    "emotional_arc": "절박함으로 시작해 점점 더 복잡한 음모에 휘말리며 긴장이 고조되다가, 충격적인 진실 앞에서 모든 것이 뒤바뀐다",
+    "mood_tags": [
+      "긴장감있는",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 3,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1165642,
+    "title": "이 별에 필요한",
+    "one_line_vibe": "우주의 거리를 건너는 두 사람의 사랑이 주는 설렘과 그리움이 교차하는 경험",
+    "emotional_arc": "설렘으로 시작해 거리감의 아련함을 거쳐, 우주 너머에서도 닿을 수 있는 사랑으로 위로받는다",
+    "mood_tags": [
+      "설레는",
+      "서정적인"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "연인과"
+    ],
+    "violence": 1,
+    "sadness": 3,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 86000,
+    "title": "오직 그대만",
+    "one_line_vibe": "상처 입은 남자와 밝은 여자가 서로를 치유하는 과정에서 느껴지는 따뜻하고도 애틋한 감정의 교감",
+    "emotional_arc": "처음엔 닫혀있던 마음이 천천히 녹아내리다가, 상대방의 존재 자체가 위로가 되는 경험으로 이어진다",
+    "mood_tags": [
+      "따뜻한",
+      "서정적인"
+    ],
+    "watch_situations": [
+      "연인과",
+      "혼자 밤에"
+    ],
+    "violence": 1,
+    "sadness": 3,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 160704,
+    "title": "베를린",
+    "one_line_vibe": "베를린의 어두운 골목에서 정체를 숨긴 채 벌어지는 첩보전, 신뢰와 배신이 뒤엉킨 심리 게임",
+    "emotional_arc": "냉정한 첩보원의 일상에서 시작해 가까운 사람의 배신으로 흔들리고, 결국 모든 것이 무너지는 비극적 깨달음으로 끝난다",
+    "mood_tags": [
+      "긴장감있는",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 740441,
+    "title": "스마트폰을 떨어뜨렸을 뿐인데",
+    "one_line_vibe": "일상의 사소한 실수가 악의적인 감시로 변해가며 점점 더 깊은 공포에 빠져드는 경험",
+    "emotional_arc": "안도감으로 시작해 불안감이 서서히 고조되다가 절망적인 공포로 치닫는다",
+    "mood_tags": [
+      "불안한",
+      "긴장감있는"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 3,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 607844,
+    "title": "모가디슈",
+    "one_line_vibe": "전쟁의 소용돌이 속에서 적국의 외교관들과 함께 생존을 위해 몸부림치는 긴박한 경험",
+    "emotional_arc": "냉전의 긴장감으로 시작해 전쟁의 혼란 속에서 인간적 연대로 변화하고, 절망적 상황 속 희미한 희망으로 마무리된다",
+    "mood_tags": [
+      "긴장감있는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 467824,
+    "title": "인랑",
+    "one_line_vibe": "권력의 소용돌이 속에서 신뢰가 무너지고 모두가 적이 되는 디스토피아의 질식감",
+    "emotional_arc": "절망적인 미래 사회에서 시작해 권력 기관들의 음모와 배신이 겹겹이 드러나면서 점점 더 깊은 불신과 혼란에 빠져들다가, 결국 누가 진정한 적인지 알 수 없는 상태로 끝난다",
     "mood_tags": [
       "불안한",
       "묵직한"
@@ -2112,7 +2226,216 @@
     ],
     "violence": 4,
     "sadness": 4,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 518963,
+    "title": "독전",
+    "one_line_vibe": "마약 조직의 내부 붕괴 속에서 경찰과 조직원이 얽혀 벌이는 치열한 심리전과 액션의 소용돌이",
+    "emotional_arc": "신뢰와 배신이 뒤섞인 긴장 속에서 시작해, 점점 더 깊어지는 음모와 반전에 휘말리다가 비극적 결말로 치닫는다",
+    "mood_tags": [
+      "긴장감있는",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 3,
     "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 235704,
+    "title": "동창생",
+    "one_line_vibe": "고등학교 교실 속 숨겨진 비극과 도덕적 갈등이 만드는 어두운 긴장감",
+    "emotional_arc": "절망적인 상황에서 시작해 동생을 지키려는 집념으로 버티다가, 인간적 감정이 소용돌이치며 결국 비극적 선택으로 끝난다",
+    "mood_tags": [
+      "묵직한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 554972,
+    "title": "성난황소",
+    "one_line_vibe": "과거의 폭력성이 소환되는 순간, 평온한 일상이 무너지고 분노가 폭발하는 경험",
+    "emotional_arc": "절망적인 상황에서 시작해 분노와 복수심으로 타올랐다가, 결국 인간적 성찰로 마무리된다",
+    "mood_tags": [
+      "묵직한",
+      "통쾌한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 453127,
+    "title": "청년경찰",
+    "one_line_vibe": "의욕 넘치는 친구들이 정의를 위해 뛰어드는 과정에서 느껴지는 흥미진진함과 따뜻한 우정",
+    "emotional_arc": "밝고 경쾌하게 시작해 긴장감 있는 수사로 빠져들었다가, 우정과 성장의 감동으로 마무리된다",
+    "mood_tags": [
+      "유쾌한",
+      "따뜻한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 2,
+    "sadness": 1,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 849869,
+    "title": "길복순",
+    "one_line_vibe": "킬러라는 정체성과 엄마라는 역할 사이에서 흔들리는 여성의 분노와 결단이 폭발하는 순간",
+    "emotional_arc": "냉정한 프로페셔널로 시작해 딸과의 관계에서 흔들리다가, 마지막 임무에서 양심을 택하면서 모든 것을 잃을 각오로 분노가 폭발한다",
+    "mood_tags": [
+      "묵직한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 736732,
+    "title": "브로커",
+    "one_line_vibe": "낯선 사람들이 한 아기를 둘러싸고 벌어지는 예상 밖의 감정 여행, 웃음과 눈물이 자연스럽게 섞이는 경험",
+    "emotional_arc": "어색함과 불신으로 시작해 함께하는 시간 속에서 서로를 이해하고 연결되며, 마지막엔 헤어짐의 아픔과 성장의 희망이 함께 남는다",
+    "mood_tags": [
+      "따뜻한",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 1,
+    "sadness": 3,
+    "tension": 2,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 606523,
+    "title": "낙원의 밤",
+    "one_line_vibe": "사랑하는 사람을 잃은 분노가 어둠 속에서 타오르는, 복수의 무게를 짊어진 밤",
+    "emotional_arc": "깊은 상실감으로 시작해 복수의 불길로 타올랐다가, 제주도의 고요함 속에서 죽음과 사랑 사이에서 흔들리며 비극적으로 마무리된다",
+    "mood_tags": [
+      "씁쓸한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 5,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 591120,
+    "title": "해적: 도깨비 깃발",
+    "one_line_vibe": "조선 바다를 누비는 의적과 해적의 울고 웃는 보물 찾기, 화려한 액션과 예측 불가능한 반전으로 가득한 모험극",
+    "emotional_arc": "가볍고 신나는 시작에서 점점 고조되는 긴장감, 예상 밖의 배신과 반전을 거쳐 화끈한 클라이맥스로 치달으며 마지막엔 통쾌한 해결로 마무리된다",
+    "mood_tags": [
+      "유쾌한",
+      "통쾌한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 3,
+    "sadness": 1,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 557968,
+    "title": "리벤져",
+    "one_line_vibe": "법 밖의 섬에서 절대 악에 맞서는 전직 경찰의 피 튀기는 복수극",
+    "emotional_arc": "절망적인 상황 속에서 분노와 생존 본능으로 타오르다가, 마지막 대결에서 비장한 결말을 맞이한다",
+    "mood_tags": [
+      "비장한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 628704,
+    "title": "미드나이트",
+    "one_line_vibe": "청각장애라는 절대적 약점 속에서 연쇄살인마에게 쫓기는 절망적 긴장감",
+    "emotional_arc": "공포와 절망으로 시작해 생존 본능의 투쟁으로 이어지다가, 결국 심리적 트라우마와 상실감으로 끝난다",
+    "mood_tags": [
+      "긴장감있는",
+      "불안한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 635996,
+    "title": "원더랜드",
+    "one_line_vibe": "죽음과 그리움 사이에서 현실과 가상의 경계가 흐릿해지는 경험",
+    "emotional_arc": "처음엔 위로와 희망으로 시작하지만, 점차 현실의 무게와 상실감이 밀려오며 깊은 성찰로 마무리된다",
+    "mood_tags": [
+      "쓸쓸한",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 1,
+    "sadness": 4,
+    "tension": 3,
     "complexity": 4,
     "pacing": "보통"
   },
@@ -2136,10 +2459,48 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 518963,
-    "title": "독전",
-    "one_line_vibe": "마약 조직의 내부 붕괴 속에서 경찰과 조직원이 얽혀 벌이는 치열한 심리전과 액션의 소용돌이",
-    "emotional_arc": "신뢰와 배신이 뒤섞인 긴장 속에서 시작해, 점점 더 깊어지는 음모와 반전에 휘말리다가 비극적 결말로 치닫는다",
+    "movie_id": 623135,
+    "title": "싱크홀",
+    "one_line_vibe": "꿈꾸던 내 집이 한순간에 무너지는 재난 속에서 웃음과 눈물이 뒤섞이는 경험",
+    "emotional_arc": "희망으로 시작해 갑작스러운 절망에 빠지지만, 그 속에서 인간관계의 소중함을 깨닫고 희망을 되찾는다",
+    "mood_tags": [
+      "유쾌한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 1,
+    "sadness": 2,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 1210938,
+    "title": "계시록",
+    "one_line_vibe": "신앙과 집착이 뒤얽힌 어두운 추적 속에서 인간의 추악함을 마주하는 불편한 경험",
+    "emotional_arc": "종교적 확신으로 시작해 점점 더 어두운 진실에 잠식되며, 결국 신념과 현실의 괴리 속에서 씁쓸한 깨달음으로 끝난다",
+    "mood_tags": [
+      "불안한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 204553,
+    "title": "감시자들",
+    "one_line_vibe": "완벽한 범죄자와 감시 전문가들의 심리전 속에서 긴장감 넘치는 추격전을 경험하는 영화",
+    "emotional_arc": "냉철한 긴장감으로 시작해 범죄자와 경찰의 심리 싸움이 심화되면서 점점 더 팽팽해지다가, 추적이 조여올수록 예측 불가능한 결말로 치닫는다",
     "mood_tags": [
       "긴장감있는",
       "묵직한"
@@ -2148,67 +2509,10 @@
       "집중해서 볼 때",
       "친구들과"
     ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 607844,
-    "title": "모가디슈",
-    "one_line_vibe": "전쟁의 소용돌이 속에서 적국의 외교관들과 함께 생존을 위해 몸부림치는 긴박한 경험",
-    "emotional_arc": "냉전의 긴장감으로 시작해 전쟁의 혼란 속에서 인간적 연대로 변화하고, 절망적 상황 속 희미한 희망으로 마무리된다",
-    "mood_tags": [
-      "긴장감있는",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 57361,
-    "title": "황해",
-    "one_line_vibe": "절박함과 폭력이 소용돌이치는 가운데, 한 남자가 점점 더 깊은 수렁으로 빠져드는 악몽 같은 경험",
-    "emotional_arc": "절망적인 상황에서 시작해 폭력과 추격으로 고조되다가, 결국 모든 것을 잃은 채 비극적으로 끝난다",
-    "mood_tags": [
-      "묵직한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 33196,
-    "title": "해운대",
-    "one_line_vibe": "일상의 소중함을 깨닫는 순간, 거대한 자연의 힘 앞에서 인간의 무력함을 마주하는 경험",
-    "emotional_arc": "설레는 기대감으로 시작해 갑작스러운 공포와 절망을 거쳐, 생존과 사랑을 위한 필사적 투쟁 속에서 인간의 존엄성을 발견한다",
-    "mood_tags": [
-      "비장한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "가족과"
-    ],
     "violence": 3,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 4,
     "pacing": "빠름"
   },
   {
@@ -2231,98 +2535,41 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 86000,
-    "title": "오직 그대만",
-    "one_line_vibe": "상처 입은 남자와 밝은 여자가 서로를 치유하는 과정에서 느껴지는 따뜻하고도 애틋한 감정의 교감",
-    "emotional_arc": "처음엔 닫혀있던 마음이 천천히 녹아내리다가, 상대방의 존재 자체가 위로가 되는 경험으로 이어진다",
+    "movie_id": 492008,
+    "title": "검객",
+    "one_line_vibe": "세상을 등진 검객이 딸을 위해 다시 칼을 들 때의 분노와 결연함, 그리고 그 과정에서 마주하는 비극적 운명",
+    "emotional_arc": "침묵 속의 분노로 시작해 격렬한 복수의 칼날로 타올랐다가, 결국 모든 것을 잃은 허무함으로 끝난다",
     "mood_tags": [
-      "따뜻한",
-      "서정적인"
-    ],
-    "watch_situations": [
-      "연인과",
-      "혼자 밤에"
-    ],
-    "violence": 1,
-    "sadness": 3,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 740441,
-    "title": "스마트폰을 떨어뜨렸을 뿐인데",
-    "one_line_vibe": "일상의 사소한 실수가 악의적인 감시로 변해가며 점점 더 깊은 공포에 빠져드는 경험",
-    "emotional_arc": "안도감으로 시작해 불안감이 서서히 고조되다가 절망적인 공포로 치닫는다",
-    "mood_tags": [
-      "불안한",
-      "긴장감있는"
+      "비장한",
+      "묵직한"
     ],
     "watch_situations": [
       "집중해서 볼 때",
       "혼자 밤에"
     ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 15067,
-    "title": "좋은 놈, 나쁜 놈, 이상한 놈",
-    "one_line_vibe": "만주의 황야에서 세 남자가 벌이는 거친 추격전, 웃음과 긴장이 뒤섞인 쾌활한 모험",
-    "emotional_arc": "경쾌한 도입에서 시작해 점점 더 복잡해지는 추격전 속에서 긴장감이 고조되다가, 캐릭터들의 개성 있는 매력으로 인해 결국 통쾌한 해방감으로 마무리된다",
-    "mood_tags": [
-      "유쾌한",
-      "통쾌한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 3,
-    "sadness": 1,
-    "tension": 3,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 606523,
-    "title": "낙원의 밤",
-    "one_line_vibe": "사랑하는 사람을 잃은 분노가 어둠 속에서 타오르는, 복수의 무게를 짊어진 밤",
-    "emotional_arc": "깊은 상실감으로 시작해 복수의 불길로 타올랐다가, 제주도의 고요함 속에서 죽음과 사랑 사이에서 흔들리며 비극적으로 마무리된다",
-    "mood_tags": [
-      "씁쓸한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 5,
+    "violence": 4,
     "sadness": 4,
     "tension": 4,
     "complexity": 3,
     "pacing": "보통"
   },
   {
-    "movie_id": 1628123,
-    "title": "BTS 컴백 라이브: ARIRANG",
-    "one_line_vibe": "오랜 기다림이 끝나고 전설의 무대가 펼쳐지는 순간, 전 세계 팬들과 함께 감정의 파도에 휩싸인다.",
-    "emotional_arc": "기대감으로 설레다가 공연이 시작되면서 감동과 환희로 고조되고, 신곡 공개 순간 감정의 절정에 도달한 후 뭉클한 여운으로 마무리된다.",
+    "movie_id": 124157,
+    "title": "도둑들",
+    "one_line_vibe": "화려한 홍콩 야경 속에서 펼쳐지는 정교한 계획과 예측 불가능한 배신들이 만드는 짜릿한 쾌감",
+    "emotional_arc": "처음엔 신나는 도둑질의 설렘으로 시작하지만, 점점 복잡해지는 이해관계와 숨겨진 의도들이 드러나면서 긴장이 고조되고, 마지막 반전에서 통쾌한 카타르시스로 마무리된다",
     "mood_tags": [
       "설레는",
-      "감동적인"
+      "통쾌한"
     ],
     "watch_situations": [
       "친구들과",
-      "주말 낮에"
+      "집중해서 볼 때"
     ],
-    "violence": 1,
+    "violence": 3,
     "sadness": 1,
-    "tension": 1,
-    "complexity": 2,
+    "tension": 4,
+    "complexity": 4,
     "pacing": "빠름"
   },
   {
@@ -2345,29 +2592,10 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 585831,
-    "title": "나쁜 녀석들: 더 무비",
-    "one_line_vibe": "거친 에너지와 통쾌한 액션으로 가득한, 나쁜 놈들이 더 나쁜 놈들을 무찌르는 카타르시스",
-    "emotional_arc": "처음엔 긴장감 있게 시작해 팀의 활약이 쌓이면서 점점 통쾌해지다가, 거대한 음모 앞에서 다시 긴장이 고조된다",
-    "mood_tags": [
-      "통쾌한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 4,
-    "sadness": 1,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 79224,
-    "title": "최종병기 활",
-    "one_line_vibe": "포로가 된 누이를 구하기 위해 청군의 심장부로 나아가는 신궁의 절박한 여정, 활 한 자루로 펼쳐지는 복수와 구원의 서사",
-    "emotional_arc": "절망적인 상실로 시작해 분노와 결연함으로 타올랐다가, 최후의 대결에서 개인의 복수를 넘어 역사적 의미를 되찾는 비장한 승화",
+    "movie_id": 535389,
+    "title": "안시성",
+    "one_line_vibe": "압도적 수적 열세 속에서 벼랑 끝에 선 전사들의 필사적 저항이 만드는 비장한 전쟁 드라마",
+    "emotional_arc": "절망적인 상황에서 시작해 저항의 의지로 불타올랐다가, 마지막 승리의 순간 카타르시스를 느낀다",
     "mood_tags": [
       "비장한",
       "통쾌한"
@@ -2383,156 +2611,42 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 736732,
-    "title": "브로커",
-    "one_line_vibe": "낯선 사람들이 한 아기를 둘러싸고 벌어지는 예상 밖의 감정 여행, 웃음과 눈물이 자연스럽게 섞이는 경험",
-    "emotional_arc": "어색함과 불신으로 시작해 함께하는 시간 속에서 서로를 이해하고 연결되며, 마지막엔 헤어짐의 아픔과 성장의 희망이 함께 남는다",
+    "movie_id": 581526,
+    "title": "다만 악에서 구하소서",
+    "one_line_vibe": "냉정한 암살자가 태국의 어두운 거리에서 자신의 과거와 마주하는 복수의 악순환",
+    "emotional_arc": "차갑고 무감정한 시작에서 점차 개인적인 감정에 휘말리며, 결국 피할 수 없는 비극으로 치닫는다",
     "mood_tags": [
-      "따뜻한",
-      "씁쓸한"
+      "씁쓸한",
+      "긴장감있는"
     ],
     "watch_situations": [
       "혼자 밤에",
       "집중해서 볼 때"
     ],
-    "violence": 1,
-    "sadness": 3,
-    "tension": 2,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 572164,
-    "title": "엑시트",
-    "one_line_vibe": "도시가 독가스로 뒤덮인 혼란 속에서 두 청년이 산악 스킬로 생존을 위해 분투하는 아찔하고 통쾌한 모험",
-    "emotional_arc": "처음엔 어색한 재회의 미안함으로 시작해 점점 긴박한 위기감으로 고조되다가, 함께 극복해내는 과정에서 통쾌함과 희열로 마무리된다",
-    "mood_tags": [
-      "유쾌한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 1,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 591120,
-    "title": "해적: 도깨비 깃발",
-    "one_line_vibe": "조선 바다를 누비는 의적과 해적의 울고 웃는 보물 찾기, 화려한 액션과 예측 불가능한 반전으로 가득한 모험극",
-    "emotional_arc": "가볍고 신나는 시작에서 점점 고조되는 긴장감, 예상 밖의 배신과 반전을 거쳐 화끈한 클라이맥스로 치달으며 마지막엔 통쾌한 해결로 마무리된다",
-    "mood_tags": [
-      "유쾌한",
-      "통쾌한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 3,
-    "sadness": 1,
-    "tension": 3,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1057001,
-    "title": "귀공자",
-    "one_line_vibe": "정체 모를 위협이 계속 몰려오는 가운데 자신의 정체성과 진실을 찾아가는 긴박한 도주극",
-    "emotional_arc": "절박함으로 시작해 점점 더 복잡한 음모에 휘말리며 긴장이 고조되다가, 충격적인 진실 앞에서 모든 것이 뒤바뀐다",
-    "mood_tags": [
-      "긴장감있는",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 849869,
-    "title": "길복순",
-    "one_line_vibe": "킬러라는 정체성과 엄마라는 역할 사이에서 흔들리는 여성의 분노와 결단이 폭발하는 순간",
-    "emotional_arc": "냉정한 프로페셔널로 시작해 딸과의 관계에서 흔들리다가, 마지막 임무에서 양심을 택하면서 모든 것을 잃을 각오로 분노가 폭발한다",
-    "mood_tags": [
-      "묵직한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
     "violence": 4,
-    "sadness": 3,
+    "sadness": 4,
     "tension": 4,
     "complexity": 3,
     "pacing": "빠름"
   },
   {
-    "movie_id": 626412,
-    "title": "외계+인 2부",
-    "one_line_vibe": "시간을 넘나드는 혼란 속에서 점점 커지는 불안감과 예측 불가능한 반전들이 계속 터져 나온다",
-    "emotional_arc": "혼란스럽고 긴장된 상태에서 시작해 점점 더 높아지는 긴장감 속에 예상 밖의 진실들이 폭발하며 비장한 결말로 향한다",
+    "movie_id": 133601,
+    "title": "이웃사람",
+    "one_line_vibe": "아파트 이웃들이 연쇄살인범을 추적하며 겪는 불안감과 의심의 소용돌이",
+    "emotional_arc": "초반의 불안감에서 시작해 의심과 긴장이 고조되다가, 진범을 향한 추적 과정에서 이웃들 간의 갈등과 도덕적 딜레마를 마주하며 무거운 여운으로 끝난다",
     "mood_tags": [
       "긴장감있는",
       "불안한"
     ],
     "watch_situations": [
       "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 467824,
-    "title": "인랑",
-    "one_line_vibe": "권력의 소용돌이 속에서 신뢰가 무너지고 모두가 적이 되는 디스토피아의 질식감",
-    "emotional_arc": "절망적인 미래 사회에서 시작해 권력 기관들의 음모와 배신이 겹겹이 드러나면서 점점 더 깊은 불신과 혼란에 빠져들다가, 결국 누가 진정한 적인지 알 수 없는 상태로 끝난다",
-    "mood_tags": [
-      "불안한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
       "혼자 밤에"
     ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
+    "violence": 3,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 3,
     "pacing": "빠름"
-  },
-  {
-    "movie_id": 623135,
-    "title": "싱크홀",
-    "one_line_vibe": "꿈꾸던 내 집이 한순간에 무너지는 재난 속에서 웃음과 눈물이 뒤섞이는 경험",
-    "emotional_arc": "희망으로 시작해 갑작스러운 절망에 빠지지만, 그 속에서 인간관계의 소중함을 깨닫고 희망을 되찾는다",
-    "mood_tags": [
-      "유쾌한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 3,
-    "complexity": 2,
-    "pacing": "보통"
   },
   {
     "movie_id": 408620,
@@ -2555,121 +2669,6 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 134126,
-    "title": "회사원",
-    "one_line_vibe": "냉정한 살인청부업자가 한 소년과의 만남으로 인간성을 되찾아가는 과정에서 느끼는 죄책감과 구원의 갈등",
-    "emotional_arc": "기계적인 냉담함으로 시작해 따뜻한 감정을 깨닫지만, 결국 그 감정이 자신을 파멸로 이끌 수 있다는 절망으로 끝난다",
-    "mood_tags": [
-      "씁쓸한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 554972,
-    "title": "성난황소",
-    "one_line_vibe": "과거의 폭력성이 소환되는 순간, 평온한 일상이 무너지고 분노가 폭발하는 경험",
-    "emotional_arc": "절망적인 상황에서 시작해 분노와 복수심으로 타올랐다가, 결국 인간적 성찰로 마무리된다",
-    "mood_tags": [
-      "묵직한",
-      "통쾌한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 8653,
-    "title": "섬",
-    "one_line_vibe": "고립된 섬에서 두 상처받은 영혼이 육체와 감정으로 얽혀가며 서로를 파괴하고 구원하려는 절망적인 사랑",
-    "emotional_arc": "절망과 고독 속에서 시작해 육체적 교감으로 순간의 위로를 얻지만, 결국 집착과 소유욕으로 변질되며 더 깊은 파멸로 빠져든다",
-    "mood_tags": [
-      "쓸쓸한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 2,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 499028,
-    "title": "지금 만나러 갑니다",
-    "one_line_vibe": "죽음을 넘어 다시 만난 사람과 처음부터 사랑에 빠지는 경험, 슬픔과 기쁨이 교차하는 감정의 여정",
-    "emotional_arc": "무거운 상실감으로 시작해 재회의 기쁨으로 밝아지지만, 기억하지 못하는 상대에 대한 안타까움과 함께 다시 사랑하는 설렘이 교차하며 마지막에는 그 모든 감정이 뭉클한 감동으로 수렴한다",
-    "mood_tags": [
-      "설레는",
-      "씁쓸한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "비 오는 날"
-    ],
-    "violence": 1,
-    "sadness": 4,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 10253,
-    "title": "디 워",
-    "one_line_vibe": "거대한 이무기가 LA를 휩쓸 때, 황당함과 스펙터클이 뒤섞인 B급 판타지 액션의 광란",
-    "emotional_arc": "황당한 설정으로 시작해 점점 더 거대한 스케일의 혼란으로 빠져들다가, 결국 초현실적인 전쟁의 소용돌이 속에서 황홀함으로 끝난다",
-    "mood_tags": [
-      "유쾌한",
-      "코믹한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "가볍게 틀어둘 때"
-    ],
-    "violence": 3,
-    "sadness": 1,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 629028,
-    "title": "미션 파서블",
-    "one_line_vibe": "엉뚱한 두 사람이 벌이는 소동 속에서 터져 나오는 웃음과 예상 밖의 통쾌함",
-    "emotional_arc": "황당함으로 시작해 점점 커지는 소동 속에서 두 사람의 케미에 빠져 웃다가, 마지막엔 이들의 우정과 성장에 훈훈함을 느낀다",
-    "mood_tags": [
-      "유쾌한",
-      "코믹한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 1,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
     "movie_id": 1280,
     "title": "빈집",
     "one_line_vibe": "남의 집에서 몰래 만나는 두 사람, 세상과 단절된 비밀의 공간에서 피어나는 위험하고 아름다운 사랑",
@@ -2689,99 +2688,41 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 15859,
-    "title": "내 머리 속의 지우개",
-    "one_line_vibe": "사랑이 시간을 이기려 애쓰는 가슴 아픈 여정, 매 순간이 소중해지는 영화",
-    "emotional_arc": "우연한 만남으로 시작한 설렘이 점차 깊어지는 사랑으로 변하다가, 피할 수 없는 현실 앞에서 애절한 슬픔으로 변해간다",
-    "mood_tags": [
-      "설레는",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "비 오는 날"
-    ],
-    "violence": 1,
-    "sadness": 5,
-    "tension": 2,
-    "complexity": 3,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 1210938,
-    "title": "계시록",
-    "one_line_vibe": "신앙과 집착이 뒤얽힌 어두운 추적 속에서 인간의 추악함을 마주하는 불편한 경험",
-    "emotional_arc": "종교적 확신으로 시작해 점점 더 어두운 진실에 잠식되며, 결국 신념과 현실의 괴리 속에서 씁쓸한 깨달음으로 끝난다",
-    "mood_tags": [
-      "불안한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 429450,
-    "title": "판도라",
-    "one_line_vibe": "통제 불능의 재난 앞에서 절망과 책임감 사이에서 흔들리는 인간의 모습을 목격하는 경험",
-    "emotional_arc": "공포와 불안으로 시작해 절망적 상황 속에서 희생과 책임감으로 변해가다가, 결국 비극적 결말로 수렴한다",
-    "mood_tags": [
-      "묵직한",
-      "비장한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 3,
-    "sadness": 5,
-    "tension": 5,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 128246,
-    "title": "늑대소년",
-    "one_line_vibe": "야생의 존재를 길들이려 하지만 결국 그 본성을 마주하게 되는, 애틋하고도 비극적인 성장의 순간",
-    "emotional_arc": "따뜻한 교감으로 시작해 점점 불안감이 커지다가, 피할 수 없는 비극 앞에서 씁쓸한 깨달음으로 끝난다",
+    "movie_id": 18377,
+    "title": "미녀는 괴로워",
+    "one_line_vibe": "자신의 목소리로는 인정받지 못하지만, 누군가에게 사랑받고 싶은 마음이 절절한 영화",
+    "emotional_arc": "자조와 체념으로 시작해 사랑에 대한 희망으로 설레다가, 현실의 냉정함 앞에서 자신을 받아들이는 성장으로 마무리된다",
     "mood_tags": [
       "따뜻한",
       "씁쓸한"
     ],
     "watch_situations": [
       "혼자 밤에",
-      "비 오는 날"
+      "지쳤을 때"
     ],
-    "violence": 2,
+    "violence": 1,
     "sadness": 4,
-    "tension": 3,
-    "complexity": 3,
+    "tension": 2,
+    "complexity": 2,
     "pacing": "보통"
   },
   {
-    "movie_id": 581526,
-    "title": "다만 악에서 구하소서",
-    "one_line_vibe": "냉정한 암살자가 태국의 어두운 거리에서 자신의 과거와 마주하는 복수의 악순환",
-    "emotional_arc": "차갑고 무감정한 시작에서 점차 개인적인 감정에 휘말리며, 결국 피할 수 없는 비극으로 치닫는다",
+    "movie_id": 585831,
+    "title": "나쁜 녀석들: 더 무비",
+    "one_line_vibe": "거친 에너지와 통쾌한 액션으로 가득한, 나쁜 놈들이 더 나쁜 놈들을 무찌르는 카타르시스",
+    "emotional_arc": "처음엔 긴장감 있게 시작해 팀의 활약이 쌓이면서 점점 통쾌해지다가, 거대한 음모 앞에서 다시 긴장이 고조된다",
     "mood_tags": [
-      "씁쓸한",
+      "통쾌한",
       "긴장감있는"
     ],
     "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
+      "친구들과",
+      "주말 낮에"
     ],
     "violence": 4,
-    "sadness": 4,
+    "sadness": 1,
     "tension": 4,
-    "complexity": 3,
+    "complexity": 2,
     "pacing": "빠름"
   },
   {
@@ -2805,177 +2746,41 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 18438,
-    "title": "김씨 표류기",
-    "one_line_vibe": "죽음의 가장자리에서 시작한 두 고독한 영혼이 우연한 연결을 통해 다시 살아가는 법을 배워가는 경험",
-    "emotional_arc": "절망과 고독으로 시작해 작은 희망의 신호를 받으며 설레고, 예상치 못한 만남으로 인해 삶에 대한 따뜻한 위로로 마무리된다",
+    "movie_id": 346646,
+    "title": "베테랑",
+    "one_line_vibe": "집념 있는 경찰과 무적인 재벌 3세의 충돌 속에서 느껴지는 분노와 통쾌함",
+    "emotional_arc": "답답함과 분노로 시작해 정의의 추구 과정에서 카타르시스를 느끼고, 현실의 벽 앞에서 씁쓸함으로 마무리된다",
     "mood_tags": [
-      "쓸쓸한",
-      "따뜻한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "비 오는 날"
-    ],
-    "violence": 1,
-    "sadness": 4,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 448491,
-    "title": "리틀 포레스트",
-    "one_line_vibe": "도시의 피로함을 벗어나 흙 냄새 나는 일상 속에서 천천히 자신을 되찾아가는 경험",
-    "emotional_arc": "번아웃으로 지친 마음이 계절의 순환 속에서 자연스럽게 치유되고, 친구들과의 소박한 순간들이 깊은 위로가 되어 마침내 현재의 삶을 받아들이게 된다",
-    "mood_tags": [
-      "잔잔한",
-      "따뜻한",
-      "서정적인"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "지쳤을 때"
-    ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 1,
-    "complexity": 2,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 492008,
-    "title": "검객",
-    "one_line_vibe": "세상을 등진 검객이 딸을 위해 다시 칼을 들 때의 분노와 결연함, 그리고 그 과정에서 마주하는 비극적 운명",
-    "emotional_arc": "침묵 속의 분노로 시작해 격렬한 복수의 칼날로 타올랐다가, 결국 모든 것을 잃은 허무함으로 끝난다",
-    "mood_tags": [
-      "비장한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 50475,
-    "title": "용서는 없다",
-    "one_line_vibe": "부검의의 딸이 인질로 잡히면서 시체의 단서를 쫓는 절박한 심리 전쟁",
-    "emotional_arc": "냉정한 수사로 시작해 딸의 실종으로 절망에 빠졌다가, 살인마와의 거래 속에서 분노와 공포가 뒤섞인 채 끝난다",
-    "mood_tags": [
-      "긴장감있는",
-      "묵직한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 38015,
-    "title": "타짜",
-    "one_line_vibe": "도박의 세계에 발을 들이며 느끼는 짜릿한 긴장감과 속임수 게임의 재미",
-    "emotional_arc": "순진한 청년이 도박판의 냉혹함을 깨닫고 복수심에 불타 전설의 도박꾼과 함께 큰 판에 도전하며 성장하는 과정",
-    "mood_tags": [
-      "긴장감있는",
-      "코믹한"
+      "통쾌한",
+      "씁쓸한"
     ],
     "watch_situations": [
       "친구들과",
       "집중해서 볼 때"
     ],
-    "violence": 2,
+    "violence": 4,
     "sadness": 2,
     "tension": 4,
     "complexity": 3,
     "pacing": "빠름"
   },
   {
-    "movie_id": 285213,
-    "title": "해적: 바다로 간 산적",
-    "one_line_vibe": "조선시대 바다 위에서 펼쳐지는 엉뚱한 무리들의 소동극, 웃음과 모험이 넘실거린다",
-    "emotional_arc": "경쾌한 웃음으로 시작해 모험의 흥미진진함으로 이어지다가, 여러 세력의 충돌 속에서 긴장감이 고조되지만 결국 통쾌한 해결로 마무리된다",
+    "movie_id": 1628123,
+    "title": "BTS 컴백 라이브: ARIRANG",
+    "one_line_vibe": "오랜 기다림이 끝나고 전설의 무대가 펼쳐지는 순간, 전 세계 팬들과 함께 감정의 파도에 휩싸인다.",
+    "emotional_arc": "기대감으로 설레다가 공연이 시작되면서 감동과 환희로 고조되고, 신곡 공개 순간 감정의 절정에 도달한 후 뭉클한 여운으로 마무리된다.",
     "mood_tags": [
-      "유쾌한",
-      "코믹한"
+      "설레는",
+      "감동적인"
     ],
     "watch_situations": [
       "친구들과",
       "주말 낮에"
     ],
-    "violence": 2,
+    "violence": 1,
     "sadness": 1,
-    "tension": 2,
+    "tension": 1,
     "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 435601,
-    "title": "브이아이피",
-    "one_line_vibe": "국가 기관들의 이해관계가 얽혀 진실이 자꾸만 흐려지는 가운데, 한 경찰이 본능적 확신으로 추격하는 긴장감 넘치는 정치 스릴러",
-    "emotional_arc": "답답함으로 시작해 분노와 의심이 쌓이다가, 복잡한 권력 구조 속에서 무력감을 느끼며 마지막까지 불안감이 가시지 않는다",
-    "mood_tags": [
-      "긴장감있는",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 265851,
-    "title": "우는 남자",
-    "one_line_vibe": "죄책감과 상실감으로 무너진 두 영혼이 복수와 구원 사이에서 맞닿는 어두운 여정",
-    "emotional_arc": "절망적인 무게로 시작해 분노와 복수욕으로 타오르다가, 마지막에는 상처받은 인간들의 연대 속에서 씁쓸한 위로를 찾는다",
-    "mood_tags": [
-      "씁쓸한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 4,
-    "sadness": 5,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 204553,
-    "title": "감시자들",
-    "one_line_vibe": "완벽한 범죄자와 감시 전문가들의 심리전 속에서 긴장감 넘치는 추격전을 경험하는 영화",
-    "emotional_arc": "냉철한 긴장감으로 시작해 범죄자와 경찰의 심리 싸움이 심화되면서 점점 더 팽팽해지다가, 추적이 조여올수록 예측 불가능한 결말로 치닫는다",
-    "mood_tags": [
-      "긴장감있는",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 4,
     "pacing": "빠름"
   },
   {
@@ -2998,23 +2803,157 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 346646,
-    "title": "베테랑",
-    "one_line_vibe": "집념 있는 경찰과 무적인 재벌 3세의 충돌 속에서 느껴지는 분노와 통쾌함",
-    "emotional_arc": "답답함과 분노로 시작해 정의의 추구 과정에서 카타르시스를 느끼고, 현실의 벽 앞에서 씁쓸함으로 마무리된다",
+    "movie_id": 23538,
+    "title": "비열한 거리",
+    "one_line_vibe": "한 번의 선택이 모든 것을 바꿔버리는, 후회와 체념이 교차하는 남자의 이야기",
+    "emotional_arc": "절망적인 일상에서 잠깐의 희망을 맛보지만, 결국 그 선택의 대가를 깨닫게 되는 비극적 깨달음",
     "mood_tags": [
-      "통쾌한",
-      "씁쓸한"
+      "씁쓸한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 134126,
+    "title": "회사원",
+    "one_line_vibe": "냉정한 살인청부업자가 한 소년과의 만남으로 인간성을 되찾아가는 과정에서 느끼는 죄책감과 구원의 갈등",
+    "emotional_arc": "기계적인 냉담함으로 시작해 따뜻한 감정을 깨닫지만, 결국 그 감정이 자신을 파멸로 이끌 수 있다는 절망으로 끝난다",
+    "mood_tags": [
+      "씁쓸한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 41245,
+    "title": "박하사탕",
+    "one_line_vibe": "시간을 거슬러 올라가며 마주하는 돌이킬 수 없는 선택들과 그로 인한 절망감",
+    "emotional_arc": "광기 어린 절망에서 시작해 과거의 순수한 순간들을 거쳐 결국 모든 것이 이미 정해져 있었음을 깨닫는 비극적 깨달음",
+    "mood_tags": [
+      "쓸쓸한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 2,
+    "sadness": 5,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 10253,
+    "title": "디 워",
+    "one_line_vibe": "거대한 이무기가 LA를 휩쓸 때, 황당함과 스펙터클이 뒤섞인 B급 판타지 액션의 광란",
+    "emotional_arc": "황당한 설정으로 시작해 점점 더 거대한 스케일의 혼란으로 빠져들다가, 결국 초현실적인 전쟁의 소용돌이 속에서 황홀함으로 끝난다",
+    "mood_tags": [
+      "유쾌한",
+      "코믹한"
     ],
     "watch_situations": [
       "친구들과",
-      "집중해서 볼 때"
+      "가볍게 틀어둘 때"
+    ],
+    "violence": 3,
+    "sadness": 1,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 57361,
+    "title": "황해",
+    "one_line_vibe": "절박함과 폭력이 소용돌이치는 가운데, 한 남자가 점점 더 깊은 수렁으로 빠져드는 악몽 같은 경험",
+    "emotional_arc": "절망적인 상황에서 시작해 폭력과 추격으로 고조되다가, 결국 모든 것을 잃은 채 비극적으로 끝난다",
+    "mood_tags": [
+      "묵직한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
     ],
     "violence": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 448491,
+    "title": "리틀 포레스트",
+    "one_line_vibe": "도시의 피로함을 벗어나 흙 냄새 나는 일상 속에서 천천히 자신을 되찾아가는 경험",
+    "emotional_arc": "번아웃으로 지친 마음이 계절의 순환 속에서 자연스럽게 치유되고, 친구들과의 소박한 순간들이 깊은 위로가 되어 마침내 현재의 삶을 받아들이게 된다",
+    "mood_tags": [
+      "잔잔한",
+      "따뜻한",
+      "서정적인"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "지쳤을 때"
+    ],
+    "violence": 1,
+    "sadness": 2,
+    "tension": 1,
+    "complexity": 2,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 435601,
+    "title": "브이아이피",
+    "one_line_vibe": "국가 기관들의 이해관계가 얽혀 진실이 자꾸만 흐려지는 가운데, 한 경찰이 본능적 확신으로 추격하는 긴장감 넘치는 정치 스릴러",
+    "emotional_arc": "답답함으로 시작해 분노와 의심이 쌓이다가, 복잡한 권력 구조 속에서 무력감을 느끼며 마지막까지 불안감이 가시지 않는다",
+    "mood_tags": [
+      "긴장감있는",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 3,
     "sadness": 2,
     "tension": 4,
-    "complexity": 3,
+    "complexity": 4,
     "pacing": "빠름"
+  },
+  {
+    "movie_id": 338729,
+    "title": "뷰티 인사이드",
+    "one_line_vibe": "매일 다른 얼굴로 깨어나는 남자가 처음 사랑을 만났을 때의 설렘과 불안감, 그리고 비밀을 품고 누군가를 사랑하는 것의 외로움",
+    "emotional_arc": "설레는 기대감으로 시작해 사랑의 설렘이 커지지만, 자신의 정체를 숨길 수 없는 불안감과 죄책감이 점점 커지다가 진실을 마주하는 순간 감정적 해방을 맞이한다",
+    "mood_tags": [
+      "설레는",
+      "쓸쓸한"
+    ],
+    "watch_situations": [
+      "연인과",
+      "혼자 밤에"
+    ],
+    "violence": 1,
+    "sadness": 3,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "보통"
   },
   {
     "movie_id": 958263,
@@ -3036,10 +2975,29 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 421928,
-    "title": "럭키",
-    "one_line_vibe": "냉혹한 킬러와 무명배우가 뒤바뀌면서 벌어지는 황당하고 통쾌한 소동",
-    "emotional_arc": "황당한 상황에서 웃음이 터지다가, 두 인물의 성장과 변화 속에서 따뜻한 감정으로 마무리된다",
+    "movie_id": 15859,
+    "title": "내 머리 속의 지우개",
+    "one_line_vibe": "사랑이 시간을 이기려 애쓰는 가슴 아픈 여정, 매 순간이 소중해지는 영화",
+    "emotional_arc": "우연한 만남으로 시작한 설렘이 점차 깊어지는 사랑으로 변하다가, 피할 수 없는 현실 앞에서 애절한 슬픔으로 변해간다",
+    "mood_tags": [
+      "설레는",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "비 오는 날"
+    ],
+    "violence": 1,
+    "sadness": 5,
+    "tension": 2,
+    "complexity": 3,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 285213,
+    "title": "해적: 바다로 간 산적",
+    "one_line_vibe": "조선시대 바다 위에서 펼쳐지는 엉뚱한 무리들의 소동극, 웃음과 모험이 넘실거린다",
+    "emotional_arc": "경쾌한 웃음으로 시작해 모험의 흥미진진함으로 이어지다가, 여러 세력의 충돌 속에서 긴장감이 고조되지만 결국 통쾌한 해결로 마무리된다",
     "mood_tags": [
       "유쾌한",
       "코믹한"
@@ -3053,6 +3011,45 @@
     "tension": 2,
     "complexity": 2,
     "pacing": "빠름"
+  },
+  {
+    "movie_id": 265851,
+    "title": "우는 남자",
+    "one_line_vibe": "죄책감과 상실감으로 무너진 두 영혼이 복수와 구원 사이에서 맞닿는 어두운 여정",
+    "emotional_arc": "절망적인 무게로 시작해 분노와 복수욕으로 타오르다가, 마지막에는 상처받은 인간들의 연대 속에서 씁쓸한 위로를 찾는다",
+    "mood_tags": [
+      "씁쓸한",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 5,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 18438,
+    "title": "김씨 표류기",
+    "one_line_vibe": "죽음의 가장자리에서 시작한 두 고독한 영혼이 우연한 연결을 통해 다시 살아가는 법을 배워가는 경험",
+    "emotional_arc": "절망과 고독으로 시작해 작은 희망의 신호를 받으며 설레고, 예상치 못한 만남으로 인해 삶에 대한 따뜻한 위로로 마무리된다",
+    "mood_tags": [
+      "쓸쓸한",
+      "따뜻한",
+      "설레는"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "비 오는 날"
+    ],
+    "violence": 1,
+    "sadness": 4,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "느림"
   },
   {
     "movie_id": 969681,
@@ -3113,6 +3110,25 @@
     "pacing": "빠름"
   },
   {
+    "movie_id": 634649,
+    "title": "스파이더맨: 노 웨이 홈",
+    "one_line_vibe": "영웅의 정체가 드러나면서 모든 것을 잃어가는 과정에서 느껴지는 절망감과 책임감의 무게",
+    "emotional_arc": "화려한 액션으로 시작해 점점 개인적인 상실감으로 깊어지다가, 결국 성장과 희생으로 마무리된다",
+    "mood_tags": [
+      "비장한",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 454639,
     "title": "마스터즈 오브 유니버스",
     "one_line_vibe": "전설의 검을 들고 깨어나는 순간, 우주적 운명과 아버지의 그림자 속에서 자신의 진정한 힘을 찾아가는 영웅의 여정",
@@ -3168,25 +3184,6 @@
     "tension": 4,
     "complexity": 4,
     "pacing": "보통"
-  },
-  {
-    "movie_id": 634649,
-    "title": "스파이더맨: 노 웨이 홈",
-    "one_line_vibe": "영웅의 정체가 드러나면서 모든 것을 잃어가는 과정에서 느껴지는 절망감과 책임감의 무게",
-    "emotional_arc": "화려한 액션으로 시작해 점점 개인적인 상실감으로 깊어지다가, 결국 성장과 희생으로 마무리된다",
-    "mood_tags": [
-      "비장한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
   },
   {
     "movie_id": 1108427,
@@ -3246,25 +3243,6 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 1083381,
-    "title": "백룸",
-    "one_line_vibe": "낡은 건물의 복도를 헤매며 점점 현실과 악몽의 경계가 흐릿해지는 불안감",
-    "emotional_arc": "초반의 낯선 불안감에서 시작해 점진적으로 심리적 공포와 혼란이 깊어지며, 현실과 환상의 경계 붕괴로 끝난다",
-    "mood_tags": [
-      "불안한",
-      "몽환적인"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 2,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "느림"
-  },
-  {
     "movie_id": 1315772,
     "title": "미니언즈 & 몬스터즈",
     "one_line_vibe": "미니언들의 엉뚱한 매력이 스크린을 가득 채우는 경쾌한 모험",
@@ -3282,6 +3260,25 @@
     "tension": 1,
     "complexity": 2,
     "pacing": "빠름"
+  },
+  {
+    "movie_id": 1083381,
+    "title": "백룸",
+    "one_line_vibe": "낡은 건물의 복도를 헤매며 점점 현실과 악몽의 경계가 흐릿해지는 불안감",
+    "emotional_arc": "초반의 낯선 불안감에서 시작해 점진적으로 심리적 공포와 혼란이 깊어지며, 현실과 환상의 경계 붕괴로 끝난다",
+    "mood_tags": [
+      "불안한",
+      "몽환적인"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 2,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "느림"
   },
   {
     "movie_id": 1311031,
@@ -3303,23 +3300,23 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 557,
-    "title": "스파이더맨",
-    "one_line_vibe": "평범한 소년이 초능력을 얻으며 성장하고, 책임감을 깨닫는 과정에서 느껴지는 설렘과 무거움",
-    "emotional_arc": "설렘과 희망으로 시작해 사랑하는 사람의 죽음으로 인한 슬픔과 책임감을 받아들이며 성숙해진다",
+    "movie_id": 1564614,
+    "title": "레위기",
+    "one_line_vibe": "자신의 욕망이 구체화되어 추격해오는 공포 속에서 정체성을 마주하는 경험",
+    "emotional_arc": "불안감과 혼란 속에서 시작해 자기 욕망의 어두운 면을 직면하고, 그것을 받아들이거나 거부하는 과정을 거쳐 심리적 해방 또는 더 깊은 절망으로 나아간다",
     "mood_tags": [
-      "설레는",
-      "따뜻한"
+      "불안한",
+      "설레는"
     ],
     "watch_situations": [
-      "주말 낮에",
-      "친구들과"
+      "혼자 밤에",
+      "집중해서 볼 때"
     ],
     "violence": 3,
-    "sadness": 2,
-    "tension": 3,
-    "complexity": 2,
-    "pacing": "보통"
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
   },
   {
     "movie_id": 1273221,
@@ -3339,6 +3336,25 @@
     "tension": 1,
     "complexity": 2,
     "pacing": "빠름"
+  },
+  {
+    "movie_id": 557,
+    "title": "스파이더맨",
+    "one_line_vibe": "평범한 소년이 초능력을 얻으며 성장하고, 책임감을 깨닫는 과정에서 느껴지는 설렘과 무거움",
+    "emotional_arc": "설렘과 희망으로 시작해 사랑하는 사람의 죽음으로 인한 슬픔과 책임감을 받아들이며 성숙해진다",
+    "mood_tags": [
+      "설레는",
+      "따뜻한"
+    ],
+    "watch_situations": [
+      "주말 낮에",
+      "친구들과"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "보통"
   },
   {
     "movie_id": 687163,
@@ -3379,6 +3395,25 @@
     "pacing": "느림"
   },
   {
+    "movie_id": 315635,
+    "title": "스파이더맨: 홈커밍",
+    "one_line_vibe": "고등학생 스파이더맨이 자신의 능력과 책임 사이에서 흔들리며 성장해가는 설렘과 불안감의 롤러코스터",
+    "emotional_arc": "설렘 속에 자신감이 부풀어 오르다가 현실의 벽에 부딪혀 좌절하고, 마침내 진정한 영웅의 의미를 깨닫는 성장의 호",
+    "mood_tags": [
+      "설레는",
+      "유쾌한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 1314481,
     "title": "악마는 프라다를 입는다 2",
     "one_line_vibe": "패션 업계의 권력 게임 속에서 경험 많은 여성들이 벌이는 세련되고 통쾌한 경쟁의 드라마",
@@ -3398,21 +3433,21 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 315635,
-    "title": "스파이더맨: 홈커밍",
-    "one_line_vibe": "고등학생 스파이더맨이 자신의 능력과 책임 사이에서 흔들리며 성장해가는 설렘과 불안감의 롤러코스터",
-    "emotional_arc": "설렘 속에 자신감이 부풀어 오르다가 현실의 벽에 부딪혀 좌절하고, 마침내 진정한 영웅의 의미를 깨닫는 성장의 호",
+    "movie_id": 1127384,
+    "title": "딥 워터",
+    "one_line_vibe": "침몰하는 비행기 속에서 상어 떼의 공격으로부터 생존하기 위해 몸부림치는 절박한 긴장감",
+    "emotional_arc": "초반의 불안감에서 시작해 비상 착륙 후 극도의 공포와 절망감으로 치달으며, 생존을 위한 협력 속에서 간헐적인 희망과 다시 찾아오는 공포를 반복하다 결말에 이른다",
     "mood_tags": [
-      "설레는",
-      "유쾌한"
+      "긴장감있는",
+      "불안한"
     ],
     "watch_situations": [
-      "친구들과",
-      "주말 낮에"
+      "집중해서 볼 때",
+      "친구들과"
     ],
-    "violence": 3,
+    "violence": 4,
     "sadness": 2,
-    "tension": 3,
+    "tension": 5,
     "complexity": 2,
     "pacing": "빠름"
   },
@@ -3455,25 +3490,6 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 949838,
-    "title": "72시간",
-    "one_line_vibe": "나이 차이의 어색함 속에서 벌어지는 황당한 소동들을 보며 웃다가도 어딘가 허전한 기분이 드는 영화",
-    "emotional_arc": "처음엔 황당함으로 웃다가, 중반부 어색한 상황들이 쌓이면서 약간의 불편함을 느끼고, 결국 씁쓸한 여운으로 끝난다",
-    "mood_tags": [
-      "코믹한",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 2,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
     "movie_id": 936075,
     "title": "마이클",
     "one_line_vibe": "천재성과 상처가 교차하는 아이콘의 내면 여정, 화려함 뒤의 고통을 목격하는 경험",
@@ -3492,6 +3508,25 @@
     "tension": 3,
     "complexity": 4,
     "pacing": "보통"
+  },
+  {
+    "movie_id": 949838,
+    "title": "72시간",
+    "one_line_vibe": "나이 차이의 어색함 속에서 벌어지는 황당한 소동들을 보며 웃다가도 어딘가 허전한 기분이 드는 영화",
+    "emotional_arc": "처음엔 황당함으로 웃다가, 중반부 어색한 상황들이 쌓이면서 약간의 불편함을 느끼고, 결국 씁쓸한 여운으로 끝난다",
+    "mood_tags": [
+      "코믹한",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 2,
+    "sadness": 2,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "빠름"
   },
   {
     "movie_id": 1280738,
@@ -3532,41 +3567,22 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 1127384,
-    "title": "딥 워터",
-    "one_line_vibe": "침몰하는 비행기 속에서 상어 떼의 공격으로부터 생존하기 위해 몸부림치는 절박한 긴장감",
-    "emotional_arc": "초반의 불안감에서 시작해 비상 착륙 후 극도의 공포와 절망감으로 치달으며, 생존을 위한 협력 속에서 간헐적인 희망과 다시 찾아오는 공포를 반복하다 결말에 이른다",
+    "movie_id": 429617,
+    "title": "스파이더맨: 파 프롬 홈",
+    "one_line_vibe": "책임감과 설렘 사이에서 흔들리는 십대 영웅의 성장기, 화려한 유럽 배경 속 가벼운 모험",
+    "emotional_arc": "학교 여행의 설렘으로 시작해 예상치 못한 영웅의 소명으로 무거워졌다가, 결국 자신의 책임을 받아들이며 성숙해진다",
     "mood_tags": [
-      "긴장감있는",
-      "불안한"
+      "설레는",
+      "유쾌한"
     ],
     "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
+      "친구들과",
+      "주말 낮에"
     ],
-    "violence": 4,
-    "sadness": 2,
-    "tension": 5,
+    "violence": 3,
+    "sadness": 1,
+    "tension": 2,
     "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 83533,
-    "title": "아바타: 불과 재",
-    "one_line_vibe": "거대한 우주 전쟁 속에서 가족을 지키려는 절박함과 상실의 아픔이 교차하는 웅장한 모험",
-    "emotional_arc": "깊은 슬픔과 절망으로 시작해 가족을 위한 결연한 투쟁으로 변모하며, 승리 속에서도 상실의 무게를 잃지 않는다",
-    "mood_tags": [
-      "비장한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "가족과"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
     "pacing": "빠름"
   },
   {
@@ -3590,22 +3606,22 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 429617,
-    "title": "스파이더맨: 파 프롬 홈",
-    "one_line_vibe": "책임감과 설렘 사이에서 흔들리는 십대 영웅의 성장기, 화려한 유럽 배경 속 가벼운 모험",
-    "emotional_arc": "학교 여행의 설렘으로 시작해 예상치 못한 영웅의 소명으로 무거워졌다가, 결국 자신의 책임을 받아들이며 성숙해진다",
+    "movie_id": 83533,
+    "title": "아바타: 불과 재",
+    "one_line_vibe": "거대한 우주 전쟁 속에서 가족을 지키려는 절박함과 상실의 아픔이 교차하는 웅장한 모험",
+    "emotional_arc": "깊은 슬픔과 절망으로 시작해 가족을 위한 결연한 투쟁으로 변모하며, 승리 속에서도 상실의 무게를 잃지 않는다",
     "mood_tags": [
-      "설레는",
-      "유쾌한"
+      "비장한",
+      "감동적인"
     ],
     "watch_situations": [
-      "친구들과",
-      "주말 낮에"
+      "집중해서 볼 때",
+      "가족과"
     ],
-    "violence": 3,
-    "sadness": 1,
-    "tension": 2,
-    "complexity": 2,
+    "violence": 4,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
     "pacing": "빠름"
   },
   {
@@ -3628,6 +3644,63 @@
     "pacing": "보통"
   },
   {
+    "movie_id": 1382832,
+    "title": "히포 어택: 헝그리",
+    "one_line_vibe": "루이지애나 늪지대에서 예상 밖의 위협에 맞닥뜨린 관광객들의 절박한 생존 투쟁",
+    "emotional_arc": "평온한 관광 분위기에서 시작해 점진적으로 공포와 긴장이 고조되다가, 거대한 생명체와의 직접적인 대면 속에서 극도의 불안감과 절망감으로 치닫는다",
+    "mood_tags": [
+      "긴장감있는",
+      "불안한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 299536,
+    "title": "어벤져스: 인피니티 워",
+    "one_line_vibe": "우주 규모의 위협 앞에서 영웅들이 모두 함께 싸우지만, 결국 막을 수 없는 절망감에 압도되는 경험",
+    "emotional_arc": "거대한 위협에 맞서 희망을 품고 싸우지만, 점점 밀려나다가 결국 모든 것이 무너지는 비극적 결말로 끝난다",
+    "mood_tags": [
+      "긴장감있는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1439930,
+    "title": "퍼니셔 원 라스트 킬",
+    "one_line_vibe": "트라우마에 짓눌린 남자가 마지막 복수를 위해 자신의 악마와 싸우는 절망적이고 폭력적인 여정",
+    "emotional_arc": "절망감 속에서 시작해 분노와 광기로 치달으며, 결국 자기 파괴적인 결말로 향한다",
+    "mood_tags": [
+      "묵직한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 1318621,
     "title": "디센던츠: 위키드 원더랜드",
     "one_line_vibe": "마법 같은 원더랜드에서 펼쳐지는 밝고 신나는 모험, 악당도 결국 선해질 수 있다는 희망의 메시지",
@@ -3648,20 +3721,39 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 286217,
-    "title": "마션",
-    "one_line_vibe": "화성의 황량한 땅에서 홀로 남겨진 우주비행사가 과학과 의지로 절망을 이겨내는 생존의 드라마",
-    "emotional_arc": "절망적인 고립에서 시작해 작은 성공들로 희망을 되찾고, 지구와의 연결을 통해 감정적 위로를 얻으며 마침내 구출이라는 승리로 나아간다",
+    "movie_id": 1487861,
+    "title": "엘리지의 그림자",
+    "one_line_vibe": "남편 살해 사건의 어두운 내막을 파고드는 심리 스릴러로, 관계의 파괴와 범죄의 무게감이 짓누르는 경험",
+    "emotional_arc": "절망적인 관계 속 갈등이 쌓여 극단적 선택으로 폭발하고, 그 결과의 참담함으로 끝난다",
     "mood_tags": [
-      "설레는",
-      "서정적인"
+      "묵직한",
+      "불안한"
     ],
     "watch_situations": [
       "집중해서 볼 때",
-      "친구들과"
+      "혼자 밤에"
     ],
-    "violence": 1,
-    "sadness": 2,
+    "violence": 4,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 1930,
+    "title": "어메이징 스파이더맨",
+    "one_line_vibe": "청소년의 성장 과정 속에서 초능력이라는 무거운 책임을 마주하며 겪는 혼란과 설렘, 그리고 상실감이 교차하는 경험",
+    "emotional_arc": "설렘 속에서 시작해 부모의 죽음과 책임감으로 무거워지다가, 초능력 각성의 희열과 첫사랑의 설렘 사이를 오가며, 결국 비극적 상실로 성숙해진다",
+    "mood_tags": [
+      "설레는",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 3,
     "tension": 3,
     "complexity": 3,
     "pacing": "보통"
@@ -3687,22 +3779,22 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 1382832,
-    "title": "히포 어택: 헝그리",
-    "one_line_vibe": "루이지애나 늪지대에서 예상 밖의 위협에 맞닥뜨린 관광객들의 절박한 생존 투쟁",
-    "emotional_arc": "평온한 관광 분위기에서 시작해 점진적으로 공포와 긴장이 고조되다가, 거대한 생명체와의 직접적인 대면 속에서 극도의 불안감과 절망감으로 치닫는다",
+    "movie_id": 102382,
+    "title": "어메이징 스파이더맨 2",
+    "one_line_vibe": "화려한 액션 속에서 영웅의 책임감과 개인적 상실감이 얽혀 있는 경험",
+    "emotional_arc": "설렘과 희망으로 시작해 배신과 죄책감으로 무거워지며, 영웅으로서의 의무와 인간적 약함 사이에서 흔들린다",
     "mood_tags": [
       "긴장감있는",
-      "불안한"
+      "씁쓸한"
     ],
     "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
+      "친구들과",
+      "집중해서 볼 때"
     ],
     "violence": 3,
-    "sadness": 2,
+    "sadness": 3,
     "tension": 4,
-    "complexity": 2,
+    "complexity": 3,
     "pacing": "빠름"
   },
   {
@@ -3725,41 +3817,22 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 1487861,
-    "title": "엘리지의 그림자",
-    "one_line_vibe": "남편 살해 사건의 어두운 내막을 파고드는 심리 스릴러로, 관계의 파괴와 범죄의 무게감이 짓누르는 경험",
-    "emotional_arc": "절망적인 관계 속 갈등이 쌓여 극단적 선택으로 폭발하고, 그 결과의 참담함으로 끝난다",
+    "movie_id": 24428,
+    "title": "어벤져스",
+    "one_line_vibe": "강력한 영웅들이 뉴욕 하늘을 누비며 펼치는 화려한 액션의 카타르시스",
+    "emotional_arc": "초반의 긴장감 속에서 영웅들의 충돌을 거쳐, 절망적 위기 속에서 단합하여 최종적으로 승리의 쾌감으로 마무리된다",
     "mood_tags": [
-      "묵직한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 299536,
-    "title": "어벤져스: 인피니티 워",
-    "one_line_vibe": "우주 규모의 위협 앞에서 영웅들이 모두 함께 싸우지만, 결국 막을 수 없는 절망감에 압도되는 경험",
-    "emotional_arc": "거대한 위협에 맞서 희망을 품고 싸우지만, 점점 밀려나다가 결국 모든 것이 무너지는 비극적 결말로 끝난다",
-    "mood_tags": [
-      "긴장감있는",
-      "비장한"
+      "통쾌한",
+      "설레는"
     ],
     "watch_situations": [
       "친구들과",
-      "집중해서 볼 때"
+      "주말 낮에"
     ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
+    "violence": 3,
+    "sadness": 1,
+    "tension": 3,
+    "complexity": 2,
     "pacing": "빠름"
   },
   {
@@ -3778,63 +3851,6 @@
     "violence": 4,
     "sadness": 2,
     "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1439930,
-    "title": "퍼니셔 원 라스트 킬",
-    "one_line_vibe": "트라우마에 짓눌린 남자가 마지막 복수를 위해 자신의 악마와 싸우는 절망적이고 폭력적인 여정",
-    "emotional_arc": "절망감 속에서 시작해 분노와 광기로 치달으며, 결국 자기 파괴적인 결말로 향한다",
-    "mood_tags": [
-      "묵직한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1930,
-    "title": "어메이징 스파이더맨",
-    "one_line_vibe": "청소년의 성장 과정 속에서 초능력이라는 무거운 책임을 마주하며 겪는 혼란과 설렘, 그리고 상실감이 교차하는 경험",
-    "emotional_arc": "설렘 속에서 시작해 부모의 죽음과 책임감으로 무거워지다가, 초능력 각성의 희열과 첫사랑의 설렘 사이를 오가며, 결국 비극적 상실로 성숙해진다",
-    "mood_tags": [
-      "설레는",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 3,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 1327819,
-    "title": "호퍼스",
-    "one_line_vibe": "로봇 비버가 되어 자연의 질서를 마주하며 겪는 신나고 엉뚱한 모험",
-    "emotional_arc": "호기심으로 들뜬 마음에서 시작해 자연의 신비로움과 예측 불가능한 상황들 속에서 설렘과 혼란이 뒤섞인 채 진행된다",
-    "mood_tags": [
-      "유쾌한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "주말 낮에",
-      "가족과"
-    ],
-    "violence": 1,
-    "sadness": 1,
-    "tension": 2,
     "complexity": 2,
     "pacing": "빠름"
   },
@@ -3858,23 +3874,23 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 24428,
-    "title": "어벤져스",
-    "one_line_vibe": "강력한 영웅들이 뉴욕 하늘을 누비며 펼치는 화려한 액션의 카타르시스",
-    "emotional_arc": "초반의 긴장감 속에서 영웅들의 충돌을 거쳐, 절망적 위기 속에서 단합하여 최종적으로 승리의 쾌감으로 마무리된다",
+    "movie_id": 559,
+    "title": "스파이더맨 3",
+    "one_line_vibe": "강력해진 힘에 취해 자신을 잃어가는 영웅의 타락과 구원의 여정",
+    "emotional_arc": "자신감 넘치는 승리감에서 시작해 점점 어두워지다가, 깨달음과 함께 고통스러운 속죄와 용서로 마무리된다",
     "mood_tags": [
-      "통쾌한",
-      "설레는"
+      "묵직한",
+      "씁쓸한"
     ],
     "watch_situations": [
-      "친구들과",
-      "주말 낮에"
+      "집중해서 볼 때",
+      "친구들과"
     ],
     "violence": 3,
-    "sadness": 1,
+    "sadness": 3,
     "tension": 3,
-    "complexity": 2,
-    "pacing": "빠름"
+    "complexity": 3,
+    "pacing": "보통"
   },
   {
     "movie_id": 755898,
@@ -3896,98 +3912,22 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 102382,
-    "title": "어메이징 스파이더맨 2",
-    "one_line_vibe": "화려한 액션 속에서 영웅의 책임감과 개인적 상실감이 얽혀 있는 경험",
-    "emotional_arc": "설렘과 희망으로 시작해 배신과 죄책감으로 무거워지며, 영웅으로서의 의무와 인간적 약함 사이에서 흔들린다",
+    "movie_id": 1327819,
+    "title": "호퍼스",
+    "one_line_vibe": "로봇 비버가 되어 자연의 질서를 마주하며 겪는 신나고 엉뚱한 모험",
+    "emotional_arc": "호기심으로 들뜬 마음에서 시작해 자연의 신비로움과 예측 불가능한 상황들 속에서 설렘과 혼란이 뒤섞인 채 진행된다",
     "mood_tags": [
-      "긴장감있는",
-      "씁쓸한"
+      "유쾌한",
+      "설레는"
     ],
     "watch_situations": [
-      "친구들과",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 802,
-    "title": "로리타",
-    "one_line_vibe": "도덕적 나락으로 빠져드는 한 남자의 심리적 타락을 냉정하게 응시하는 경험",
-    "emotional_arc": "처음엔 일상적 권태로 시작해 점점 더 어두운 욕망에 잠식되다가, 결국 자신의 죄악을 마주하는 절망으로 끝난다",
-    "mood_tags": [
-      "씁쓸한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
+      "주말 낮에",
+      "가족과"
     ],
     "violence": 1,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 5,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 324857,
-    "title": "스파이더맨: 뉴 유니버스",
-    "one_line_vibe": "다양한 세계관이 충돌하며 펼쳐지는 화려한 시각 축제 속에서 성장하는 한 소년의 설렘과 두려움을 함께 느낀다",
-    "emotional_arc": "어색함과 불안감으로 시작해 팀과의 유대감 속에서 용기를 얻고, 마지막에는 자신의 길을 걷기로 결심하는 희망으로 마무리된다",
-    "mood_tags": [
-      "설레는",
-      "유쾌한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 2,
-    "tension": 3,
+    "sadness": 1,
+    "tension": 2,
     "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 569094,
-    "title": "스파이더맨: 어크로스 더 유니버스",
-    "one_line_vibe": "화려한 비주얼 속에서 정체성과 책임감 사이에서 흔들리는 청년의 내적 갈등을 따라가는 경험",
-    "emotional_arc": "불안감과 혼란 속에서 시작해 자신의 선택에 대한 확신으로 나아가되, 그 과정에서 깨달음과 상실이 교차한다",
-    "mood_tags": [
-      "설레는",
-      "불안한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 155,
-    "title": "다크 나이트",
-    "one_line_vibe": "질서와 혼돈의 충돌 속에서 영웅의 신념이 흔들리는 심리적 전쟁을 목격하는 경험",
-    "emotional_arc": "절망적인 긴장감으로 시작해 도덕적 딜레마 속에서 깊어지다가, 비극적 선택으로 끝난다",
-    "mood_tags": [
-      "긴장감있는",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
     "pacing": "빠름"
   },
   {
@@ -4010,6 +3950,25 @@
     "pacing": "보통"
   },
   {
+    "movie_id": 324857,
+    "title": "스파이더맨: 뉴 유니버스",
+    "one_line_vibe": "다양한 세계관이 충돌하며 펼쳐지는 화려한 시각 축제 속에서 성장하는 한 소년의 설렘과 두려움을 함께 느낀다",
+    "emotional_arc": "어색함과 불안감으로 시작해 팀과의 유대감 속에서 용기를 얻고, 마지막에는 자신의 길을 걷기로 결심하는 희망으로 마무리된다",
+    "mood_tags": [
+      "설레는",
+      "유쾌한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 2,
+    "sadness": 2,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 1413976,
     "title": "시티즌 비질란테",
     "one_line_vibe": "법의 공백을 채우려는 한 남자의 복수가 만드는 도덕적 혼란과 긴장감 속에서 정의의 경계를 묻는 영화",
@@ -4029,79 +3988,22 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 559,
-    "title": "스파이더맨 3",
-    "one_line_vibe": "강력해진 힘에 취해 자신을 잃어가는 영웅의 타락과 구원의 여정",
-    "emotional_arc": "자신감 넘치는 승리감에서 시작해 점점 어두워지다가, 깨달음과 함께 고통스러운 속죄와 용서로 마무리된다",
+    "movie_id": 569094,
+    "title": "스파이더맨: 어크로스 더 유니버스",
+    "one_line_vibe": "화려한 비주얼 속에서 정체성과 책임감 사이에서 흔들리는 청년의 내적 갈등을 따라가는 경험",
+    "emotional_arc": "불안감과 혼란 속에서 시작해 자신의 선택에 대한 확신으로 나아가되, 그 과정에서 깨달음과 상실이 교차한다",
     "mood_tags": [
-      "묵직한",
-      "씁쓸한"
+      "설레는",
+      "불안한"
     ],
     "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 3,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 1419406,
-    "title": "포풍추영",
-    "one_line_vibe": "마카오의 고층 빌딩과 감시 카메라 사이에서 펼쳐지는 숨 가쁜 추격전, 신뢰와 배신이 뒤바뀌는 긴장감 속에서 과거의 유령이 되살아나는 경험",
-    "emotional_arc": "노련한 추적자의 자신감으로 시작해 점점 더 깊은 함정에 빠져들며, 예상을 벗어난 반격 앞에서 모든 것이 뒤흔들리는 절박함으로 치닫는다",
-    "mood_tags": [
-      "긴장감있는",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 27205,
-    "title": "인셉션",
-    "one_line_vibe": "현실과 꿈의 경계를 넘나들며 지적 흥분과 긴장감으로 뇌를 자극하는 경험",
-    "emotional_arc": "불안감 속에서 시작해 점점 더 깊은 미로로 빠져들다가, 마지막 순간의 모호함으로 관객을 남겨둔다",
-    "mood_tags": [
-      "긴장감있는",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 5,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 976912,
-    "title": "그래픽 디자이어",
-    "one_line_vibe": "욕망에 사로잡혀 나락으로 빠져드는 남자의 심리적 추락을 보는 불편한 쾌감",
-    "emotional_arc": "설렘과 집착으로 시작해 불안감과 죄책감으로 뒤틀리다가 절망적인 결말로 치닫는다",
-    "mood_tags": [
-      "불안한",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
+      "친구들과",
       "집중해서 볼 때"
     ],
     "violence": 3,
     "sadness": 3,
     "tension": 4,
-    "complexity": 3,
+    "complexity": 4,
     "pacing": "빠름"
   },
   {
@@ -4124,6 +4026,120 @@
     "pacing": "빠름"
   },
   {
+    "movie_id": 1084242,
+    "title": "주토피아 2",
+    "one_line_vibe": "동물 캐릭터들의 재치 있는 대사와 예상 밖의 반전이 오가는 가운데, 친구들과 함께 웃고 즐기는 경험",
+    "emotional_arc": "장난스럽게 시작해 미스터리의 층을 벗겨내며 긴장감을 더하다가, 결국 우정과 신뢰의 메시지로 따뜻하게 마무리된다",
+    "mood_tags": [
+      "유쾌한",
+      "설레는"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "가족과"
+    ],
+    "violence": 1,
+    "sadness": 1,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 155,
+    "title": "다크 나이트",
+    "one_line_vibe": "질서와 혼돈의 충돌 속에서 영웅의 신념이 흔들리는 심리적 전쟁을 목격하는 경험",
+    "emotional_arc": "절망적인 긴장감으로 시작해 도덕적 딜레마 속에서 깊어지다가, 비극적 선택으로 끝난다",
+    "mood_tags": [
+      "긴장감있는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 238,
+    "title": "대부",
+    "one_line_vibe": "권력과 가족의 무게가 한 남자의 영혼을 천천히 짓누르는 과정을 목격하는 경험",
+    "emotional_arc": "순수함으로 시작해 점점 어두운 운명에 잠식되다가, 결국 모든 것을 잃은 듯 보이면서도 권력을 장악한 복잡한 감정으로 끝난다",
+    "mood_tags": [
+      "묵직한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 5,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 822119,
+    "title": "캡틴 아메리카: 브레이브 뉴 월드",
+    "one_line_vibe": "정치적 음모와 초능력이 얽힌 가운데, 신뢰와 배신 사이에서 흔들리는 영웅의 고민을 따라가는 경험",
+    "emotional_arc": "의심과 긴장으로 시작해 점점 더 큰 음모에 휘말리며, 최종적으로는 신념을 지키기 위한 결단으로 마무리된다",
+    "mood_tags": [
+      "긴장감있는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1419406,
+    "title": "포풍추영",
+    "one_line_vibe": "마카오의 고층 빌딩과 감시 카메라 사이에서 펼쳐지는 숨 가쁜 추격전, 신뢰와 배신이 뒤바뀌는 긴장감 속에서 과거의 유령이 되살아나는 경험",
+    "emotional_arc": "노련한 추적자의 자신감으로 시작해 점점 더 깊은 함정에 빠져들며, 예상을 벗어난 반격 앞에서 모든 것이 뒤흔들리는 절박함으로 치닫는다",
+    "mood_tags": [
+      "긴장감있는",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 976912,
+    "title": "그래픽 디자이어",
+    "one_line_vibe": "욕망에 사로잡혀 나락으로 빠져드는 남자의 심리적 추락을 보는 불편한 쾌감",
+    "emotional_arc": "설렘과 집착으로 시작해 불안감과 죄책감으로 뒤틀리다가 절망적인 결말로 치닫는다",
+    "mood_tags": [
+      "불안한",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 1301421,
     "title": "양탐정 릴리",
     "one_line_vibe": "양들의 엉뚱한 모험이 만드는 따뜻하고 유쾌한 미스터리 여행",
@@ -4143,6 +4159,44 @@
     "pacing": "보통"
   },
   {
+    "movie_id": 27205,
+    "title": "인셉션",
+    "one_line_vibe": "현실과 꿈의 경계를 넘나들며 지적 흥분과 긴장감으로 뇌를 자극하는 경험",
+    "emotional_arc": "불안감 속에서 시작해 점점 더 깊은 미로로 빠져들다가, 마지막 순간의 모호함으로 관객을 남겨둔다",
+    "mood_tags": [
+      "긴장감있는",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 5,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 271110,
+    "title": "캡틴 아메리카: 시빌 워",
+    "one_line_vibe": "신뢰와 신념이 부딪히며 가족 같은 팀이 산산조각 나는 과정을 목격하는 경험",
+    "emotional_arc": "영웅들의 정당한 신념으로 시작해 점점 깊어지는 배신감과 상실감으로 끝난다",
+    "mood_tags": [
+      "긴장감있는",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 1122573,
     "title": "인 더 그레이",
     "one_line_vibe": "정교한 계획과 예측 불가능한 반전이 교차하는 스릴 넘치는 작전 속에서 느껴지는 긴장감과 쾌감",
@@ -4158,6 +4212,44 @@
     "violence": 3,
     "sadness": 1,
     "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 617126,
+    "title": "판타스틱 4: 새로운 출발",
+    "one_line_vibe": "초능력을 얻은 네 명이 세상을 구하기 위해 함께 성장하는 과정에서 느껴지는 설렘과 팀워크의 희열",
+    "emotional_arc": "혼란스러운 변화로 시작해 팀으로서의 유대감을 깨닫고, 세계 멸망의 위기 속에서 함께 나아가는 희망으로 마무리된다",
+    "mood_tags": [
+      "설레는",
+      "유쾌한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 3,
+    "sadness": 1,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1318447,
+    "title": "정점",
+    "one_line_vibe": "슬픔을 안고 떠난 모험이 생존의 악몽으로 변해가는 긴박한 경험",
+    "emotional_arc": "깊은 슬픔 속에서 자신과의 싸움으로 시작해 외부의 위협에 맞서는 절박함으로 변모하고, 결국 생존 본능이 모든 것을 압도하는 비장한 결말로 향한다",
+    "mood_tags": [
+      "쓸쓸한",
+      "긴장감있는"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 5,
     "complexity": 3,
     "pacing": "빠름"
   },
@@ -4181,42 +4273,22 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 617126,
-    "title": "판타스틱 4: 새로운 출발",
-    "one_line_vibe": "초능력을 얻은 네 명이 세상을 구하기 위해 함께 성장하는 과정에서 느껴지는 설렘과 팀워크의 희열",
-    "emotional_arc": "혼란스러운 변화로 시작해 팀으로서의 유대감을 깨닫고, 세계 멸망의 위기 속에서 함께 나아가는 희망으로 마무리된다",
+    "movie_id": 286217,
+    "title": "마션",
+    "one_line_vibe": "화성의 황량한 땅에서 홀로 남겨진 우주비행사가 과학과 의지로 절망을 이겨내는 생존의 드라마",
+    "emotional_arc": "절망적인 고립에서 시작해 작은 성공들로 희망을 되찾고, 지구와의 연결을 통해 감정적 위로를 얻으며 마침내 구출이라는 승리로 나아간다",
     "mood_tags": [
       "설레는",
-      "유쾌한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 3,
-    "sadness": 1,
-    "tension": 3,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 122,
-    "title": "반지의 제왕: 왕의 귀환",
-    "one_line_vibe": "절망적인 상황 속에서 희망을 잃지 않고 마지막 전투에 임하는 영웅들의 숭고한 여정",
-    "emotional_arc": "절망과 두려움으로 시작해 동지애와 용기로 고양되었다가, 승리의 감격과 함께 상실감으로 마무리된다",
-    "mood_tags": [
-      "비장한",
-      "감동적인",
       "서정적인"
     ],
     "watch_situations": [
       "집중해서 볼 때",
       "친구들과"
     ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
+    "violence": 1,
+    "sadness": 2,
+    "tension": 3,
+    "complexity": 3,
     "pacing": "보통"
   },
   {
@@ -4239,23 +4311,24 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 238,
-    "title": "대부",
-    "one_line_vibe": "권력과 가족의 무게가 한 남자의 영혼을 천천히 짓누르는 과정을 목격하는 경험",
-    "emotional_arc": "순수함으로 시작해 점점 어두운 운명에 잠식되다가, 결국 모든 것을 잃은 듯 보이면서도 권력을 장악한 복잡한 감정으로 끝난다",
+    "movie_id": 122,
+    "title": "반지의 제왕: 왕의 귀환",
+    "one_line_vibe": "절망적인 상황 속에서 희망을 잃지 않고 마지막 전투에 임하는 영웅들의 숭고한 여정",
+    "emotional_arc": "절망과 두려움으로 시작해 동지애와 용기로 고양되었다가, 승리의 감격과 함께 상실감으로 마무리된다",
     "mood_tags": [
-      "묵직한",
-      "비장한"
+      "비장한",
+      "감동적인",
+      "서정적인"
     ],
     "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
+      "집중해서 볼 때",
+      "친구들과"
     ],
-    "violence": 3,
+    "violence": 4,
     "sadness": 4,
     "tension": 4,
-    "complexity": 5,
-    "pacing": "느림"
+    "complexity": 4,
+    "pacing": "보통"
   },
   {
     "movie_id": 671,
@@ -4274,178 +4347,6 @@
     "sadness": 2,
     "tension": 2,
     "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 1318447,
-    "title": "정점",
-    "one_line_vibe": "슬픔을 안고 떠난 모험이 생존의 악몽으로 변해가는 긴박한 경험",
-    "emotional_arc": "깊은 슬픔 속에서 자신과의 싸움으로 시작해 외부의 위협에 맞서는 절박함으로 변모하고, 결국 생존 본능이 모든 것을 압도하는 비장한 결말로 향한다",
-    "mood_tags": [
-      "쓸쓸한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 271110,
-    "title": "캡틴 아메리카: 시빌 워",
-    "one_line_vibe": "신뢰와 신념이 부딪히며 가족 같은 팀이 산산조각 나는 과정을 목격하는 경험",
-    "emotional_arc": "영웅들의 정당한 신념으로 시작해 점점 깊어지는 배신감과 상실감으로 끝난다",
-    "mood_tags": [
-      "긴장감있는",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 822119,
-    "title": "캡틴 아메리카: 브레이브 뉴 월드",
-    "one_line_vibe": "정치적 음모와 초능력이 얽힌 가운데, 신뢰와 배신 사이에서 흔들리는 영웅의 고민을 따라가는 경험",
-    "emotional_arc": "의심과 긴장으로 시작해 점점 더 큰 음모에 휘말리며, 최종적으로는 신념을 지키기 위한 결단으로 마무리된다",
-    "mood_tags": [
-      "긴장감있는",
-      "비장한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 840464,
-    "title": "그린랜드 2: 마이그레이션",
-    "one_line_vibe": "폐허 속에서 가족을 지키려는 절박함과 끝이 보이지 않는 생존의 무게감을 느끼는 경험",
-    "emotional_arc": "절망적인 상황에서 시작해 희미한 희망을 향해 나아가지만, 계속되는 위협과 상실감으로 인해 감정이 소진되어 간다",
-    "mood_tags": [
-      "묵직한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "지쳤을 때"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 862,
-    "title": "토이 스토리",
-    "one_line_vibe": "낡은 인형과 새 인형이 우주 구조 미션을 벌이며 우정을 깨닫는 따뜻한 모험",
-    "emotional_arc": "질투와 경쟁으로 시작해 서로를 이해하고 진정한 우정으로 끝난다",
-    "mood_tags": [
-      "따뜻한",
-      "유쾌한"
-    ],
-    "watch_situations": [
-      "주말 낮에",
-      "가족과"
-    ],
-    "violence": 1,
-    "sadness": 1,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 1368314,
-    "title": "패신저",
-    "one_line_vibe": "도로 위의 악몽에서 벗어날 수 없는 절박한 도주극",
-    "emotional_arc": "불안한 목격으로 시작해 점점 고조되는 공포와 절망감 속에서 생존을 위한 필사적 저항으로 끝난다",
-    "mood_tags": [
-      "불안한",
-      "긴장감있는"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 603,
-    "title": "매트릭스",
-    "one_line_vibe": "현실과 환상의 경계를 무너뜨리며 자신의 정체성을 깨달아가는 각성의 여정",
-    "emotional_arc": "낯선 불안감 속에서 시작해 점진적으로 깨달음을 얻으며, 거대한 음모 앞에서 결연한 결의로 마무리된다",
-    "mood_tags": [
-      "불안한",
-      "설레는",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 4,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1212763,
-    "title": "이블 데드 번",
-    "one_line_vibe": "슬픔으로 모인 가족이 초자연적 공포에 짓밟히며, 사랑과 생존 사이에서 절망적으로 싸우는 경험",
-    "emotional_arc": "남편의 죽음으로 시작한 애도의 슬픔이 초자연적 공포로 급변하고, 가족의 배신과 생존의 절박함 속에서 비극적으로 심화된다",
-    "mood_tags": [
-      "비장한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 5,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1325734,
-    "title": "더 드라마",
-    "one_line_vibe": "결혼식 일주일 전, 사랑하는 사람의 예상 밖의 면을 발견했을 때의 혼란과 불안감",
-    "emotional_arc": "설렘과 기대로 시작했다가 상대방의 비밀이 드러나면서 불안과 의심으로 뒤바뀌고, 결국 두 사람이 서로를 다시 마주하게 되는 과정",
-    "mood_tags": [
-      "씁쓸한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 1,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 3,
     "pacing": "보통"
   },
   {
@@ -4468,24 +4369,119 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 120,
-    "title": "반지의 제왕: 반지 원정대",
-    "one_line_vibe": "광대한 판타지 세계에서 작은 존재들이 거대한 운명에 맞서며 겪는 웅장하고도 경외로운 모험",
-    "emotional_arc": "희망과 두려움 사이를 오가다가, 점점 무거워지는 책임감 속에서도 우정과 용기로 버티며, 마지막에는 비장한 결연함으로 나아간다",
+    "movie_id": 840464,
+    "title": "그린랜드 2: 마이그레이션",
+    "one_line_vibe": "폐허 속에서 가족을 지키려는 절박함과 끝이 보이지 않는 생존의 무게감을 느끼는 경험",
+    "emotional_arc": "절망적인 상황에서 시작해 희미한 희망을 향해 나아가지만, 계속되는 위협과 상실감으로 인해 감정이 소진되어 간다",
+    "mood_tags": [
+      "묵직한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "지쳤을 때"
+    ],
+    "violence": 3,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1368314,
+    "title": "패신저",
+    "one_line_vibe": "도로 위의 악몽에서 벗어날 수 없는 절박한 도주극",
+    "emotional_arc": "불안한 목격으로 시작해 점점 고조되는 공포와 절망감 속에서 생존을 위한 필사적 저항으로 끝난다",
+    "mood_tags": [
+      "불안한",
+      "긴장감있는"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 68718,
+    "title": "장고: 분노의 추적자",
+    "one_line_vibe": "분노와 복수로 타오르는 가슴을 안고 악의 심장으로 향하는 여정, 정의와 사랑이 폭발하는 순간",
+    "emotional_arc": "억압된 분노로 시작해 사랑하는 자를 되찾기 위한 결연한 의지로 고조되다가, 마침내 복수의 순간 모든 감정이 폭발적으로 해방된다",
     "mood_tags": [
       "비장한",
-      "감동적인",
-      "긴장감있는"
+      "통쾌한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 862,
+    "title": "토이 스토리",
+    "one_line_vibe": "낡은 인형과 새 인형이 우주 구조 미션을 벌이며 우정을 깨닫는 따뜻한 모험",
+    "emotional_arc": "질투와 경쟁으로 시작해 서로를 이해하고 진정한 우정으로 끝난다",
+    "mood_tags": [
+      "따뜻한",
+      "유쾌한"
+    ],
+    "watch_situations": [
+      "주말 낮에",
+      "가족과"
+    ],
+    "violence": 1,
+    "sadness": 1,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 603,
+    "title": "매트릭스",
+    "one_line_vibe": "현실과 환상의 경계를 무너뜨리며 자신의 정체성을 깨달아가는 각성의 여정",
+    "emotional_arc": "낯선 불안감 속에서 시작해 점진적으로 깨달음을 얻으며, 거대한 음모 앞에서 결연한 결의로 마무리된다",
+    "mood_tags": [
+      "불안한",
+      "설레는",
+      "묵직한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "혼자 밤에"
+    ],
+    "violence": 4,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 19995,
+    "title": "아바타",
+    "one_line_vibe": "거대한 스케일의 시각적 경험 속에서 문명과 자연의 충돌을 목격하며 느끼는 경외감과 흥분",
+    "emotional_arc": "처음엔 신기함과 설렘으로 시작해 점점 깊어지는 몰입감, 후반부로 갈수록 격렬한 전투와 함께 비장한 결말로 치닫는다",
+    "mood_tags": [
+      "설레는",
+      "유쾌한"
     ],
     "watch_situations": [
       "집중해서 볼 때",
       "친구들과"
     ],
     "violence": 3,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "느림"
+    "sadness": 2,
+    "tension": 3,
+    "complexity": 2,
+    "pacing": "빠름"
   },
   {
     "movie_id": 1726,
@@ -4507,6 +4503,25 @@
     "pacing": "빠름"
   },
   {
+    "movie_id": 1325734,
+    "title": "더 드라마",
+    "one_line_vibe": "결혼식 일주일 전, 사랑하는 사람의 예상 밖의 면을 발견했을 때의 혼란과 불안감",
+    "emotional_arc": "설렘과 기대로 시작했다가 상대방의 비밀이 드러나면서 불안과 의심으로 뒤바뀌고, 결국 두 사람이 서로를 다시 마주하게 되는 과정",
+    "mood_tags": [
+      "씁쓸한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 1,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
     "movie_id": 1061474,
     "title": "슈퍼맨",
     "one_line_vibe": "강대한 영웅이 처음으로 무너지고, 그 과정에서 자신의 진정한 가치를 되찾는 웅장한 여정",
@@ -4526,23 +4541,61 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 11,
-    "title": "스타워즈 에피소드 4: 새로운 희망",
-    "one_line_vibe": "광활한 우주에서 펼쳐지는 선과 악의 대결에 마음이 설레고 영웅의 여정에 함께 숨을 고르게 된다",
-    "emotional_arc": "평범한 청년이 자신의 운명을 깨닫고 거대한 악의 세력에 맞서 희망을 되찾는 여정으로, 처음의 설렘에서 시작해 점점 커지는 책임감과 함께 비장한 결말로 나아간다",
+    "movie_id": 299534,
+    "title": "어벤져스: 엔드게임",
+    "one_line_vibe": "절망의 끝에서 마지막 희망을 찾아 시간을 거슬러 올라가는 영웅들의 대서사시",
+    "emotional_arc": "처음엔 무거운 패배감과 상실감으로 짓눌리다가, 희미한 가능성을 발견하면서 점차 결연한 의지로 변해가고, 최종 결전에서 모든 것을 건 희생과 승리의 감정이 교차한다",
     "mood_tags": [
-      "설레는",
-      "서정적인"
+      "비장한",
+      "감동적인"
     ],
     "watch_situations": [
-      "주말 낮에",
+      "집중해서 볼 때",
       "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 1212763,
+    "title": "이블 데드 번",
+    "one_line_vibe": "슬픔으로 모인 가족이 초자연적 공포에 짓밟히며, 사랑과 생존 사이에서 절망적으로 싸우는 경험",
+    "emotional_arc": "남편의 죽음으로 시작한 애도의 슬픔이 초자연적 공포로 급변하고, 가족의 배신과 생존의 절박함 속에서 비극적으로 심화된다",
+    "mood_tags": [
+      "비장한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 5,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 986056,
+    "title": "썬더볼츠*",
+    "one_line_vibe": "나쁜 놈들이 세상을 구하려 애쓰는 와중에 터져 나오는 웃음과 카오스, 그리고 그들도 결국 누군가를 잃은 상처 입은 사람들이라는 걸 깨닫는 경험",
+    "emotional_arc": "냉소적이고 거친 시작에서 팀원들의 상처와 약함이 드러나며 따뜻한 연대감으로 변해간다",
+    "mood_tags": [
+      "유쾌한",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
     ],
     "violence": 3,
     "sadness": 2,
     "tension": 3,
     "complexity": 2,
-    "pacing": "보통"
+    "pacing": "빠름"
   },
   {
     "movie_id": 1241982,
@@ -4583,100 +4636,23 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 1265609,
-    "title": "워 머신: 전쟁 기계",
-    "one_line_vibe": "극한의 전투 상황에서 병사들이 예측 불가능한 외계 위협에 맞서며 생존을 위해 몸부림치는 긴박한 경험",
-    "emotional_arc": "처음엔 군사 훈련의 엄격함으로 시작해 외계 위협이 나타나면서 공포와 절망감이 고조되다가, 마지막엔 생존을 위한 투지와 동료애로 비장하게 마무리된다",
+    "movie_id": 11,
+    "title": "스타워즈 에피소드 4: 새로운 희망",
+    "one_line_vibe": "광활한 우주에서 펼쳐지는 선과 악의 대결에 마음이 설레고 영웅의 여정에 함께 숨을 고르게 된다",
+    "emotional_arc": "평범한 청년이 자신의 운명을 깨닫고 거대한 악의 세력에 맞서 희망을 되찾는 여정으로, 처음의 설렘에서 시작해 점점 커지는 책임감과 함께 비장한 결말로 나아간다",
     "mood_tags": [
-      "긴장감있는",
-      "비장한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 5,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 597,
-    "title": "타이타닉",
-    "one_line_vibe": "침몰하는 배 위에서 피어나는 뜨거운 사랑이 비극으로 끝나가는 과정을 목격하는 경험",
-    "emotional_arc": "설렘과 행복감으로 시작해 점점 불안감이 고조되다가, 재난 속에서 절절한 사랑의 순간들을 거쳐 결국 비극적인 이별로 끝난다",
-    "mood_tags": [
-      "감동적인",
       "설레는",
-      "비장한"
+      "서정적인"
     ],
     "watch_situations": [
-      "혼자 밤에",
-      "연인과"
-    ],
-    "violence": 2,
-    "sadness": 5,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "느림"
-  },
-  {
-    "movie_id": 680,
-    "title": "펄프 픽션",
-    "one_line_vibe": "범죄의 세계에 빠진 인물들의 운명이 뒤얽히면서 터져 나오는 폭력과 검은 유머 속에서 느껴지는 중독적인 긴장감",
-    "emotional_arc": "무질서하고 위험한 세계에 던져진 듯한 불안감으로 시작해, 예측 불가능한 전개 속에서 웃음과 공포가 뒤섞이다가, 결국 모든 것이 연결되어 있음을 깨닫는 카타르시스로 끝난다",
-    "mood_tags": [
-      "코믹한",
-      "불안한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
+      "주말 낮에",
       "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 986056,
-    "title": "썬더볼츠*",
-    "one_line_vibe": "나쁜 놈들이 세상을 구하려 애쓰는 와중에 터져 나오는 웃음과 카오스, 그리고 그들도 결국 누군가를 잃은 상처 입은 사람들이라는 걸 깨닫는 경험",
-    "emotional_arc": "냉소적이고 거친 시작에서 팀원들의 상처와 약함이 드러나며 따뜻한 연대감으로 변해간다",
-    "mood_tags": [
-      "유쾌한",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
     ],
     "violence": 3,
     "sadness": 2,
     "tension": 3,
     "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 803796,
-    "title": "케이팝 데몬 헌터스",
-    "one_line_vibe": "케이팝 스타의 화려한 무대 뒤에 숨겨진 초자연적 전투의 설렘과 우정의 강렬함을 느끼는 경험",
-    "emotional_arc": "화려한 공연의 흥분에서 시작해 숨겨진 비밀 활동의 긴장감으로 이어지다가, 여성 캐릭터들의 우정과 신뢰로 따뜻하게 마무리된다",
-    "mood_tags": [
-      "유쾌한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 1,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "빠름"
+    "pacing": "보통"
   },
   {
     "movie_id": 1305781,
@@ -4698,22 +4674,80 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 1297842,
-    "title": "고트: 더 레전드",
-    "one_line_vibe": "작은 염소가 거대한 동물들 사이에서 자신의 가치를 증명해내는 과정에서 느껴지는 설렘과 응원의 에너지",
-    "emotional_arc": "약자로 시작해 점점 성장하며 자신감을 얻다가, 최종적으로 자신의 한계를 뛰어넘는 쾌감으로 마무리된다",
+    "movie_id": 120,
+    "title": "반지의 제왕: 반지 원정대",
+    "one_line_vibe": "광대한 판타지 세계에서 작은 존재들이 거대한 운명에 맞서며 겪는 웅장하고도 경외로운 모험",
+    "emotional_arc": "희망과 두려움 사이를 오가다가, 점점 무거워지는 책임감 속에서도 우정과 용기로 버티며, 마지막에는 비장한 결연함으로 나아간다",
     "mood_tags": [
-      "설레는",
-      "유쾌한"
+      "비장한",
+      "감동적인",
+      "긴장감있는"
     ],
     "watch_situations": [
-      "주말 낮에",
-      "가족과"
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 3,
+    "sadness": 3,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 803796,
+    "title": "케이팝 데몬 헌터스",
+    "one_line_vibe": "케이팝 스타의 화려한 무대 뒤에 숨겨진 초자연적 전투의 설렘과 우정의 강렬함을 느끼는 경험",
+    "emotional_arc": "화려한 공연의 흥분에서 시작해 숨겨진 비밀 활동의 긴장감으로 이어지다가, 여성 캐릭터들의 우정과 신뢰로 따뜻하게 마무리된다",
+    "mood_tags": [
+      "유쾌한",
+      "설레는"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
     ],
     "violence": 2,
     "sadness": 1,
     "tension": 2,
     "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1265609,
+    "title": "워 머신: 전쟁 기계",
+    "one_line_vibe": "극한의 전투 상황에서 병사들이 예측 불가능한 외계 위협에 맞서며 생존을 위해 몸부림치는 긴박한 경험",
+    "emotional_arc": "처음엔 군사 훈련의 엄격함으로 시작해 외계 위협이 나타나면서 공포와 절망감이 고조되다가, 마지막엔 생존을 위한 투지와 동료애로 비장하게 마무리된다",
+    "mood_tags": [
+      "긴장감있는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 3,
+    "tension": 5,
+    "complexity": 3,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 99861,
+    "title": "어벤져스: 에이지 오브 울트론",
+    "one_line_vibe": "거대한 위협 앞에서 팀이 함께 싸우는 스펙터클한 흥분감과 영웅들의 갈등이 교차하는 경험",
+    "emotional_arc": "초반의 자신감 있는 승리감에서 예상 밖의 위협으로 긴장이 고조되었다가, 팀의 결집과 새로운 희망(비전)의 등장으로 희망찬 결말을 맞이한다",
+    "mood_tags": [
+      "긴장감있는",
+      "유쾌한"
+    ],
+    "watch_situations": [
+      "친구들과",
+      "주말 낮에"
+    ],
+    "violence": 3,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 3,
     "pacing": "빠름"
   },
   {
@@ -4736,58 +4770,20 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 299534,
-    "title": "어벤져스: 엔드게임",
-    "one_line_vibe": "절망의 끝에서 마지막 희망을 찾아 시간을 거슬러 올라가는 영웅들의 대서사시",
-    "emotional_arc": "처음엔 무거운 패배감과 상실감으로 짓눌리다가, 희미한 가능성을 발견하면서 점차 결연한 의지로 변해가고, 최종 결전에서 모든 것을 건 희생과 승리의 감정이 교차한다",
-    "mood_tags": [
-      "비장한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 99861,
-    "title": "어벤져스: 에이지 오브 울트론",
-    "one_line_vibe": "거대한 위협 앞에서 팀이 함께 싸우는 스펙터클한 흥분감과 영웅들의 갈등이 교차하는 경험",
-    "emotional_arc": "초반의 자신감 있는 승리감에서 예상 밖의 위협으로 긴장이 고조되었다가, 팀의 결집과 새로운 희망(비전)의 등장으로 희망찬 결말을 맞이한다",
-    "mood_tags": [
-      "긴장감있는",
-      "유쾌한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1184918,
-    "title": "와일드 로봇",
-    "one_line_vibe": "낯선 환경에서 예상치 못한 사랑을 발견하고, 그것을 지키기 위해 함께 성장해가는 따뜻한 여정",
-    "emotional_arc": "로봇의 차가운 논리에서 시작해 아기 기러기와의 관계 속에서 모성애를 깨닫고, 함께하는 모든 순간이 소중함을 느끼다가, 마지막 선택 앞에서 진정한 사랑의 의미를 깨닫는다",
+    "movie_id": 350,
+    "title": "악마는 프라다를 입는다",
+    "one_line_vibe": "패션 업계의 냉정한 현실 속에서 자신을 잃어가다가 결국 성장하는 여성의 경험",
+    "emotional_arc": "초심 어린 열정으로 시작해 고통스러운 현실에 짓눌리다가, 자신의 가치를 깨닫고 당당하게 선택하며 마무리된다",
     "mood_tags": [
       "따뜻한",
-      "감동적인"
+      "씁쓸한"
     ],
     "watch_situations": [
-      "가족과",
-      "주말 낮에"
+      "주말 낮에",
+      "친구들과"
     ],
     "violence": 1,
-    "sadness": 3,
+    "sadness": 2,
     "tension": 2,
     "complexity": 2,
     "pacing": "보통"
@@ -4812,6 +4808,83 @@
     "pacing": "빠름"
   },
   {
+    "movie_id": 680,
+    "title": "펄프 픽션",
+    "one_line_vibe": "범죄의 세계에 빠진 인물들의 운명이 뒤얽히면서 터져 나오는 폭력과 검은 유머 속에서 느껴지는 중독적인 긴장감",
+    "emotional_arc": "무질서하고 위험한 세계에 던져진 듯한 불안감으로 시작해, 예측 불가능한 전개 속에서 웃음과 공포가 뒤섞이다가, 결국 모든 것이 연결되어 있음을 깨닫는 카타르시스로 끝난다",
+    "mood_tags": [
+      "코믹한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "집중해서 볼 때",
+      "친구들과"
+    ],
+    "violence": 4,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 1297842,
+    "title": "고트: 더 레전드",
+    "one_line_vibe": "작은 염소가 거대한 동물들 사이에서 자신의 가치를 증명해내는 과정에서 느껴지는 설렘과 응원의 에너지",
+    "emotional_arc": "약자로 시작해 점점 성장하며 자신감을 얻다가, 최종적으로 자신의 한계를 뛰어넘는 쾌감으로 마무리된다",
+    "mood_tags": [
+      "설레는",
+      "유쾌한"
+    ],
+    "watch_situations": [
+      "주말 낮에",
+      "가족과"
+    ],
+    "violence": 2,
+    "sadness": 1,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "빠름"
+  },
+  {
+    "movie_id": 14836,
+    "title": "코렐라인: 비밀의 문",
+    "one_line_vibe": "낯선 세계의 매력에 빠져 점점 어두운 진실을 마주하는 오싹하고도 신비로운 경험",
+    "emotional_arc": "처음엔 호기심과 설렘으로 시작해 점차 불안감과 공포가 엄습하다가, 용기 있는 행동으로 희망을 되찾는다",
+    "mood_tags": [
+      "몽환적인",
+      "불안한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 2,
+    "sadness": 2,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 597,
+    "title": "타이타닉",
+    "one_line_vibe": "침몰하는 배 위에서 피어나는 뜨거운 사랑이 비극으로 끝나가는 과정을 목격하는 경험",
+    "emotional_arc": "설렘과 행복감으로 시작해 점점 불안감이 고조되다가, 재난 속에서 절절한 사랑의 순간들을 거쳐 결국 비극적인 이별로 끝난다",
+    "mood_tags": [
+      "감동적인",
+      "설레는",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "연인과"
+    ],
+    "violence": 2,
+    "sadness": 5,
+    "tension": 4,
+    "complexity": 3,
+    "pacing": "느림"
+  },
+  {
     "movie_id": 121,
     "title": "반지의 제왕: 두 개의 탑",
     "one_line_vibe": "광활한 판타지 세계에서 절망적 상황 속에서도 희망을 잃지 않고 나아가는 영웅들의 여정",
@@ -4831,20 +4904,21 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 350,
-    "title": "악마는 프라다를 입는다",
-    "one_line_vibe": "패션 업계의 냉정한 현실 속에서 자신을 잃어가다가 결국 성장하는 여성의 경험",
-    "emotional_arc": "초심 어린 열정으로 시작해 고통스러운 현실에 짓눌리다가, 자신의 가치를 깨닫고 당당하게 선택하며 마무리된다",
+    "movie_id": 10681,
+    "title": "월•E",
+    "one_line_vibe": "황량한 지구에서 시작된 작은 로봇의 사랑 이야기가 우주 전체를 밝혀내는 경험",
+    "emotional_arc": "처음엔 고독하고 쓸쓸한 일상에서 시작해 사랑과 희망을 발견하고, 마지막엔 세상을 바꿀 수 있다는 감동으로 마무리된다",
     "mood_tags": [
-      "따뜻한",
-      "씁쓸한"
+      "쓸쓸한",
+      "감동적인",
+      "설레는"
     ],
     "watch_situations": [
-      "주말 낮에",
-      "친구들과"
+      "혼자 밤에",
+      "집중해서 볼 때"
     ],
     "violence": 1,
-    "sadness": 2,
+    "sadness": 3,
     "tension": 2,
     "complexity": 2,
     "pacing": "보통"
@@ -4870,19 +4944,19 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 361743,
-    "title": "탑건: 매버릭",
-    "one_line_vibe": "전설의 파일럿이 다시 하늘로 돌아가 젊은 세대와 함께 위험한 임무를 수행하며 느끼는 속도감 있는 흥분과 깊은 책임감",
-    "emotional_arc": "처음엔 자신감 넘치는 도전정신으로 시작해 팀원들과의 신뢰를 쌓으며 감정적으로 성숙해지고, 최종 임무에서 죽음을 마주하는 긴장 속에서도 동료를 지키려는 헌신으로 마무리된다",
+    "movie_id": 911430,
+    "title": "F1 더 무비",
+    "one_line_vibe": "추락한 챔피언이 다시 일어서려는 과정에서 느끼는 치열함과 부활의 희열",
+    "emotional_arc": "절망적인 과거에서 시작해 팀과의 갈등을 거쳐 공동의 목표를 향해 나아가는 과정에서 희망으로 변모한다",
     "mood_tags": [
-      "통쾌한",
-      "감동적인"
+      "설레는",
+      "통쾌한"
     ],
     "watch_situations": [
       "친구들과",
       "주말 낮에"
     ],
-    "violence": 3,
+    "violence": 2,
     "sadness": 2,
     "tension": 4,
     "complexity": 2,
@@ -5006,6 +5080,25 @@
     "pacing": "느림"
   },
   {
+    "movie_id": 1218925,
+    "title": "극장판 체인소 맨:  레제편",
+    "one_line_vibe": "절망과 욕망이 뒤섞인 어두운 세계에서 사랑이라는 감정에 휘둘리며 자신을 잃어가는 소년의 처절한 여정",
+    "emotional_arc": "무너지는 신뢰 속에서 순간의 감정에 홀려 더 깊은 나락으로 빠져드는 비극적 몰락",
+    "mood_tags": [
+      "씁쓸한",
+      "불안한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 4,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "빠름"
+  },
+  {
     "movie_id": 1330021,
     "title": "아쿠아리움이 문을 닫으면",
     "one_line_vibe": "밤의 아쿠아리움에서 상처받은 사람들이 조용히 치유되는 경험",
@@ -5025,23 +5118,24 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 1218925,
-    "title": "극장판 체인소 맨:  레제편",
-    "one_line_vibe": "절망과 욕망이 뒤섞인 어두운 세계에서 사랑이라는 감정에 휘둘리며 자신을 잃어가는 소년의 처절한 여정",
-    "emotional_arc": "무너지는 신뢰 속에서 순간의 감정에 홀려 더 깊은 나락으로 빠져드는 비극적 몰락",
+    "movie_id": 372058,
+    "title": "너의 이름은.",
+    "one_line_vibe": "시간과 공간을 초월한 두 영혼의 만남을 향한 절절한 여정, 아름다움과 슬픔이 교차하는 경험",
+    "emotional_arc": "설렘으로 시작해 신비로운 연결감을 느끼다가, 점차 절박함과 비극성을 마주하며 깊은 감동으로 마무리된다",
     "mood_tags": [
-      "씁쓸한",
-      "불안한"
+      "설레는",
+      "감동적인",
+      "몽환적인"
     ],
     "watch_situations": [
       "혼자 밤에",
       "집중해서 볼 때"
     ],
-    "violence": 4,
+    "violence": 1,
     "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
+    "tension": 3,
+    "complexity": 3,
+    "pacing": "보통"
   },
   {
     "movie_id": 1383731,
@@ -5236,25 +5330,6 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 539,
-    "title": "싸이코",
-    "one_line_vibe": "예상을 완전히 뒤엎는 충격과 함께, 일상의 공간이 공포로 변모하는 경험",
-    "emotional_arc": "죄책감과 불안으로 시작해 갑작스러운 공포로 급락한 후, 미스터리를 풀어가며 불안감이 지속된다",
-    "mood_tags": [
-      "불안한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 3,
-    "tension": 5,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
     "movie_id": 667257,
     "title": "불가능한 것들",
     "one_line_vibe": "트라우마의 그림자 속에서 예상 밖의 인연이 가져다주는 따뜻한 위로와 함께 천천히 다시 살아나는 경험",
@@ -5272,6 +5347,25 @@
     "tension": 2,
     "complexity": 2,
     "pacing": "느림"
+  },
+  {
+    "movie_id": 539,
+    "title": "싸이코",
+    "one_line_vibe": "예상을 완전히 뒤엎는 충격과 함께, 일상의 공간이 공포로 변모하는 경험",
+    "emotional_arc": "죄책감과 불안으로 시작해 갑작스러운 공포로 급락한 후, 미스터리를 풀어가며 불안감이 지속된다",
+    "mood_tags": [
+      "불안한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 3,
+    "sadness": 3,
+    "tension": 5,
+    "complexity": 4,
+    "pacing": "빠름"
   },
   {
     "movie_id": 510,
@@ -5351,25 +5445,6 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 614945,
-    "title": "음성메시지가 도착했습니다",
-    "one_line_vibe": "세상을 떠난 자매에게 남긴 솔직한 음성메시지가 낯선 사람에게 닿으면서 시작되는, 슬픔과 사랑이 교차하는 따뜻한 만남",
-    "emotional_arc": "깊은 슬픔으로 시작해 예상치 못한 연결 속에서 위로를 찾고, 결국 상실을 받아들이면서 새로운 사랑으로 피어나는 여정",
-    "mood_tags": [
-      "따뜻한",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "연인과"
-    ],
-    "violence": 1,
-    "sadness": 3,
-    "tension": 1,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
     "movie_id": 807,
     "title": "세븐",
     "one_line_vibe": "도시의 어두운 밤거리에서 악의 정체를 추적하며 점점 더 깊은 절망에 빠져드는 경험",
@@ -5387,6 +5462,25 @@
     "tension": 5,
     "complexity": 4,
     "pacing": "빠름"
+  },
+  {
+    "movie_id": 614945,
+    "title": "음성메시지가 도착했습니다",
+    "one_line_vibe": "세상을 떠난 자매에게 남긴 솔직한 음성메시지가 낯선 사람에게 닿으면서 시작되는, 슬픔과 사랑이 교차하는 따뜻한 만남",
+    "emotional_arc": "깊은 슬픔으로 시작해 예상치 못한 연결 속에서 위로를 찾고, 결국 상실을 받아들이면서 새로운 사랑으로 피어나는 여정",
+    "mood_tags": [
+      "따뜻한",
+      "씁쓸한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "연인과"
+    ],
+    "violence": 1,
+    "sadness": 3,
+    "tension": 1,
+    "complexity": 2,
+    "pacing": "보통"
   },
   {
     "movie_id": 244786,
@@ -5577,6 +5671,25 @@
     "sadness": 4,
     "tension": 4,
     "complexity": 4,
+    "pacing": "보통"
+  },
+  {
+    "movie_id": 1184918,
+    "title": "와일드 로봇",
+    "one_line_vibe": "낯선 환경에서 예상치 못한 사랑을 발견하고, 그것을 지키기 위해 함께 성장해가는 따뜻한 여정",
+    "emotional_arc": "로봇의 차가운 논리에서 시작해 아기 기러기와의 관계 속에서 모성애를 깨닫고, 함께하는 모든 순간이 소중함을 느끼다가, 마지막 선택 앞에서 진정한 사랑의 의미를 깨닫는다",
+    "mood_tags": [
+      "따뜻한",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "가족과",
+      "주말 낮에"
+    ],
+    "violence": 1,
+    "sadness": 3,
+    "tension": 2,
+    "complexity": 2,
     "pacing": "보통"
   },
   {
@@ -6157,23 +6270,23 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 995133,
-    "title": "'소년과 두더지와 여우와 말' - The Boy, the Mole, the Fox and the Horse",
-    "one_line_vibe": "손으로 그린 듯한 따뜻한 그림 속에서 네 친구가 나누는 소박하고 깊은 대화들이 마음을 천천히 채워가는 경험",
-    "emotional_arc": "불안함과 외로움으로 시작해 서로를 통해 희망과 용기를 발견하고, 결국 따뜻한 위로로 마무리된다",
+    "movie_id": 24188,
+    "title": "이지 라이프",
+    "one_line_vibe": "무더운 로마의 여름날, 예측 불가능한 낯선 남자와의 만남이 만들어내는 자유로움과 불편함의 기묘한 혼합",
+    "emotional_arc": "지루한 일상에서 시작해 소용돌이 같은 모험으로 빨려들었다가, 결국 그 경험이 남긴 씁쓸한 여운으로 끝난다",
     "mood_tags": [
       "따뜻한",
-      "서정적인"
+      "씁쓸한"
     ],
     "watch_situations": [
-      "혼자 밤에",
-      "지쳤을 때"
+      "주말 낮에",
+      "혼자 밤에"
     ],
     "violence": 1,
     "sadness": 2,
-    "tension": 1,
-    "complexity": 2,
-    "pacing": "느림"
+    "tension": 2,
+    "complexity": 3,
+    "pacing": "보통"
   },
   {
     "movie_id": 632632,
@@ -6195,22 +6308,41 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 24188,
-    "title": "이지 라이프",
-    "one_line_vibe": "무더운 로마의 여름날, 예측 불가능한 낯선 남자와의 만남이 만들어내는 자유로움과 불편함의 기묘한 혼합",
-    "emotional_arc": "지루한 일상에서 시작해 소용돌이 같은 모험으로 빨려들었다가, 결국 그 경험이 남긴 씁쓸한 여운으로 끝난다",
+    "movie_id": 995133,
+    "title": "'소년과 두더지와 여우와 말' - The Boy, the Mole, the Fox and the Horse",
+    "one_line_vibe": "손으로 그린 듯한 따뜻한 그림 속에서 네 친구가 나누는 소박하고 깊은 대화들이 마음을 천천히 채워가는 경험",
+    "emotional_arc": "불안함과 외로움으로 시작해 서로를 통해 희망과 용기를 발견하고, 결국 따뜻한 위로로 마무리된다",
     "mood_tags": [
       "따뜻한",
-      "씁쓸한"
+      "서정적인"
     ],
     "watch_situations": [
-      "주말 낮에",
-      "혼자 밤에"
+      "혼자 밤에",
+      "지쳤을 때"
     ],
     "violence": 1,
     "sadness": 2,
+    "tension": 1,
+    "complexity": 2,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 490132,
+    "title": "그린 북",
+    "one_line_vibe": "정반대의 두 사람이 함께 길을 나서며 서로를 이해하고 변화해가는 따뜻한 여정",
+    "emotional_arc": "처음엔 어색하고 불편한 충돌로 시작해 점차 서로의 진심을 발견하고 깊은 우정으로 피어나는 감동의 여정",
+    "mood_tags": [
+      "따뜻한",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "연인과",
+      "가족과"
+    ],
+    "violence": 2,
+    "sadness": 2,
     "tension": 2,
-    "complexity": 3,
+    "complexity": 2,
     "pacing": "보통"
   },
   {
@@ -6230,25 +6362,6 @@
     "sadness": 3,
     "tension": 3,
     "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 490132,
-    "title": "그린 북",
-    "one_line_vibe": "정반대의 두 사람이 함께 길을 나서며 서로를 이해하고 변화해가는 따뜻한 여정",
-    "emotional_arc": "처음엔 어색하고 불편한 충돌로 시작해 점차 서로의 진심을 발견하고 깊은 우정으로 피어나는 감동의 여정",
-    "mood_tags": [
-      "따뜻한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "연인과",
-      "가족과"
-    ],
-    "violence": 2,
-    "sadness": 2,
-    "tension": 2,
-    "complexity": 2,
     "pacing": "보통"
   },
   {
@@ -6349,6 +6462,25 @@
     "pacing": "빠름"
   },
   {
+    "movie_id": 15804,
+    "title": "고령가 소년 살인 사건",
+    "one_line_vibe": "소년의 첫사랑과 폭력의 소용돌이가 얽혀 돌이킬 수 없는 비극으로 향해가는 경험",
+    "emotional_arc": "순수한 감정으로 시작해 점점 어두워지다가 결국 깊은 절망과 후회로 끝난다",
+    "mood_tags": [
+      "씁쓸한",
+      "비장한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 4,
+    "sadness": 5,
+    "tension": 4,
+    "complexity": 4,
+    "pacing": "느림"
+  },
+  {
     "movie_id": 527641,
     "title": "파이브 피트",
     "one_line_vibe": "금지된 사랑 앞에서 절망과 희망 사이를 오가며, 매 순간이 소중해지는 경험",
@@ -6367,25 +6499,6 @@
     "tension": 3,
     "complexity": 2,
     "pacing": "보통"
-  },
-  {
-    "movie_id": 15804,
-    "title": "고령가 소년 살인 사건",
-    "one_line_vibe": "소년의 첫사랑과 폭력의 소용돌이가 얽혀 돌이킬 수 없는 비극으로 향해가는 경험",
-    "emotional_arc": "순수한 감정으로 시작해 점점 어두워지다가 결국 깊은 절망과 후회로 끝난다",
-    "mood_tags": [
-      "씁쓸한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 4,
-    "sadness": 5,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "느림"
   },
   {
     "movie_id": 315162,
@@ -6561,25 +6674,6 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 354912,
-    "title": "코코",
-    "one_line_vibe": "음악과 가족 사랑이 죽음을 초월한다는 따뜻한 깨달음을 얻는 경험",
-    "emotional_arc": "밝고 신나는 모험으로 시작해 가족의 상처를 마주하며 무거워졌다가, 사랑과 용서로 감싸안으며 감동적으로 끝난다",
-    "mood_tags": [
-      "따뜻한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "가족과",
-      "주말 낮에"
-    ],
-    "violence": 1,
-    "sadness": 3,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
     "movie_id": 11324,
     "title": "셔터 아일랜드",
     "one_line_vibe": "현실과 환상의 경계가 흐릿해지면서 점점 더 깊은 심연으로 빨려 들어가는 심리적 공포감",
@@ -6617,6 +6711,25 @@
     "tension": 5,
     "complexity": 4,
     "pacing": "빠름"
+  },
+  {
+    "movie_id": 354912,
+    "title": "코코",
+    "one_line_vibe": "음악과 가족 사랑이 죽음을 초월한다는 따뜻한 깨달음을 얻는 경험",
+    "emotional_arc": "밝고 신나는 모험으로 시작해 가족의 상처를 마주하며 무거워졌다가, 사랑과 용서로 감싸안으며 감동적으로 끝난다",
+    "mood_tags": [
+      "따뜻한",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "가족과",
+      "주말 낮에"
+    ],
+    "violence": 1,
+    "sadness": 3,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "보통"
   },
   {
     "movie_id": 9702,
@@ -6658,23 +6771,23 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 68718,
-    "title": "장고: 분노의 추적자",
-    "one_line_vibe": "분노와 복수로 타오르는 가슴을 안고 악의 심장으로 향하는 여정, 정의와 사랑이 폭발하는 순간",
-    "emotional_arc": "억압된 분노로 시작해 사랑하는 자를 되찾기 위한 결연한 의지로 고조되다가, 마침내 복수의 순간 모든 감정이 폭발적으로 해방된다",
+    "movie_id": 1186532,
+    "title": "믿음의 길",
+    "one_line_vibe": "믿음을 찾아가는 청년의 내적 성장을 따뜻하게 담아낸, 희망으로 가득한 영적 여정",
+    "emotional_arc": "방황과 불안감으로 시작해 믿음을 통해 자신의 가치를 발견하고 희망으로 나아가는 과정",
     "mood_tags": [
-      "비장한",
-      "통쾌한"
+      "따뜻한",
+      "설레는"
     ],
     "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
+      "가족과",
+      "집중해서 볼 때"
     ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
+    "violence": 1,
+    "sadness": 2,
+    "tension": 2,
+    "complexity": 2,
+    "pacing": "보통"
   },
   {
     "movie_id": 313106,
@@ -6732,45 +6845,6 @@
     "tension": 2,
     "complexity": 2,
     "pacing": "빠름"
-  },
-  {
-    "movie_id": 1186532,
-    "title": "믿음의 길",
-    "one_line_vibe": "믿음을 찾아가는 청년의 내적 성장을 따뜻하게 담아낸, 희망으로 가득한 영적 여정",
-    "emotional_arc": "방황과 불안감으로 시작해 믿음을 통해 자신의 가치를 발견하고 희망으로 나아가는 과정",
-    "mood_tags": [
-      "따뜻한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "가족과",
-      "집중해서 볼 때"
-    ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 372058,
-    "title": "너의 이름은.",
-    "one_line_vibe": "시간과 공간을 초월한 두 영혼의 만남을 향한 절절한 여정, 아름다움과 슬픔이 교차하는 경험",
-    "emotional_arc": "설렘으로 시작해 신비로운 연결감을 느끼다가, 점차 절박함과 비극성을 마주하며 깊은 감동으로 마무리된다",
-    "mood_tags": [
-      "설레는",
-      "감동적인",
-      "몽환적인"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 1,
-    "sadness": 4,
-    "tension": 3,
-    "complexity": 3,
-    "pacing": "보통"
   },
   {
     "movie_id": 1244492,
@@ -7022,25 +7096,6 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 531428,
-    "title": "타오르는 여인의 초상",
-    "one_line_vibe": "외딴섬에서 피어나는 금지된 사랑, 그리고 그것을 영원히 담아내려는 화가의 절절한 시선",
-    "emotional_arc": "설렘과 따뜻함으로 시작해 점점 깊어지는 감정의 무게, 결국 아름답지만 비극적인 운명 앞에서 씁쓸한 깨달음으로 끝난다",
-    "mood_tags": [
-      "서정적인",
-      "쓸쓸한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 1,
-    "sadness": 4,
-    "tension": 2,
-    "complexity": 4,
-    "pacing": "느림"
-  },
-  {
     "movie_id": 103663,
     "title": "더 헌트",
     "one_line_vibe": "한 번의 거짓이 만드는 집단 광기 속에서 무고한 사람이 짓밟히는 과정을 목격하는 끔찍한 경험",
@@ -7056,6 +7111,25 @@
     "violence": 4,
     "sadness": 5,
     "tension": 5,
+    "complexity": 4,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 531428,
+    "title": "타오르는 여인의 초상",
+    "one_line_vibe": "외딴섬에서 피어나는 금지된 사랑, 그리고 그것을 영원히 담아내려는 화가의 절절한 시선",
+    "emotional_arc": "설렘과 따뜻함으로 시작해 점점 깊어지는 감정의 무게, 결국 아름답지만 비극적인 운명 앞에서 씁쓸한 깨달음으로 끝난다",
+    "mood_tags": [
+      "서정적인",
+      "쓸쓸한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 1,
+    "sadness": 4,
+    "tension": 2,
     "complexity": 4,
     "pacing": "느림"
   },
@@ -7079,25 +7153,6 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 843,
-    "title": "화양연화",
-    "one_line_vibe": "같은 건물에 사는 두 사람이 우연한 만남 속에서 금지된 감정에 빠져가며 느끼는 애절한 그리움과 죄책감의 무게",
-    "emotional_arc": "외로움으로 시작해 점점 깊어지는 감정 속에서 설렘과 죄책감이 뒤섞이다가, 결국 이루어질 수 없는 사랑 앞에서 씁쓸한 체념으로 마무리된다",
-    "mood_tags": [
-      "쓸쓸한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "비 오는 날"
-    ],
-    "violence": 1,
-    "sadness": 4,
-    "tension": 3,
-    "complexity": 3,
-    "pacing": "느림"
-  },
-  {
     "movie_id": 398818,
     "title": "콜 미 바이 유어 네임",
     "one_line_vibe": "한 여름 밤의 설렘과 그것이 영원하지 않음을 동시에 느끼는 경험",
@@ -7114,6 +7169,25 @@
     "violence": 1,
     "sadness": 4,
     "tension": 2,
+    "complexity": 3,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 843,
+    "title": "화양연화",
+    "one_line_vibe": "같은 건물에 사는 두 사람이 우연한 만남 속에서 금지된 감정에 빠져가며 느끼는 애절한 그리움과 죄책감의 무게",
+    "emotional_arc": "외로움으로 시작해 점점 깊어지는 감정 속에서 설렘과 죄책감이 뒤섞이다가, 결국 이루어질 수 없는 사랑 앞에서 씁쓸한 체념으로 마무리된다",
+    "mood_tags": [
+      "쓸쓸한",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "비 오는 날"
+    ],
+    "violence": 1,
+    "sadness": 4,
+    "tension": 3,
     "complexity": 3,
     "pacing": "느림"
   },
@@ -7253,25 +7327,6 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 2517,
-    "title": "아무도 모른다",
-    "one_line_vibe": "엄마를 기다리며 혼자 남겨진 아이들이 계절의 변화 속에서 서로를 지탱하는 모습을 조용히 지켜보는 경험",
-    "emotional_arc": "무거운 현실 속에서 아이들의 작은 연대와 순간의 따뜻함을 발견하지만, 결국 피할 수 없는 슬픔으로 수렴한다",
-    "mood_tags": [
-      "쓸쓸한",
-      "감동적인"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 1,
-    "sadness": 5,
-    "tension": 2,
-    "complexity": 4,
-    "pacing": "느림"
-  },
-  {
     "movie_id": 642121,
     "title": "해변의 에트랑제",
     "one_line_vibe": "외딴섬의 해변에서 시간을 건너 다시 만난 두 사람이 서툴게 마음을 나누는 순간의 따뜻함",
@@ -7288,6 +7343,25 @@
     "sadness": 3,
     "tension": 1,
     "complexity": 2,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 2517,
+    "title": "아무도 모른다",
+    "one_line_vibe": "엄마를 기다리며 혼자 남겨진 아이들이 계절의 변화 속에서 서로를 지탱하는 모습을 조용히 지켜보는 경험",
+    "emotional_arc": "무거운 현실 속에서 아이들의 작은 연대와 순간의 따뜻함을 발견하지만, 결국 피할 수 없는 슬픔으로 수렴한다",
+    "mood_tags": [
+      "쓸쓸한",
+      "감동적인"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "집중해서 볼 때"
+    ],
+    "violence": 1,
+    "sadness": 5,
+    "tension": 2,
+    "complexity": 4,
     "pacing": "느림"
   },
   {
@@ -7737,21 +7811,21 @@
     "pacing": "빠름"
   },
   {
-    "movie_id": 31743,
-    "title": "하치 이야기",
-    "one_line_vibe": "주인을 향한 순수한 사랑이 시간을 초월해 가슴을 적시는 경험",
-    "emotional_arc": "밝고 따뜻한 일상에서 시작해 깊은 슬픔으로 빠져들었다가, 그 슬픔 속에서 사랑의 영원함을 발견하며 감동으로 마무리된다",
+    "movie_id": 294682,
+    "title": "리틀 포레스트: 여름과 가을",
+    "one_line_vibe": "도시의 소음에서 벗어나 자연 속에서 천천히 자신을 되찾아가는 치유의 시간",
+    "emotional_arc": "처음엔 도시에서의 상처로 무거웠던 마음이 계절의 변화와 함께 자연의 리듬에 맞춰지면서 점차 부드러워지고, 음식과 추억을 통해 엄마와의 관계를 다시 마주하며 위로받는다",
     "mood_tags": [
+      "잔잔한",
       "따뜻한",
-      "감동적인",
-      "씁쓸한"
+      "서정적인"
     ],
     "watch_situations": [
       "혼자 밤에",
       "비 오는 날"
     ],
     "violence": 1,
-    "sadness": 4,
+    "sadness": 2,
     "tension": 1,
     "complexity": 2,
     "pacing": "느림"
@@ -7776,21 +7850,21 @@
     "pacing": "느림"
   },
   {
-    "movie_id": 294682,
-    "title": "리틀 포레스트: 여름과 가을",
-    "one_line_vibe": "도시의 소음에서 벗어나 자연 속에서 천천히 자신을 되찾아가는 치유의 시간",
-    "emotional_arc": "처음엔 도시에서의 상처로 무거웠던 마음이 계절의 변화와 함께 자연의 리듬에 맞춰지면서 점차 부드러워지고, 음식과 추억을 통해 엄마와의 관계를 다시 마주하며 위로받는다",
+    "movie_id": 31743,
+    "title": "하치 이야기",
+    "one_line_vibe": "주인을 향한 순수한 사랑이 시간을 초월해 가슴을 적시는 경험",
+    "emotional_arc": "밝고 따뜻한 일상에서 시작해 깊은 슬픔으로 빠져들었다가, 그 슬픔 속에서 사랑의 영원함을 발견하며 감동으로 마무리된다",
     "mood_tags": [
-      "잔잔한",
       "따뜻한",
-      "서정적인"
+      "감동적인",
+      "씁쓸한"
     ],
     "watch_situations": [
       "혼자 밤에",
       "비 오는 날"
     ],
     "violence": 1,
-    "sadness": 2,
+    "sadness": 4,
     "tension": 1,
     "complexity": 2,
     "pacing": "느림"
@@ -8316,25 +8390,6 @@
     "pacing": "보통"
   },
   {
-    "movie_id": 483297,
-    "title": "소공녀",
-    "one_line_vibe": "집 없이 살아가는 여성의 일상 속에서 발견하는 소소한 위로와 자유로움",
-    "emotional_arc": "처음엔 삶의 무게감이 느껴지지만, 주인공의 담담한 태도와 소박한 행복들을 따라가며 오히려 가볍고 따뜻한 위로를 받는다",
-    "mood_tags": [
-      "따뜻한",
-      "쓸쓸한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "지쳤을 때"
-    ],
-    "violence": 1,
-    "sadness": 2,
-    "tension": 1,
-    "complexity": 2,
-    "pacing": "느림"
-  },
-  {
     "movie_id": 547404,
     "title": "벌새",
     "one_line_vibe": "1990년대 서울의 회색빛 일상 속에서 혼자라고 느끼는 소녀가 누군가의 따뜻한 시선을 만나며 조용히 성장해가는 경험",
@@ -8351,6 +8406,25 @@
     "sadness": 4,
     "tension": 3,
     "complexity": 4,
+    "pacing": "느림"
+  },
+  {
+    "movie_id": 483297,
+    "title": "소공녀",
+    "one_line_vibe": "집 없이 살아가는 여성의 일상 속에서 발견하는 소소한 위로와 자유로움",
+    "emotional_arc": "처음엔 삶의 무게감이 느껴지지만, 주인공의 담담한 태도와 소박한 행복들을 따라가며 오히려 가볍고 따뜻한 위로를 받는다",
+    "mood_tags": [
+      "따뜻한",
+      "쓸쓸한"
+    ],
+    "watch_situations": [
+      "혼자 밤에",
+      "지쳤을 때"
+    ],
+    "violence": 1,
+    "sadness": 2,
+    "tension": 1,
+    "complexity": 2,
     "pacing": "느림"
   },
   {
@@ -8390,25 +8464,6 @@
     "tension": 2,
     "complexity": 2,
     "pacing": "보통"
-  },
-  {
-    "movie_id": 41245,
-    "title": "박하사탕",
-    "one_line_vibe": "시간을 거슬러 올라가며 마주하는 돌이킬 수 없는 선택들과 그로 인한 절망감",
-    "emotional_arc": "광기 어린 절망에서 시작해 과거의 순수한 순간들을 거쳐 결국 모든 것이 이미 정해져 있었음을 깨닫는 비극적 깨달음",
-    "mood_tags": [
-      "쓸쓸한",
-      "비장한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 2,
-    "sadness": 5,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "느림"
   },
   {
     "movie_id": 586048,
@@ -8831,25 +8886,6 @@
     "tension": 4,
     "complexity": 4,
     "pacing": "느림"
-  },
-  {
-    "movie_id": 18377,
-    "title": "미녀는 괴로워",
-    "one_line_vibe": "자신의 목소리로는 인정받지 못하지만, 누군가에게 사랑받고 싶은 마음이 절절한 영화",
-    "emotional_arc": "자조와 체념으로 시작해 사랑에 대한 희망으로 설레다가, 현실의 냉정함 앞에서 자신을 받아들이는 성장으로 마무리된다",
-    "mood_tags": [
-      "따뜻한",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "지쳤을 때"
-    ],
-    "violence": 1,
-    "sadness": 4,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "보통"
   },
   {
     "movie_id": 805058,
@@ -9563,215 +9599,5 @@
     "tension": 2,
     "complexity": 2,
     "pacing": "보통"
-  },
-  {
-    "movie_id": 509467,
-    "title": "사라진 밤",
-    "one_line_vibe": "범죄자인 줄 알았던 남편이 피해자가 되는 역전의 쾌감과 함께, 누가 진짜 사냥꾼인지 알 수 없는 심리 게임에 빠져든다.",
-    "emotional_arc": "의심과 불안으로 시작해 점점 더 깊은 함정에 빠져들다가, 예상을 뒤엎는 반전으로 모든 것이 뒤바뀐다.",
-    "mood_tags": [
-      "불안한",
-      "씁쓸한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "혼자 밤에"
-    ],
-    "violence": 2,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 557968,
-    "title": "리벤져",
-    "one_line_vibe": "법 밖의 섬에서 절대 악에 맞서는 전직 경찰의 피 튀기는 복수극",
-    "emotional_arc": "절망적인 상황 속에서 분노와 생존 본능으로 타오르다가, 마지막 대결에서 비장한 결말을 맞이한다",
-    "mood_tags": [
-      "비장한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 535389,
-    "title": "안시성",
-    "one_line_vibe": "압도적 수적 열세 속에서 벼랑 끝에 선 전사들의 필사적 저항이 만드는 비장한 전쟁 드라마",
-    "emotional_arc": "절망적인 상황에서 시작해 저항의 의지로 불타올랐다가, 마지막 승리의 순간 카타르시스를 느낀다",
-    "mood_tags": [
-      "비장한",
-      "통쾌한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 4,
-    "sadness": 3,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 23538,
-    "title": "비열한 거리",
-    "one_line_vibe": "한 번의 선택이 모든 것을 바꿔버리는, 후회와 체념이 교차하는 남자의 이야기",
-    "emotional_arc": "절망적인 일상에서 잠깐의 희망을 맛보지만, 결국 그 선택의 대가를 깨닫게 되는 비극적 깨달음",
-    "mood_tags": [
-      "씁쓸한",
-      "묵직한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 338729,
-    "title": "뷰티 인사이드",
-    "one_line_vibe": "매일 다른 얼굴로 깨어나는 남자가 처음 사랑을 만났을 때의 설렘과 불안감, 그리고 비밀을 품고 누군가를 사랑하는 것의 외로움",
-    "emotional_arc": "설레는 기대감으로 시작해 사랑의 설렘이 커지지만, 자신의 정체를 숨길 수 없는 불안감과 죄책감이 점점 커지다가 진실을 마주하는 순간 감정적 해방을 맞이한다",
-    "mood_tags": [
-      "설레는",
-      "쓸쓸한"
-    ],
-    "watch_situations": [
-      "연인과",
-      "혼자 밤에"
-    ],
-    "violence": 1,
-    "sadness": 3,
-    "tension": 3,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 1564614,
-    "title": "레위기",
-    "one_line_vibe": "자신의 욕망이 구체화되어 추격해오는 공포 속에서 정체성을 마주하는 경험",
-    "emotional_arc": "불안감과 혼란 속에서 시작해 자기 욕망의 어두운 면을 직면하고, 그것을 받아들이거나 거부하는 과정을 거쳐 심리적 해방 또는 더 깊은 절망으로 나아간다",
-    "mood_tags": [
-      "불안한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 3,
-    "sadness": 4,
-    "tension": 4,
-    "complexity": 4,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 1084242,
-    "title": "주토피아 2",
-    "one_line_vibe": "동물 캐릭터들의 재치 있는 대사와 예상 밖의 반전이 오가는 가운데, 친구들과 함께 웃고 즐기는 경험",
-    "emotional_arc": "장난스럽게 시작해 미스터리의 층을 벗겨내며 긴장감을 더하다가, 결국 우정과 신뢰의 메시지로 따뜻하게 마무리된다",
-    "mood_tags": [
-      "유쾌한",
-      "설레는"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "가족과"
-    ],
-    "violence": 1,
-    "sadness": 1,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 19995,
-    "title": "아바타",
-    "one_line_vibe": "거대한 스케일의 시각적 경험 속에서 문명과 자연의 충돌을 목격하며 느끼는 경외감과 흥분",
-    "emotional_arc": "처음엔 신기함과 설렘으로 시작해 점점 깊어지는 몰입감, 후반부로 갈수록 격렬한 전투와 함께 비장한 결말로 치닫는다",
-    "mood_tags": [
-      "설레는",
-      "유쾌한"
-    ],
-    "watch_situations": [
-      "집중해서 볼 때",
-      "친구들과"
-    ],
-    "violence": 3,
-    "sadness": 2,
-    "tension": 3,
-    "complexity": 2,
-    "pacing": "빠름"
-  },
-  {
-    "movie_id": 14836,
-    "title": "코렐라인: 비밀의 문",
-    "one_line_vibe": "낯선 세계의 매력에 빠져 점점 어두운 진실을 마주하는 오싹하고도 신비로운 경험",
-    "emotional_arc": "처음엔 호기심과 설렘으로 시작해 점차 불안감과 공포가 엄습하다가, 용기 있는 행동으로 희망을 되찾는다",
-    "mood_tags": [
-      "몽환적인",
-      "불안한"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 2,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 3,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 10681,
-    "title": "월•E",
-    "one_line_vibe": "황량한 지구에서 시작된 작은 로봇의 사랑 이야기가 우주 전체를 밝혀내는 경험",
-    "emotional_arc": "처음엔 고독하고 쓸쓸한 일상에서 시작해 사랑과 희망을 발견하고, 마지막엔 세상을 바꿀 수 있다는 감동으로 마무리된다",
-    "mood_tags": [
-      "쓸쓸한",
-      "감동적인",
-      "설레는"
-    ],
-    "watch_situations": [
-      "혼자 밤에",
-      "집중해서 볼 때"
-    ],
-    "violence": 1,
-    "sadness": 3,
-    "tension": 2,
-    "complexity": 2,
-    "pacing": "보통"
-  },
-  {
-    "movie_id": 911430,
-    "title": "F1 더 무비",
-    "one_line_vibe": "추락한 챔피언이 다시 일어서려는 과정에서 느끼는 치열함과 부활의 희열",
-    "emotional_arc": "절망적인 과거에서 시작해 팀과의 갈등을 거쳐 공동의 목표를 향해 나아가는 과정에서 희망으로 변모한다",
-    "mood_tags": [
-      "설레는",
-      "통쾌한"
-    ],
-    "watch_situations": [
-      "친구들과",
-      "주말 낮에"
-    ],
-    "violence": 2,
-    "sadness": 2,
-    "tension": 4,
-    "complexity": 2,
-    "pacing": "빠름"
   }
 ]

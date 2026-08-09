@@ -17,7 +17,7 @@ dependencies = [
     "langsmith>=0.9.1",
     "fastapi>=0.115.0",
     "httpx>=0.28.0",
-    "streamlit>=1.41.0",
+    "streamlit>=1.56.0",
     "uvicorn>=0.32.0",
     "langgraph>=0.2.0",
     # sqlite 체크포인터(영속 멀티턴 메모리)를 쓸 때만 필요:

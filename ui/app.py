@@ -18,7 +18,6 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 import streamlit as st
-import streamlit.components.v1 as components
 from dotenv import load_dotenv
 
 from ui import history, identity, watchlist
@@ -1148,7 +1147,7 @@ def scroll_target(view: View) -> str:
 def scroll_to_bottom_script(token: int, target: str = "bottom") -> str:
     """화면을 그 자리로 부드럽게 옮기는 컴포넌트 HTML.
 
-    Streamlit에 스크롤 API가 없어서 높이 0짜리 iframe 안에서 부모 문서를 직접
+    Streamlit에 스크롤 API가 없어서 최소 높이 iframe 안에서 부모 문서를 직접
     만진다. `token`은 "이번에 스크롤할 차례인가"를 가르는 값으로, **질문을 보낼
     때, 답변이 확정될 때, 화면을 옮길 때** 오른다. 질문 시점에 한 번 더 올리는
     이유가 있다 — 그때는 답변이 아직 비어 있어서, 답변이 길면 끝이 화면 밖에
@@ -1333,14 +1332,15 @@ with history_slot:
 with scroll_area:
     # 이 브라우저의 id를 쿠키에 적어 둔다. 조건 없이 늘 그린다 — 값은 같고,
     # 그릴 때마다 만료가 1년 뒤로 밀려서 자주 오는 사람의 기록이 더 오래 남는다.
-    components.html(
-        identity.remember_user_id_script(st.session_state.user_id), height=0
-    )
-    components.html(
-        scroll_to_bottom_script(
+    # 쿠키와 스크롤 스크립트를 같은 iframe에서 실행해 최소 1px 높이가 화면에
+    # 미치는 영향도 한 번으로 줄인다. tab_index=-1로 키보드 포커스에서는 뺀다.
+    st.iframe(
+        identity.remember_user_id_script(st.session_state.user_id)
+        + scroll_to_bottom_script(
             st.session_state.scroll_token, scroll_target(st.session_state.view)
         ),
-        height=0,
+        height=1,
+        tab_index=-1,
     )
 
 # 입력창은 **스트리밍보다 먼저** 만든다. 화면 위치는 어차피 맨 아래로 고정되지만,
