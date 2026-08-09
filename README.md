@@ -107,7 +107,7 @@ uv run python -m scripts.build_store
 
 - Python 3.14, uv
 - LangGraph, LangChain tools/checkpointer
-- OpenAI `gpt-5.6-luna` 기본 답변 모델
+- OpenAI `gpt-5.6-luna` 기본 에이전트 모델(도구 선택·인자 생성·답변 생성)
 - Google `gemini-embedding-001`, Chroma
 - TMDB API, Tavily
 - FastAPI, Uvicorn, Streamlit, SSE
@@ -153,7 +153,7 @@ uv run streamlit run ui/app.py
 | 변수 | 용도 |
 |---|---|
 | `TMDB_API_KEY` | 영화 목록·상세·상영 상태·국내 OTT 조회 |
-| `OPENAI_API_KEY` | 기본 답변 모델 호출 |
+| `OPENAI_API_KEY` | 기본 에이전트의 도구 선택·호출 인자 생성·최종 답변 생성 |
 | `GOOGLE_API_KEY` | 로컬 분위기 검색의 질의 임베딩 |
 | `TAVILY_API_KEY` | 최신 정보와 평단 반응 웹 검색 |
 
@@ -163,7 +163,7 @@ uv run streamlit run ui/app.py
 |---|---|---|
 | `RAG_API_URL` | `http://127.0.0.1:8000` | Streamlit이 호출할 FastAPI 주소 |
 | `LLM_PROVIDER` | `openai` | 답변 모델 제공자: `openai`, `anthropic`, `google` |
-| `OPENAI_MODEL` | `gpt-5.6-luna` | 기본 답변 모델 |
+| `OPENAI_MODEL` | `gpt-5.6-luna` | 도구 선택·호출 인자 생성과 최종 답변에 사용하는 기본 에이전트 모델 |
 | `GOOGLE_EMBEDDING_MODEL` | `gemini-embedding-001` | 색인과 검색에 공통으로 쓰는 임베딩 모델 |
 | `CHECKPOINTER` | `memory` | 멀티턴 상태를 메모리 또는 SQLite에 저장 |
 | `CINEBOT_PASSCODE` | 미지정 | 로컬에서는 선택, Compose에서는 필수인 공유 UI 잠금 |
